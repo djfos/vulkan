@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {Extent2D} from "./Extent2D.ts";
-import {SampleLocationEXT} from "./SampleLocationEXT.ts";
 import { StructureType, SampleCountFlagBits } from "../enum.ts";
 
 export interface InitSampleLocationsInfoEXT {
@@ -61,34 +60,33 @@ export class SampleLocationsInfoEXT implements BaseStruct {
     this.sType = StructureType.SAMPLE_LOCATIONS_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get sampleLocationsPerPixel(): number {
-    return this.#view.getUint32(16, LE);
+  get sampleLocationsPerPixel(): SampleCountFlagBits {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set sampleLocationsPerPixel(value: SampleCountFlagBits) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get sampleLocationGridSize(): Extent2D {
     return new Extent2D(this.#data.subarray(20, 20 + Extent2D.size));
   }
-
   set sampleLocationGridSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -99,7 +97,7 @@ export class SampleLocationsInfoEXT implements BaseStruct {
   get sampleLocationsCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set sampleLocationsCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -107,7 +105,7 @@ export class SampleLocationsInfoEXT implements BaseStruct {
   get pSampleLocations(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pSampleLocations(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

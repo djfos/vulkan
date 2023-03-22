@@ -57,42 +57,47 @@ export class PastPresentationTimingGOOGLE implements BaseStruct {
     }
   }
 
+  /** Application-provided identifier, previously given to vkQueuePresentKHR */
   get presentID(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set presentID(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Earliest time an image should have been presented, previously given to vkQueuePresentKHR */
   get desiredPresentTime(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
+  
   set desiredPresentTime(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
+  /** Time the image was actually displayed */
   get actualPresentTime(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set actualPresentTime(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
+  /** Earliest time the image could have been displayed */
   get earliestPresentTime(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set earliestPresentTime(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** How early vkQueuePresentKHR was processed vs. how soon it needed to be and make earliestPresentTime */
   get presentMargin(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
+  
   set presentMargin(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }

@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType } from "../enum.ts";
-import { DescriptorBindingFlags } from "../def.ts";
 
 export interface InitDescriptorSetLayoutBindingFlagsCreateInfo {
   pNext?: AnyPointer;
@@ -56,18 +55,18 @@ export class DescriptorSetLayoutBindingFlagsCreateInfo implements BaseStruct {
     this.sType = StructureType.DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class DescriptorSetLayoutBindingFlagsCreateInfo implements BaseStruct {
   get bindingCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set bindingCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class DescriptorSetLayoutBindingFlagsCreateInfo implements BaseStruct {
   get pBindingFlags(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pBindingFlags(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

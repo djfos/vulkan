@@ -18,7 +18,7 @@ import { SwapchainCreateFlagsKHR, SurfaceKHR, ImageUsageFlags, Bool32, Swapchain
 export interface InitSwapchainCreateInfoKHR {
   pNext?: AnyPointer;
   flags?: SwapchainCreateFlagsKHR;
-  surface?: SurfaceKHR;
+  surface?: AnyPointer;
   minImageCount?: number;
   imageFormat?: Format;
   imageColorSpace?: ColorSpaceKHR;
@@ -32,7 +32,7 @@ export interface InitSwapchainCreateInfoKHR {
   compositeAlpha?: CompositeAlphaFlagBitsKHR;
   presentMode?: PresentModeKHR;
   clipped?: Bool32;
-  oldSwapchain?: SwapchainKHR;
+  oldSwapchain?: AnyPointer;
 }
 
 export class SwapchainCreateInfoKHR implements BaseStruct {
@@ -85,66 +85,70 @@ export class SwapchainCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.SWAPCHAIN_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): SwapchainCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: SwapchainCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** The swapchain's target surface */
   get surface(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set surface(value: SurfaceKHR) {
+  
+  set surface(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** Minimum number of presentation images the application needs */
   get minImageCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set minImageCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get imageFormat(): number {
-    return this.#view.getUint32(36, LE);
+  /** Format of the presentation images */
+  get imageFormat(): Format {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set imageFormat(value: Format) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
-  get imageColorSpace(): number {
-    return this.#view.getUint32(40, LE);
+  /** Colorspace of the presentation images */
+  get imageColorSpace(): ColorSpaceKHR {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set imageColorSpace(value: ColorSpaceKHR) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
+  /** Dimensions of the presentation images */
   get imageExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(44, 44 + Extent2D.size));
   }
-
   set imageExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -152,83 +156,93 @@ export class SwapchainCreateInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 44);
   }
 
+  /** Determines the number of views for multiview/stereo presentation */
   get imageArrayLayers(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set imageArrayLayers(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get imageUsage(): number {
+  /** Bits indicating how the presentation images will be used */
+  get imageUsage(): ImageUsageFlags {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set imageUsage(value: ImageUsageFlags) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get imageSharingMode(): number {
-    return this.#view.getUint32(60, LE);
+  /** Sharing mode used for the presentation images */
+  get imageSharingMode(): SharingMode {
+    return this.#view.getInt32(60, LE);
   }
-
+  
   set imageSharingMode(value: SharingMode) {
-    this.#view.setUint32(60, Number(value), LE);
+    this.#view.setInt32(60, Number(value), LE);
   }
 
+  /** Number of queue families having access to the images in case of concurrent sharing mode */
   get queueFamilyIndexCount(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set queueFamilyIndexCount(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
+  /** Array of queue family indices having access to the images in case of concurrent sharing mode */
   get pQueueFamilyIndices(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
+  
   set pQueueFamilyIndices(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }
 
-  get preTransform(): number {
-    return this.#view.getUint32(80, LE);
+  /** The transform, relative to the device's natural orientation, applied to the image content prior to presentation */
+  get preTransform(): SurfaceTransformFlagBitsKHR {
+    return this.#view.getInt32(80, LE);
   }
-
+  
   set preTransform(value: SurfaceTransformFlagBitsKHR) {
-    this.#view.setUint32(80, Number(value), LE);
+    this.#view.setInt32(80, Number(value), LE);
   }
 
-  get compositeAlpha(): number {
-    return this.#view.getUint32(84, LE);
+  /** The alpha blending mode used when compositing this surface with other surfaces in the window system */
+  get compositeAlpha(): CompositeAlphaFlagBitsKHR {
+    return this.#view.getInt32(84, LE);
   }
-
+  
   set compositeAlpha(value: CompositeAlphaFlagBitsKHR) {
-    this.#view.setUint32(84, Number(value), LE);
+    this.#view.setInt32(84, Number(value), LE);
   }
 
-  get presentMode(): number {
-    return this.#view.getUint32(88, LE);
+  /** Which presentation mode to use for presents on this swap chain */
+  get presentMode(): PresentModeKHR {
+    return this.#view.getInt32(88, LE);
   }
-
+  
   set presentMode(value: PresentModeKHR) {
-    this.#view.setUint32(88, Number(value), LE);
+    this.#view.setInt32(88, Number(value), LE);
   }
 
-  get clipped(): number {
+  /** Specifies whether presentable images may be affected by window clip regions */
+  get clipped(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set clipped(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }
 
+  /** Existing swap chain to replace, if any */
   get oldSwapchain(): Deno.PointerValue {
     return pointerFromView(this.#view, 96, LE);
   }
-
-  set oldSwapchain(value: SwapchainKHR) {
+  
+  set oldSwapchain(value: AnyPointer) {
     this.#view.setBigUint64(96, BigInt(anyPointer(value)), LE);
   }
 }

@@ -22,7 +22,7 @@ export interface InitAccelerationStructureMotionInstanceNV {
 }
 
 export class AccelerationStructureMotionInstanceNV implements BaseStruct {
-  static size = 304;
+  static size = 160;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -56,27 +56,26 @@ export class AccelerationStructureMotionInstanceNV implements BaseStruct {
     }
   }
 
-  get type(): number {
-    return this.#view.getUint32(0, LE);
+  get type(): AccelerationStructureMotionInstanceTypeNV {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set type(value: AccelerationStructureMotionInstanceTypeNV) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): AccelerationStructureMotionInstanceFlagsNV {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set flags(value: AccelerationStructureMotionInstanceFlagsNV) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get data(): unknown {
-    throw new Error(`Unknown type: {"union":[{"struct":[{"struct":["f32"]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32"]},{"struct":["f32"]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},"u32","u32","u32","u32","u64"]}]}`);
+  get data(): AccelerationStructureMotionInstanceDataNV {
+    throw new Error(`Unknown type: {"union":[{"struct":[{"struct":[{"array":"f32","len":3}]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":[{"array":"f32","len":3}]},{"struct":[{"array":"f32","len":3}]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},"u32","u32","u32","u32","u64"]}]}`);
   }
-
   set data(value: AccelerationStructureMotionInstanceDataNV) {
-    throw new Error(`Unknown type: {"union":[{"struct":[{"struct":["f32"]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32"]},{"struct":["f32"]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},"u32","u32","u32","u32","u64"]}]}`);
+    throw new Error(`Unknown type: {"union":[{"struct":[{"struct":[{"array":"f32","len":3}]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":[{"array":"f32","len":3}]},{"struct":[{"array":"f32","len":3}]},"u32","u32","u32","u32","u64"]},{"struct":[{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},{"struct":["f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32","f32"]},"u32","u32","u32","u32","u64"]}]}`);
   }
 }

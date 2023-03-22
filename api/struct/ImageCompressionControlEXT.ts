@@ -12,7 +12,7 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType } from "../enum.ts";
-import { ImageCompressionFlagsEXT, ImageCompressionFixedRateFlagsEXT } from "../def.ts";
+import { ImageCompressionFlagsEXT } from "../def.ts";
 
 export interface InitImageCompressionControlEXT {
   pNext?: AnyPointer;
@@ -58,26 +58,26 @@ export class ImageCompressionControlEXT implements BaseStruct {
     this.sType = StructureType.IMAGE_COMPRESSION_CONTROL_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): ImageCompressionFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ImageCompressionFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,7 +85,7 @@ export class ImageCompressionControlEXT implements BaseStruct {
   get compressionControlPlaneCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set compressionControlPlaneCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -93,7 +93,7 @@ export class ImageCompressionControlEXT implements BaseStruct {
   get pFixedRateFlags(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pFixedRateFlags(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

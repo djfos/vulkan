@@ -56,18 +56,18 @@ export class PhysicalDeviceRobustness2PropertiesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,16 +75,16 @@ export class PhysicalDeviceRobustness2PropertiesEXT implements BaseStruct {
   get robustStorageBufferAccessSizeAlignment(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set robustStorageBufferAccessSizeAlignment(value: DeviceSize) {
+  
+  set robustStorageBufferAccessSizeAlignment(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get robustUniformBufferAccessSizeAlignment(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set robustUniformBufferAccessSizeAlignment(value: DeviceSize) {
+  
+  set robustUniformBufferAccessSizeAlignment(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 }

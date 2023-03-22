@@ -59,42 +59,42 @@ export class ColorBlendAdvancedEXT implements BaseStruct {
     }
   }
 
-  get advancedBlendOp(): number {
-    return this.#view.getUint32(0, LE);
+  get advancedBlendOp(): BlendOp {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set advancedBlendOp(value: BlendOp) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get srcPremultiplied(): number {
+  get srcPremultiplied(): Bool32 {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set srcPremultiplied(value: Bool32) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get dstPremultiplied(): number {
+  get dstPremultiplied(): Bool32 {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set dstPremultiplied(value: Bool32) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get blendOverlap(): number {
-    return this.#view.getUint32(12, LE);
+  get blendOverlap(): BlendOverlapEXT {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set blendOverlap(value: BlendOverlapEXT) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 
-  get clampResults(): number {
+  get clampResults(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set clampResults(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }

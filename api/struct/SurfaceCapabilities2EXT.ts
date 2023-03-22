@@ -75,42 +75,44 @@ export class SurfaceCapabilities2EXT implements BaseStruct {
     this.sType = StructureType.SURFACE_CAPABILITIES_2_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Supported minimum number of images for the surface */
   get minImageCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set minImageCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Supported maximum number of images for the surface, 0 for unlimited */
   get maxImageCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxImageCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** Current image width and height for the surface, (0, 0) if undefined */
   get currentExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(24, 24 + Extent2D.size));
   }
-
   set currentExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -118,10 +120,10 @@ export class SurfaceCapabilities2EXT implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
+  /** Supported minimum image width and height for the surface */
   get minImageExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(32, 32 + Extent2D.size));
   }
-
   set minImageExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -129,10 +131,10 @@ export class SurfaceCapabilities2EXT implements BaseStruct {
     this.#data.set(value[BUFFER], 32);
   }
 
+  /** Supported maximum image width and height for the surface */
   get maxImageExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(40, 40 + Extent2D.size));
   }
-
   set maxImageExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -140,50 +142,55 @@ export class SurfaceCapabilities2EXT implements BaseStruct {
     this.#data.set(value[BUFFER], 40);
   }
 
+  /** Supported maximum number of image layers for the surface */
   get maxImageArrayLayers(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxImageArrayLayers(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get supportedTransforms(): number {
+  /** 1 or more bits representing the transforms supported */
+  get supportedTransforms(): SurfaceTransformFlagsKHR {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set supportedTransforms(value: SurfaceTransformFlagsKHR) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get currentTransform(): number {
-    return this.#view.getUint32(56, LE);
+  /** The surface's current transform relative to the device's natural orientation */
+  get currentTransform(): SurfaceTransformFlagBitsKHR {
+    return this.#view.getInt32(56, LE);
   }
-
+  
   set currentTransform(value: SurfaceTransformFlagBitsKHR) {
-    this.#view.setUint32(56, Number(value), LE);
+    this.#view.setInt32(56, Number(value), LE);
   }
 
-  get supportedCompositeAlpha(): number {
+  /** 1 or more bits representing the alpha compositing modes supported */
+  get supportedCompositeAlpha(): CompositeAlphaFlagsKHR {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set supportedCompositeAlpha(value: CompositeAlphaFlagsKHR) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get supportedUsageFlags(): number {
+  /** Supported image usage flags for the surface */
+  get supportedUsageFlags(): ImageUsageFlags {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set supportedUsageFlags(value: ImageUsageFlags) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get supportedSurfaceCounters(): number {
+  get supportedSurfaceCounters(): SurfaceCounterFlagsEXT {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set supportedSurfaceCounters(value: SurfaceCounterFlagsEXT) {
     this.#view.setUint32(68, Number(value), LE);
   }

@@ -54,18 +54,18 @@ export class SparseImageFormatProperties2 implements BaseStruct {
     this.sType = StructureType.SPARSE_IMAGE_FORMAT_PROPERTIES_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class SparseImageFormatProperties2 implements BaseStruct {
   get properties(): SparseImageFormatProperties {
     return new SparseImageFormatProperties(this.#data.subarray(16, 16 + SparseImageFormatProperties.size));
   }
-
   set properties(value: SparseImageFormatProperties) {
     if (value[BUFFER].byteLength < SparseImageFormatProperties.size) {
       throw new Error("Data buffer too small");

@@ -60,7 +60,6 @@ export class ExternalImageFormatPropertiesNV implements BaseStruct {
   get imageFormatProperties(): ImageFormatProperties {
     return new ImageFormatProperties(this.#data.subarray(0, 0 + ImageFormatProperties.size));
   }
-
   set imageFormatProperties(value: ImageFormatProperties) {
     if (value[BUFFER].byteLength < ImageFormatProperties.size) {
       throw new Error("Data buffer too small");
@@ -68,26 +67,26 @@ export class ExternalImageFormatPropertiesNV implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
-  get externalMemoryFeatures(): number {
+  get externalMemoryFeatures(): ExternalMemoryFeatureFlagsNV {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set externalMemoryFeatures(value: ExternalMemoryFeatureFlagsNV) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get exportFromImportedHandleTypes(): number {
+  get exportFromImportedHandleTypes(): ExternalMemoryHandleTypeFlagsNV {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set exportFromImportedHandleTypes(value: ExternalMemoryHandleTypeFlagsNV) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get compatibleHandleTypes(): number {
+  get compatibleHandleTypes(): ExternalMemoryHandleTypeFlagsNV {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set compatibleHandleTypes(value: ExternalMemoryHandleTypeFlagsNV) {
     this.#view.setUint32(40, Number(value), LE);
   }

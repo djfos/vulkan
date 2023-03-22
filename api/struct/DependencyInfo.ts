@@ -11,9 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {MemoryBarrier2} from "./MemoryBarrier2.ts";
-import {BufferMemoryBarrier2} from "./BufferMemoryBarrier2.ts";
-import {ImageMemoryBarrier2} from "./ImageMemoryBarrier2.ts";
 import { StructureType } from "../enum.ts";
 import { DependencyFlags } from "../def.ts";
 
@@ -69,26 +66,26 @@ export class DependencyInfo implements BaseStruct {
     this.sType = StructureType.DEPENDENCY_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get dependencyFlags(): number {
+  get dependencyFlags(): DependencyFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set dependencyFlags(value: DependencyFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -96,7 +93,7 @@ export class DependencyInfo implements BaseStruct {
   get memoryBarrierCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set memoryBarrierCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -104,7 +101,7 @@ export class DependencyInfo implements BaseStruct {
   get pMemoryBarriers(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pMemoryBarriers(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -112,7 +109,7 @@ export class DependencyInfo implements BaseStruct {
   get bufferMemoryBarrierCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set bufferMemoryBarrierCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -120,7 +117,7 @@ export class DependencyInfo implements BaseStruct {
   get pBufferMemoryBarriers(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pBufferMemoryBarriers(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -128,7 +125,7 @@ export class DependencyInfo implements BaseStruct {
   get imageMemoryBarrierCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set imageMemoryBarrierCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -136,7 +133,7 @@ export class DependencyInfo implements BaseStruct {
   get pImageMemoryBarriers(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pImageMemoryBarriers(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

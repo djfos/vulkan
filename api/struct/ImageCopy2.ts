@@ -64,18 +64,18 @@ export class ImageCopy2 implements BaseStruct {
     this.sType = StructureType.IMAGE_COPY_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -83,7 +83,6 @@ export class ImageCopy2 implements BaseStruct {
   get srcSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(16, 16 + ImageSubresourceLayers.size));
   }
-
   set srcSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -91,10 +90,10 @@ export class ImageCopy2 implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get srcOffset(): Offset3D {
     return new Offset3D(this.#data.subarray(32, 32 + Offset3D.size));
   }
-
   set srcOffset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -105,7 +104,6 @@ export class ImageCopy2 implements BaseStruct {
   get dstSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(44, 44 + ImageSubresourceLayers.size));
   }
-
   set dstSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -113,10 +111,10 @@ export class ImageCopy2 implements BaseStruct {
     this.#data.set(value[BUFFER], 44);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get dstOffset(): Offset3D {
     return new Offset3D(this.#data.subarray(60, 60 + Offset3D.size));
   }
-
   set dstOffset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -124,10 +122,10 @@ export class ImageCopy2 implements BaseStruct {
     this.#data.set(value[BUFFER], 60);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get extent(): Extent3D {
     return new Extent3D(this.#data.subarray(72, 72 + Extent3D.size));
   }
-
   set extent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");

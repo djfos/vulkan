@@ -23,7 +23,7 @@ export interface InitImageMemoryBarrier {
   newLayout?: ImageLayout;
   srcQueueFamilyIndex?: number;
   dstQueueFamilyIndex?: number;
-  image?: Image;
+  image?: AnyPointer;
   subresourceRange?: ImageSubresourceRange;
 }
 
@@ -69,82 +69,89 @@ export class ImageMemoryBarrier implements BaseStruct {
     this.sType = StructureType.IMAGE_MEMORY_BARRIER;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get srcAccessMask(): number {
+  /** Memory accesses from the source of the dependency to synchronize */
+  get srcAccessMask(): AccessFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set srcAccessMask(value: AccessFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get dstAccessMask(): number {
+  /** Memory accesses from the destination of the dependency to synchronize */
+  get dstAccessMask(): AccessFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set dstAccessMask(value: AccessFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get oldLayout(): number {
-    return this.#view.getUint32(24, LE);
+  /** Current layout of the image */
+  get oldLayout(): ImageLayout {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set oldLayout(value: ImageLayout) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get newLayout(): number {
-    return this.#view.getUint32(28, LE);
+  /** New layout to transition the image to */
+  get newLayout(): ImageLayout {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set newLayout(value: ImageLayout) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
+  /** Queue family to transition ownership from */
   get srcQueueFamilyIndex(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set srcQueueFamilyIndex(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** Queue family to transition ownership to */
   get dstQueueFamilyIndex(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set dstQueueFamilyIndex(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
+  /** Image to sync */
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 
+  /** Subresource range to sync */
   get subresourceRange(): ImageSubresourceRange {
     return new ImageSubresourceRange(this.#data.subarray(48, 48 + ImageSubresourceRange.size));
   }
-
   set subresourceRange(value: ImageSubresourceRange) {
     if (value[BUFFER].byteLength < ImageSubresourceRange.size) {
       throw new Error("Data buffer too small");

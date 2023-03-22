@@ -60,50 +60,54 @@ export class PhysicalDeviceDepthStencilResolveProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get supportedDepthResolveModes(): number {
+  /** supported depth resolve modes */
+  get supportedDepthResolveModes(): ResolveModeFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set supportedDepthResolveModes(value: ResolveModeFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get supportedStencilResolveModes(): number {
+  /** supported stencil resolve modes */
+  get supportedStencilResolveModes(): ResolveModeFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set supportedStencilResolveModes(value: ResolveModeFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get independentResolveNone(): number {
+  /** depth and stencil resolve modes can be set independently if one of them is none */
+  get independentResolveNone(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set independentResolveNone(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get independentResolve(): number {
+  /** depth and stencil resolve modes can be set independently */
+  get independentResolve(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set independentResolve(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }

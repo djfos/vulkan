@@ -56,34 +56,34 @@ export class CommandBufferInheritanceRenderPassTransformInfoQCOM implements Base
     this.sType = StructureType.COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
+  /** Pointer to next structure */
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get transform(): number {
-    return this.#view.getUint32(16, LE);
+  get transform(): SurfaceTransformFlagBitsKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set transform(value: SurfaceTransformFlagBitsKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get renderArea(): Rect2D {
     return new Rect2D(this.#data.subarray(20, 20 + Rect2D.size));
   }
-
   set renderArea(value: Rect2D) {
     if (value[BUFFER].byteLength < Rect2D.size) {
       throw new Error("Data buffer too small");

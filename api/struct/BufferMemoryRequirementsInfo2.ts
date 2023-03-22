@@ -16,7 +16,7 @@ import { Buffer } from "../def.ts";
 
 export interface InitBufferMemoryRequirementsInfo2 {
   pNext?: AnyPointer;
-  buffer?: Buffer;
+  buffer?: AnyPointer;
 }
 
 export class BufferMemoryRequirementsInfo2 implements BaseStruct {
@@ -54,18 +54,18 @@ export class BufferMemoryRequirementsInfo2 implements BaseStruct {
     this.sType = StructureType.BUFFER_MEMORY_REQUIREMENTS_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class BufferMemoryRequirementsInfo2 implements BaseStruct {
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 }

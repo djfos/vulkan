@@ -17,10 +17,10 @@ import { ClearValue } from "../union.ts";
 
 export interface InitRenderingAttachmentInfo {
   pNext?: AnyPointer;
-  imageView?: ImageView;
+  imageView?: AnyPointer;
   imageLayout?: ImageLayout;
   resolveMode?: ResolveModeFlagBits;
-  resolveImageView?: ImageView;
+  resolveImageView?: AnyPointer;
   resolveImageLayout?: ImageLayout;
   loadOp?: AttachmentLoadOp;
   storeOp?: AttachmentStoreOp;
@@ -28,7 +28,7 @@ export interface InitRenderingAttachmentInfo {
 }
 
 export class RenderingAttachmentInfo implements BaseStruct {
-  static size = 64;
+  static size = 72;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -69,18 +69,18 @@ export class RenderingAttachmentInfo implements BaseStruct {
     this.sType = StructureType.RENDERING_ATTACHMENT_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -88,64 +88,63 @@ export class RenderingAttachmentInfo implements BaseStruct {
   get imageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set imageView(value: ImageView) {
+  
+  set imageView(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get imageLayout(): number {
-    return this.#view.getUint32(24, LE);
+  get imageLayout(): ImageLayout {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set imageLayout(value: ImageLayout) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get resolveMode(): number {
-    return this.#view.getUint32(28, LE);
+  get resolveMode(): ResolveModeFlagBits {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set resolveMode(value: ResolveModeFlagBits) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
   get resolveImageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set resolveImageView(value: ImageView) {
+  
+  set resolveImageView(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
-  get resolveImageLayout(): number {
-    return this.#view.getUint32(40, LE);
+  get resolveImageLayout(): ImageLayout {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set resolveImageLayout(value: ImageLayout) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
-  get loadOp(): number {
-    return this.#view.getUint32(44, LE);
+  get loadOp(): AttachmentLoadOp {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set loadOp(value: AttachmentLoadOp) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
-  get storeOp(): number {
-    return this.#view.getUint32(48, LE);
+  get storeOp(): AttachmentStoreOp {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set storeOp(value: AttachmentStoreOp) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
-  get clearValue(): unknown {
-    throw new Error(`Unknown type: {"union":[{"union":["f32","i32","u32"]},{"struct":["f32","u32"]}]}`);
+  get clearValue(): ClearValue {
+    throw new Error(`Unknown type: {"union":[{"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]},{"struct":["f32","u32"]}]}`);
   }
-
   set clearValue(value: ClearValue) {
-    throw new Error(`Unknown type: {"union":[{"union":["f32","i32","u32"]},{"struct":["f32","u32"]}]}`);
+    throw new Error(`Unknown type: {"union":[{"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]},{"struct":["f32","u32"]}]}`);
   }
 }

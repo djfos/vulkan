@@ -11,11 +11,10 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {SparseMemoryBind} from "./SparseMemoryBind.ts";
 import { Buffer } from "../def.ts";
 
 export interface InitSparseBufferMemoryBindInfo {
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   bindCount?: number;
   pBinds?: AnyPointer;
 }
@@ -58,15 +57,15 @@ export class SparseBufferMemoryBindInfo implements BaseStruct {
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
   get bindCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set bindCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -74,7 +73,7 @@ export class SparseBufferMemoryBindInfo implements BaseStruct {
   get pBinds(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pBinds(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }

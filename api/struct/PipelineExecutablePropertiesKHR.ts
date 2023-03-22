@@ -60,50 +60,64 @@ export class PipelineExecutablePropertiesKHR implements BaseStruct {
     this.sType = StructureType.PIPELINE_EXECUTABLE_PROPERTIES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get stages(): number {
+  get stages(): ShaderStageFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set stages(value: ShaderStageFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
   get name(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 20, 256);
+    return new Uint8Array(this.#data.buffer, 20, 256);
   }
-
   set name(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 276, 256);
+    return new Uint8Array(this.#data.buffer, 276, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 276);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 276);
   }
 
   get subgroupSize(): number {
     return this.#view.getUint32(532, LE);
   }
-
+  
   set subgroupSize(value: number) {
     this.#view.setUint32(532, Number(value), LE);
   }

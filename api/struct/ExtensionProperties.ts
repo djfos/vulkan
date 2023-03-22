@@ -51,18 +51,27 @@ export class ExtensionProperties implements BaseStruct {
     }
   }
 
+  /** extension name */
   get extensionName(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 0, 256);
+    return new Uint8Array(this.#data.buffer, 0, 256);
   }
-
   set extensionName(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
+  /** version of the extension specification implemented */
   get specVersion(): number {
     return this.#view.getUint32(256, LE);
   }
-
+  
   set specVersion(value: number) {
     this.#view.setUint32(256, Number(value), LE);
   }

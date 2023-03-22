@@ -60,18 +60,18 @@ export class BufferConstraintsInfoFUCHSIA implements BaseStruct {
     this.sType = StructureType.BUFFER_CONSTRAINTS_INFO_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,7 +79,6 @@ export class BufferConstraintsInfoFUCHSIA implements BaseStruct {
   get createInfo(): BufferCreateInfo {
     return new BufferCreateInfo(this.#data.subarray(16, 16 + BufferCreateInfo.size));
   }
-
   set createInfo(value: BufferCreateInfo) {
     if (value[BUFFER].byteLength < BufferCreateInfo.size) {
       throw new Error("Data buffer too small");
@@ -87,10 +86,10 @@ export class BufferConstraintsInfoFUCHSIA implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
-  get requiredFormatFeatures(): number {
+  get requiredFormatFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set requiredFormatFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(72, Number(value), LE);
   }
@@ -98,7 +97,6 @@ export class BufferConstraintsInfoFUCHSIA implements BaseStruct {
   get bufferCollectionConstraints(): BufferCollectionConstraintsInfoFUCHSIA {
     return new BufferCollectionConstraintsInfoFUCHSIA(this.#data.subarray(80, 80 + BufferCollectionConstraintsInfoFUCHSIA.size));
   }
-
   set bufferCollectionConstraints(value: BufferCollectionConstraintsInfoFUCHSIA) {
     if (value[BUFFER].byteLength < BufferCollectionConstraintsInfoFUCHSIA.size) {
       throw new Error("Data buffer too small");

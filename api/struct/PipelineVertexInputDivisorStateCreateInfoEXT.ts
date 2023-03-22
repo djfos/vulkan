@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VertexInputBindingDivisorDescriptionEXT} from "./VertexInputBindingDivisorDescriptionEXT.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitPipelineVertexInputDivisorStateCreateInfoEXT {
@@ -56,18 +55,18 @@ export class PipelineVertexInputDivisorStateCreateInfoEXT implements BaseStruct 
     this.sType = StructureType.PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class PipelineVertexInputDivisorStateCreateInfoEXT implements BaseStruct 
   get vertexBindingDivisorCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set vertexBindingDivisorCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class PipelineVertexInputDivisorStateCreateInfoEXT implements BaseStruct 
   get pVertexBindingDivisors(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pVertexBindingDivisors(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

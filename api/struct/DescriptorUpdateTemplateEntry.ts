@@ -60,50 +60,56 @@ export class DescriptorUpdateTemplateEntry implements BaseStruct {
     }
   }
 
+  /** Binding within the destination descriptor set to write */
   get dstBinding(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set dstBinding(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Array element within the destination binding to write */
   get dstArrayElement(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set dstArrayElement(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** Number of descriptors to write */
   get descriptorCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set descriptorCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get descriptorType(): number {
-    return this.#view.getUint32(12, LE);
+  /** Descriptor type to write */
+  get descriptorType(): DescriptorType {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set descriptorType(value: DescriptorType) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 
+  /** Offset into pData where the descriptors to update are stored */
   get offset(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set offset(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
+  /** Stride between two descriptors in pData when writing more than one descriptor */
   get stride(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set stride(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }

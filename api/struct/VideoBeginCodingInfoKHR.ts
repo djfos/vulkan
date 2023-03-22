@@ -11,15 +11,14 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VideoReferenceSlotInfoKHR} from "./VideoReferenceSlotInfoKHR.ts";
 import { StructureType } from "../enum.ts";
 import { VideoBeginCodingFlagsKHR, VideoSessionKHR, VideoSessionParametersKHR } from "../def.ts";
 
 export interface InitVideoBeginCodingInfoKHR {
   pNext?: AnyPointer;
   flags?: VideoBeginCodingFlagsKHR;
-  videoSession?: VideoSessionKHR;
-  videoSessionParameters?: VideoSessionParametersKHR;
+  videoSession?: AnyPointer;
+  videoSessionParameters?: AnyPointer;
   referenceSlotCount?: number;
   pReferenceSlots?: AnyPointer;
 }
@@ -63,26 +62,26 @@ export class VideoBeginCodingInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_BEGIN_CODING_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoBeginCodingFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoBeginCodingFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -90,23 +89,23 @@ export class VideoBeginCodingInfoKHR implements BaseStruct {
   get videoSession(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set videoSession(value: VideoSessionKHR) {
+  
+  set videoSession(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get videoSessionParameters(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set videoSessionParameters(value: VideoSessionParametersKHR) {
+  
+  set videoSessionParameters(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get referenceSlotCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set referenceSlotCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -114,7 +113,7 @@ export class VideoBeginCodingInfoKHR implements BaseStruct {
   get pReferenceSlots(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pReferenceSlots(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

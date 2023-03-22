@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { ShadingRatePaletteEntryNV } from "../enum.ts";
 
 export interface InitShadingRatePaletteNV {
   shadingRatePaletteEntryCount?: number;
@@ -55,7 +54,7 @@ export class ShadingRatePaletteNV implements BaseStruct {
   get shadingRatePaletteEntryCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set shadingRatePaletteEntryCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -63,7 +62,7 @@ export class ShadingRatePaletteNV implements BaseStruct {
   get pShadingRatePaletteEntries(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pShadingRatePaletteEntries(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }

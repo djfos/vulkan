@@ -59,51 +59,51 @@ export class PhysicalDevicePipelineRobustnessPropertiesEXT implements BaseStruct
     this.sType = StructureType.PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get defaultRobustnessStorageBuffers(): number {
-    return this.#view.getUint32(16, LE);
+  get defaultRobustnessStorageBuffers(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set defaultRobustnessStorageBuffers(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get defaultRobustnessUniformBuffers(): number {
-    return this.#view.getUint32(20, LE);
+  get defaultRobustnessUniformBuffers(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set defaultRobustnessUniformBuffers(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get defaultRobustnessVertexInputs(): number {
-    return this.#view.getUint32(24, LE);
+  get defaultRobustnessVertexInputs(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set defaultRobustnessVertexInputs(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get defaultRobustnessImages(): number {
-    return this.#view.getUint32(28, LE);
+  get defaultRobustnessImages(): PipelineRobustnessImageBehaviorEXT {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set defaultRobustnessImages(value: PipelineRobustnessImageBehaviorEXT) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 }

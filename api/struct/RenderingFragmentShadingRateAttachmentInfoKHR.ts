@@ -17,7 +17,7 @@ import { ImageView } from "../def.ts";
 
 export interface InitRenderingFragmentShadingRateAttachmentInfoKHR {
   pNext?: AnyPointer;
-  imageView?: ImageView;
+  imageView?: AnyPointer;
   imageLayout?: ImageLayout;
   shadingRateAttachmentTexelSize?: Extent2D;
 }
@@ -59,18 +59,18 @@ export class RenderingFragmentShadingRateAttachmentInfoKHR implements BaseStruct
     this.sType = StructureType.RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -78,23 +78,22 @@ export class RenderingFragmentShadingRateAttachmentInfoKHR implements BaseStruct
   get imageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set imageView(value: ImageView) {
+  
+  set imageView(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get imageLayout(): number {
-    return this.#view.getUint32(24, LE);
+  get imageLayout(): ImageLayout {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set imageLayout(value: ImageLayout) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get shadingRateAttachmentTexelSize(): Extent2D {
     return new Extent2D(this.#data.subarray(28, 28 + Extent2D.size));
   }
-
   set shadingRateAttachmentTexelSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

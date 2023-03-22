@@ -11,9 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {StdVideoH265VideoParameterSet} from "./StdVideoH265VideoParameterSet.ts";
-import {StdVideoH265SequenceParameterSet} from "./StdVideoH265SequenceParameterSet.ts";
-import {StdVideoH265PictureParameterSet} from "./StdVideoH265PictureParameterSet.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitVideoEncodeH265SessionParametersAddInfoEXT {
@@ -66,18 +63,18 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -85,7 +82,7 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
   get stdVPSCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set stdVPSCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -93,7 +90,7 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
   get pStdVPSs(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pStdVPSs(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -101,7 +98,7 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
   get stdSPSCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set stdSPSCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -109,7 +106,7 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
   get pStdSPSs(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pStdSPSs(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -117,15 +114,16 @@ export class VideoEncodeH265SessionParametersAddInfoEXT implements BaseStruct {
   get stdPPSCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set stdPPSCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
+  /** List of Picture Parameters associated with the spsStd, above */
   get pStdPPSs(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pStdPPSs(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

@@ -92,58 +92,58 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_CAPABILITIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoEncodeH265CapabilityFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoEncodeH265CapabilityFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get inputModeFlags(): number {
+  get inputModeFlags(): VideoEncodeH265InputModeFlagsEXT {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set inputModeFlags(value: VideoEncodeH265InputModeFlagsEXT) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get outputModeFlags(): number {
+  get outputModeFlags(): VideoEncodeH265OutputModeFlagsEXT {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set outputModeFlags(value: VideoEncodeH265OutputModeFlagsEXT) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get ctbSizes(): number {
+  get ctbSizes(): VideoEncodeH265CtbSizeFlagsEXT {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set ctbSizes(value: VideoEncodeH265CtbSizeFlagsEXT) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get transformBlockSizes(): number {
+  get transformBlockSizes(): VideoEncodeH265TransformBlockSizeFlagsEXT {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set transformBlockSizes(value: VideoEncodeH265TransformBlockSizeFlagsEXT) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -151,7 +151,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxPPictureL0ReferenceCount(): number {
     return this.#view.getUint8(36);
   }
-
+  
   set maxPPictureL0ReferenceCount(value: number) {
     this.#view.setUint8(36, Number(value));
   }
@@ -159,7 +159,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxBPictureL0ReferenceCount(): number {
     return this.#view.getUint8(37);
   }
-
+  
   set maxBPictureL0ReferenceCount(value: number) {
     this.#view.setUint8(37, Number(value));
   }
@@ -167,7 +167,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxL1ReferenceCount(): number {
     return this.#view.getUint8(38);
   }
-
+  
   set maxL1ReferenceCount(value: number) {
     this.#view.setUint8(38, Number(value));
   }
@@ -175,7 +175,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxSubLayersCount(): number {
     return this.#view.getUint8(39);
   }
-
+  
   set maxSubLayersCount(value: number) {
     this.#view.setUint8(39, Number(value));
   }
@@ -183,7 +183,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get minLog2MinLumaCodingBlockSizeMinus3(): number {
     return this.#view.getUint8(40);
   }
-
+  
   set minLog2MinLumaCodingBlockSizeMinus3(value: number) {
     this.#view.setUint8(40, Number(value));
   }
@@ -191,7 +191,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxLog2MinLumaCodingBlockSizeMinus3(): number {
     return this.#view.getUint8(41);
   }
-
+  
   set maxLog2MinLumaCodingBlockSizeMinus3(value: number) {
     this.#view.setUint8(41, Number(value));
   }
@@ -199,7 +199,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get minLog2MinLumaTransformBlockSizeMinus2(): number {
     return this.#view.getUint8(42);
   }
-
+  
   set minLog2MinLumaTransformBlockSizeMinus2(value: number) {
     this.#view.setUint8(42, Number(value));
   }
@@ -207,7 +207,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxLog2MinLumaTransformBlockSizeMinus2(): number {
     return this.#view.getUint8(43);
   }
-
+  
   set maxLog2MinLumaTransformBlockSizeMinus2(value: number) {
     this.#view.setUint8(43, Number(value));
   }
@@ -215,7 +215,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get minMaxTransformHierarchyDepthInter(): number {
     return this.#view.getUint8(44);
   }
-
+  
   set minMaxTransformHierarchyDepthInter(value: number) {
     this.#view.setUint8(44, Number(value));
   }
@@ -223,7 +223,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxMaxTransformHierarchyDepthInter(): number {
     return this.#view.getUint8(45);
   }
-
+  
   set maxMaxTransformHierarchyDepthInter(value: number) {
     this.#view.setUint8(45, Number(value));
   }
@@ -231,7 +231,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get minMaxTransformHierarchyDepthIntra(): number {
     return this.#view.getUint8(46);
   }
-
+  
   set minMaxTransformHierarchyDepthIntra(value: number) {
     this.#view.setUint8(46, Number(value));
   }
@@ -239,7 +239,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxMaxTransformHierarchyDepthIntra(): number {
     return this.#view.getUint8(47);
   }
-
+  
   set maxMaxTransformHierarchyDepthIntra(value: number) {
     this.#view.setUint8(47, Number(value));
   }
@@ -247,7 +247,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxDiffCuQpDeltaDepth(): number {
     return this.#view.getUint8(48);
   }
-
+  
   set maxDiffCuQpDeltaDepth(value: number) {
     this.#view.setUint8(48, Number(value));
   }
@@ -255,7 +255,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get minMaxNumMergeCand(): number {
     return this.#view.getUint8(49);
   }
-
+  
   set minMaxNumMergeCand(value: number) {
     this.#view.setUint8(49, Number(value));
   }
@@ -263,7 +263,7 @@ export class VideoEncodeH265CapabilitiesEXT implements BaseStruct {
   get maxMaxNumMergeCand(): number {
     return this.#view.getUint8(50);
   }
-
+  
   set maxMaxNumMergeCand(value: number) {
     this.#view.setUint8(50, Number(value));
   }

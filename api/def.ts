@@ -432,11 +432,7 @@ export type IndirectCommandsLayoutNV = Deno.PointerValue;
 
 export type DescriptorUpdateTemplate = Deno.PointerValue;
 
-export type DescriptorUpdateTemplateKHR = DescriptorUpdateTemplate;
-
 export type SamplerYcbcrConversion = Deno.PointerValue;
-
-export type SamplerYcbcrConversionKHR = SamplerYcbcrConversion;
 
 export type ValidationCacheEXT = Deno.PointerValue;
 
@@ -451,8 +447,6 @@ export type BufferCollectionFUCHSIA = Deno.PointerValue;
 export type DeferredOperationKHR = Deno.PointerValue;
 
 export type PrivateDataSlot = Deno.PointerValue;
-
-export type PrivateDataSlotEXT = PrivateDataSlot;
 
 export type CuModuleNVX = Deno.PointerValue;
 
@@ -529,3 +523,9 @@ export type ResolveModeFlagsKHR = ResolveModeFlags;
 export type ToolPurposeFlagsEXT = ToolPurposeFlags;
 
 export type SubmitFlagsKHR = SubmitFlags;
+
+export type DescriptorUpdateTemplateKHR = DescriptorUpdateTemplate;
+
+export type SamplerYcbcrConversionKHR = SamplerYcbcrConversion;
+
+export type PrivateDataSlotEXT = PrivateDataSlot;

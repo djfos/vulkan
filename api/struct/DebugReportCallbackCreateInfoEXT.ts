@@ -58,42 +58,45 @@ export class DebugReportCallbackCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Indicates which events call this callback */
+  get flags(): DebugReportFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DebugReportFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Function pointer of a callback function */
   get pfnCallback(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pfnCallback(value: Deno.PointerValue) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** User data provided to callback function */
   get pUserData(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pUserData(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

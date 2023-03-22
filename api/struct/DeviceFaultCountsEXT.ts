@@ -58,18 +58,18 @@ export class DeviceFaultCountsEXT implements BaseStruct {
     this.sType = StructureType.DEVICE_FAULT_COUNTS_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,7 +77,7 @@ export class DeviceFaultCountsEXT implements BaseStruct {
   get addressInfoCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set addressInfoCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,16 +85,17 @@ export class DeviceFaultCountsEXT implements BaseStruct {
   get vendorInfoCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set vendorInfoCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** Specified in bytes */
   get vendorBinarySize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set vendorBinarySize(value: DeviceSize) {
+  
+  set vendorBinarySize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 }

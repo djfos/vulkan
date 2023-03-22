@@ -53,10 +53,11 @@ export class MicromapTriangleEXT implements BaseStruct {
     }
   }
 
+  /** Specified in bytes */
   get dataOffset(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set dataOffset(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -64,7 +65,7 @@ export class MicromapTriangleEXT implements BaseStruct {
   get subdivisionLevel(): number {
     return this.#view.getUint16(4, LE);
   }
-
+  
   set subdivisionLevel(value: number) {
     this.#view.setUint16(4, Number(value), LE);
   }
@@ -72,7 +73,7 @@ export class MicromapTriangleEXT implements BaseStruct {
   get format(): number {
     return this.#view.getUint16(6, LE);
   }
-
+  
   set format(value: number) {
     this.#view.setUint16(6, Number(value), LE);
   }

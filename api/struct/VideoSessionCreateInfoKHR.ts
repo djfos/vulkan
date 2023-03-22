@@ -11,9 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VideoProfileInfoKHR} from "./VideoProfileInfoKHR.ts";
 import {Extent2D} from "./Extent2D.ts";
-import {ExtensionProperties} from "./ExtensionProperties.ts";
 import { StructureType, Format } from "../enum.ts";
 import { VideoSessionCreateFlagsKHR } from "../def.ts";
 
@@ -73,18 +71,18 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_SESSION_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -92,15 +90,15 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
   get queueFamilyIndex(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set queueFamilyIndex(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoSessionCreateFlagsKHR {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set flags(value: VideoSessionCreateFlagsKHR) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -108,23 +106,22 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
   get pVideoProfile(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pVideoProfile(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
-  get pictureFormat(): number {
-    return this.#view.getUint32(32, LE);
+  get pictureFormat(): Format {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set pictureFormat(value: Format) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
   get maxCodedExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(36, 36 + Extent2D.size));
   }
-
   set maxCodedExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -132,18 +129,18 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 36);
   }
 
-  get referencePictureFormat(): number {
-    return this.#view.getUint32(44, LE);
+  get referencePictureFormat(): Format {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set referencePictureFormat(value: Format) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
   get maxDpbSlots(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxDpbSlots(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -151,7 +148,7 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
   get maxActiveReferencePictures(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set maxActiveReferencePictures(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -159,7 +156,7 @@ export class VideoSessionCreateInfoKHR implements BaseStruct {
   get pStdHeaderVersion(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pStdHeaderVersion(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

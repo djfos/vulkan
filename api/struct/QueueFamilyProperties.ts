@@ -57,10 +57,11 @@ export class QueueFamilyProperties implements BaseStruct {
     }
   }
 
-  get queueFlags(): number {
+  /** Queue flags */
+  get queueFlags(): QueueFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set queueFlags(value: QueueFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -68,7 +69,7 @@ export class QueueFamilyProperties implements BaseStruct {
   get queueCount(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set queueCount(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -76,15 +77,15 @@ export class QueueFamilyProperties implements BaseStruct {
   get timestampValidBits(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set timestampValidBits(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
+  /** Minimum alignment requirement for image transfers */
   get minImageTransferGranularity(): Extent3D {
     return new Extent3D(this.#data.subarray(12, 12 + Extent3D.size));
   }
-
   set minImageTransferGranularity(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");

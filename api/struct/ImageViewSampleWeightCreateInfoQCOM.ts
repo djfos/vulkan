@@ -59,18 +59,18 @@ export class ImageViewSampleWeightCreateInfoQCOM implements BaseStruct {
     this.sType = StructureType.IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -78,7 +78,6 @@ export class ImageViewSampleWeightCreateInfoQCOM implements BaseStruct {
   get filterCenter(): Offset2D {
     return new Offset2D(this.#data.subarray(16, 16 + Offset2D.size));
   }
-
   set filterCenter(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -89,7 +88,6 @@ export class ImageViewSampleWeightCreateInfoQCOM implements BaseStruct {
   get filterSize(): Extent2D {
     return new Extent2D(this.#data.subarray(24, 24 + Extent2D.size));
   }
-
   set filterSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -100,7 +98,7 @@ export class ImageViewSampleWeightCreateInfoQCOM implements BaseStruct {
   get numPhases(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set numPhases(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }

@@ -54,7 +54,7 @@ export class SampleLocationEXT implements BaseStruct {
   get x(): number {
     return this.#view.getFloat32(0, LE);
   }
-
+  
   set x(value: number) {
     this.#view.setFloat32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class SampleLocationEXT implements BaseStruct {
   get y(): number {
     return this.#view.getFloat32(4, LE);
   }
-
+  
   set y(value: number) {
     this.#view.setFloat32(4, Number(value), LE);
   }

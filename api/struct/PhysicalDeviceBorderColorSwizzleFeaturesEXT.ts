@@ -56,34 +56,34 @@ export class PhysicalDeviceBorderColorSwizzleFeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get borderColorSwizzle(): number {
+  get borderColorSwizzle(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set borderColorSwizzle(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get borderColorSwizzleFromImage(): number {
+  get borderColorSwizzleFromImage(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set borderColorSwizzleFromImage(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }

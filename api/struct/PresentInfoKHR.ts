@@ -11,8 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { StructureType, Result } from "../enum.ts";
-import { Semaphore, SwapchainKHR } from "../def.ts";
+import { StructureType } from "../enum.ts";
 
 export interface InitPresentInfoKHR {
   pNext?: AnyPointer;
@@ -64,66 +63,72 @@ export class PresentInfoKHR implements BaseStruct {
     this.sType = StructureType.PRESENT_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Number of semaphores to wait for before presenting */
   get waitSemaphoreCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set waitSemaphoreCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Semaphores to wait for before presenting */
   get pWaitSemaphores(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pWaitSemaphores(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** Number of swapchains to present in this call */
   get swapchainCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set swapchainCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** Swapchains to present an image from */
   get pSwapchains(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pSwapchains(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 
+  /** Indices of which presentable images to present */
   get pImageIndices(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pImageIndices(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
 
+  /** Optional (i.e. if non-NULL) VkResult for each swapchain */
   get pResults(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pResults(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

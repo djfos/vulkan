@@ -54,18 +54,18 @@ export class SubresourceLayout2EXT implements BaseStruct {
     this.sType = StructureType.SUBRESOURCE_LAYOUT_2_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class SubresourceLayout2EXT implements BaseStruct {
   get subresourceLayout(): SubresourceLayout {
     return new SubresourceLayout(this.#data.subarray(16, 16 + SubresourceLayout.size));
   }
-
   set subresourceLayout(value: SubresourceLayout) {
     if (value[BUFFER].byteLength < SubresourceLayout.size) {
       throw new Error("Data buffer too small");

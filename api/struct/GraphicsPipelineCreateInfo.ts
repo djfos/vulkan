@@ -11,16 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {PipelineShaderStageCreateInfo} from "./PipelineShaderStageCreateInfo.ts";
-import {PipelineVertexInputStateCreateInfo} from "./PipelineVertexInputStateCreateInfo.ts";
-import {PipelineInputAssemblyStateCreateInfo} from "./PipelineInputAssemblyStateCreateInfo.ts";
-import {PipelineTessellationStateCreateInfo} from "./PipelineTessellationStateCreateInfo.ts";
-import {PipelineViewportStateCreateInfo} from "./PipelineViewportStateCreateInfo.ts";
-import {PipelineRasterizationStateCreateInfo} from "./PipelineRasterizationStateCreateInfo.ts";
-import {PipelineMultisampleStateCreateInfo} from "./PipelineMultisampleStateCreateInfo.ts";
-import {PipelineDepthStencilStateCreateInfo} from "./PipelineDepthStencilStateCreateInfo.ts";
-import {PipelineColorBlendStateCreateInfo} from "./PipelineColorBlendStateCreateInfo.ts";
-import {PipelineDynamicStateCreateInfo} from "./PipelineDynamicStateCreateInfo.ts";
 import { StructureType } from "../enum.ts";
 import { PipelineCreateFlags, PipelineLayout, RenderPass, Pipeline } from "../def.ts";
 
@@ -38,10 +28,10 @@ export interface InitGraphicsPipelineCreateInfo {
   pDepthStencilState?: AnyPointer;
   pColorBlendState?: AnyPointer;
   pDynamicState?: AnyPointer;
-  layout?: PipelineLayout;
-  renderPass?: RenderPass;
+  layout?: AnyPointer;
+  renderPass?: AnyPointer;
   subpass?: number;
-  basePipelineHandle?: Pipeline;
+  basePipelineHandle?: AnyPointer;
   basePipelineIndex?: number;
 }
 
@@ -96,26 +86,27 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
     this.sType = StructureType.GRAPHICS_PIPELINE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Pipeline creation flags */
+  get flags(): PipelineCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -123,15 +114,16 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get stageCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set stageCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** One entry for each active shader stage */
   get pStages(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pStages(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -139,7 +131,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pVertexInputState(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pVertexInputState(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -147,7 +139,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pInputAssemblyState(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pInputAssemblyState(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -155,7 +147,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pTessellationState(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pTessellationState(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -163,7 +155,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pViewportState(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pViewportState(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
@@ -171,7 +163,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pRasterizationState(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
+  
   set pRasterizationState(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
@@ -179,7 +171,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pMultisampleState(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
+  
   set pMultisampleState(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }
@@ -187,7 +179,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pDepthStencilState(): Deno.PointerValue {
     return pointerFromView(this.#view, 80, LE);
   }
-
+  
   set pDepthStencilState(value: AnyPointer) {
     this.#view.setBigUint64(80, BigInt(anyPointer(value)), LE);
   }
@@ -195,7 +187,7 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pColorBlendState(): Deno.PointerValue {
     return pointerFromView(this.#view, 88, LE);
   }
-
+  
   set pColorBlendState(value: AnyPointer) {
     this.#view.setBigUint64(88, BigInt(anyPointer(value)), LE);
   }
@@ -203,47 +195,50 @@ export class GraphicsPipelineCreateInfo implements BaseStruct {
   get pDynamicState(): Deno.PointerValue {
     return pointerFromView(this.#view, 96, LE);
   }
-
+  
   set pDynamicState(value: AnyPointer) {
     this.#view.setBigUint64(96, BigInt(anyPointer(value)), LE);
   }
 
+  /** Interface layout of the pipeline */
   get layout(): Deno.PointerValue {
     return pointerFromView(this.#view, 104, LE);
   }
-
-  set layout(value: PipelineLayout) {
+  
+  set layout(value: AnyPointer) {
     this.#view.setBigUint64(104, BigInt(anyPointer(value)), LE);
   }
 
   get renderPass(): Deno.PointerValue {
     return pointerFromView(this.#view, 112, LE);
   }
-
-  set renderPass(value: RenderPass) {
+  
+  set renderPass(value: AnyPointer) {
     this.#view.setBigUint64(112, BigInt(anyPointer(value)), LE);
   }
 
   get subpass(): number {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set subpass(value: number) {
     this.#view.setUint32(120, Number(value), LE);
   }
 
+  /** If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of */
   get basePipelineHandle(): Deno.PointerValue {
     return pointerFromView(this.#view, 128, LE);
   }
-
-  set basePipelineHandle(value: Pipeline) {
+  
+  set basePipelineHandle(value: AnyPointer) {
     this.#view.setBigUint64(128, BigInt(anyPointer(value)), LE);
   }
 
+  /** If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of */
   get basePipelineIndex(): number {
     return this.#view.getInt32(136, LE);
   }
-
+  
   set basePipelineIndex(value: number) {
     this.#view.setInt32(136, Number(value), LE);
   }

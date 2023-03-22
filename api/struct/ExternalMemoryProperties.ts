@@ -54,26 +54,26 @@ export class ExternalMemoryProperties implements BaseStruct {
     }
   }
 
-  get externalMemoryFeatures(): number {
+  get externalMemoryFeatures(): ExternalMemoryFeatureFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set externalMemoryFeatures(value: ExternalMemoryFeatureFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get exportFromImportedHandleTypes(): number {
+  get exportFromImportedHandleTypes(): ExternalMemoryHandleTypeFlags {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set exportFromImportedHandleTypes(value: ExternalMemoryHandleTypeFlags) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get compatibleHandleTypes(): number {
+  get compatibleHandleTypes(): ExternalMemoryHandleTypeFlags {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set compatibleHandleTypes(value: ExternalMemoryHandleTypeFlags) {
     this.#view.setUint32(8, Number(value), LE);
   }

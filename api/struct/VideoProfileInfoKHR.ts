@@ -60,50 +60,50 @@ export class VideoProfileInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_PROFILE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get videoCodecOperation(): number {
-    return this.#view.getUint32(16, LE);
+  get videoCodecOperation(): VideoCodecOperationFlagBitsKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set videoCodecOperation(value: VideoCodecOperationFlagBitsKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get chromaSubsampling(): number {
+  get chromaSubsampling(): VideoChromaSubsamplingFlagsKHR {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set chromaSubsampling(value: VideoChromaSubsamplingFlagsKHR) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get lumaBitDepth(): number {
+  get lumaBitDepth(): VideoComponentBitDepthFlagsKHR {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set lumaBitDepth(value: VideoComponentBitDepthFlagsKHR) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get chromaBitDepth(): number {
+  get chromaBitDepth(): VideoComponentBitDepthFlagsKHR {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set chromaBitDepth(value: VideoComponentBitDepthFlagsKHR) {
     this.#view.setUint32(28, Number(value), LE);
   }

@@ -54,18 +54,18 @@ export class SparseImageMemoryRequirements2 implements BaseStruct {
     this.sType = StructureType.SPARSE_IMAGE_MEMORY_REQUIREMENTS_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class SparseImageMemoryRequirements2 implements BaseStruct {
   get memoryRequirements(): SparseImageMemoryRequirements {
     return new SparseImageMemoryRequirements(this.#data.subarray(16, 16 + SparseImageMemoryRequirements.size));
   }
-
   set memoryRequirements(value: SparseImageMemoryRequirements) {
     if (value[BUFFER].byteLength < SparseImageMemoryRequirements.size) {
       throw new Error("Data buffer too small");

@@ -84,90 +84,93 @@ export class SamplerCreateInfo implements BaseStruct {
     this.sType = StructureType.SAMPLER_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): SamplerCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: SamplerCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get magFilter(): number {
-    return this.#view.getUint32(20, LE);
+  /** Filter mode for magnification */
+  get magFilter(): Filter {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set magFilter(value: Filter) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get minFilter(): number {
-    return this.#view.getUint32(24, LE);
+  /** Filter mode for minifiation */
+  get minFilter(): Filter {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set minFilter(value: Filter) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get mipmapMode(): number {
-    return this.#view.getUint32(28, LE);
+  /** Mipmap selection mode */
+  get mipmapMode(): SamplerMipmapMode {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set mipmapMode(value: SamplerMipmapMode) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
-  get addressModeU(): number {
-    return this.#view.getUint32(32, LE);
+  get addressModeU(): SamplerAddressMode {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set addressModeU(value: SamplerAddressMode) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
-  get addressModeV(): number {
-    return this.#view.getUint32(36, LE);
+  get addressModeV(): SamplerAddressMode {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set addressModeV(value: SamplerAddressMode) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
-  get addressModeW(): number {
-    return this.#view.getUint32(40, LE);
+  get addressModeW(): SamplerAddressMode {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set addressModeW(value: SamplerAddressMode) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
   get mipLodBias(): number {
     return this.#view.getFloat32(44, LE);
   }
-
+  
   set mipLodBias(value: number) {
     this.#view.setFloat32(44, Number(value), LE);
   }
 
-  get anisotropyEnable(): number {
+  get anisotropyEnable(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set anisotropyEnable(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -175,31 +178,31 @@ export class SamplerCreateInfo implements BaseStruct {
   get maxAnisotropy(): number {
     return this.#view.getFloat32(52, LE);
   }
-
+  
   set maxAnisotropy(value: number) {
     this.#view.setFloat32(52, Number(value), LE);
   }
 
-  get compareEnable(): number {
+  get compareEnable(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set compareEnable(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get compareOp(): number {
-    return this.#view.getUint32(60, LE);
+  get compareOp(): CompareOp {
+    return this.#view.getInt32(60, LE);
   }
-
+  
   set compareOp(value: CompareOp) {
-    this.#view.setUint32(60, Number(value), LE);
+    this.#view.setInt32(60, Number(value), LE);
   }
 
   get minLod(): number {
     return this.#view.getFloat32(64, LE);
   }
-
+  
   set minLod(value: number) {
     this.#view.setFloat32(64, Number(value), LE);
   }
@@ -207,23 +210,23 @@ export class SamplerCreateInfo implements BaseStruct {
   get maxLod(): number {
     return this.#view.getFloat32(68, LE);
   }
-
+  
   set maxLod(value: number) {
     this.#view.setFloat32(68, Number(value), LE);
   }
 
-  get borderColor(): number {
-    return this.#view.getUint32(72, LE);
+  get borderColor(): BorderColor {
+    return this.#view.getInt32(72, LE);
   }
-
+  
   set borderColor(value: BorderColor) {
-    this.#view.setUint32(72, Number(value), LE);
+    this.#view.setInt32(72, Number(value), LE);
   }
 
-  get unnormalizedCoordinates(): number {
+  get unnormalizedCoordinates(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set unnormalizedCoordinates(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }

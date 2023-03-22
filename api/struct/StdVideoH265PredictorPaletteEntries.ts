@@ -50,10 +50,17 @@ export class StdVideoH265PredictorPaletteEntries implements BaseStruct {
   }
 
   get PredictorPaletteEntries(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 0, 384);
+    return new Uint16Array(this.#data.buffer, 0, 384);
   }
-
   set PredictorPaletteEntries(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 384) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 }

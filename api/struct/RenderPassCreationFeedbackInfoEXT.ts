@@ -52,7 +52,7 @@ export class RenderPassCreationFeedbackInfoEXT implements BaseStruct {
   get postMergeSubpassCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set postMergeSubpassCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }

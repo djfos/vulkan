@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {PipelineColorBlendAttachmentState} from "./PipelineColorBlendAttachmentState.ts";
 import { StructureType, LogicOp } from "../enum.ts";
 import { PipelineColorBlendStateCreateFlags, Bool32 } from "../def.ts";
 
@@ -65,50 +64,51 @@ export class PipelineColorBlendStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineColorBlendStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineColorBlendStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get logicOpEnable(): number {
+  get logicOpEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set logicOpEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get logicOp(): number {
-    return this.#view.getUint32(24, LE);
+  get logicOp(): LogicOp {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set logicOp(value: LogicOp) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
+  /** # of pAttachments */
   get attachmentCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set attachmentCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -116,16 +116,23 @@ export class PipelineColorBlendStateCreateInfo implements BaseStruct {
   get pAttachments(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pAttachments(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get blendConstants(): Float32Array {
-    return new Float32Array(this.#data.buffer, this.#data.byteOffset + 40, 4);
+    return new Float32Array(this.#data.buffer, 40, 4);
   }
-
   set blendConstants(value: Float32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 40);
+    if (value.length > 4) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 40);
   }
 }

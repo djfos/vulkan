@@ -16,9 +16,9 @@ import { ImageView, Sampler } from "../def.ts";
 
 export interface InitImageViewHandleInfoNVX {
   pNext?: AnyPointer;
-  imageView?: ImageView;
+  imageView?: AnyPointer;
   descriptorType?: DescriptorType;
-  sampler?: Sampler;
+  sampler?: AnyPointer;
 }
 
 export class ImageViewHandleInfoNVX implements BaseStruct {
@@ -58,18 +58,18 @@ export class ImageViewHandleInfoNVX implements BaseStruct {
     this.sType = StructureType.IMAGE_VIEW_HANDLE_INFO_NVX;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,24 +77,24 @@ export class ImageViewHandleInfoNVX implements BaseStruct {
   get imageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set imageView(value: ImageView) {
+  
+  set imageView(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get descriptorType(): number {
-    return this.#view.getUint32(24, LE);
+  get descriptorType(): DescriptorType {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set descriptorType(value: DescriptorType) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get sampler(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set sampler(value: Sampler) {
+  
+  set sampler(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

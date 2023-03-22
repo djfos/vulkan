@@ -64,18 +64,18 @@ export class VideoEncodeH265EmitPictureParametersInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_EMIT_PICTURE_PARAMETERS_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -83,7 +83,7 @@ export class VideoEncodeH265EmitPictureParametersInfoEXT implements BaseStruct {
   get vpsId(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set vpsId(value: number) {
     this.#view.setUint8(16, Number(value));
   }
@@ -91,23 +91,23 @@ export class VideoEncodeH265EmitPictureParametersInfoEXT implements BaseStruct {
   get spsId(): number {
     return this.#view.getUint8(17);
   }
-
+  
   set spsId(value: number) {
     this.#view.setUint8(17, Number(value));
   }
 
-  get emitVpsEnable(): number {
+  get emitVpsEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set emitVpsEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get emitSpsEnable(): number {
+  get emitSpsEnable(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set emitSpsEnable(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -115,7 +115,7 @@ export class VideoEncodeH265EmitPictureParametersInfoEXT implements BaseStruct {
   get ppsIdEntryCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set ppsIdEntryCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -123,7 +123,7 @@ export class VideoEncodeH265EmitPictureParametersInfoEXT implements BaseStruct {
   get ppsIdEntries(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set ppsIdEntries(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

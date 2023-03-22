@@ -74,66 +74,66 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get supportedOutputGridSizes(): number {
+  get supportedOutputGridSizes(): OpticalFlowGridSizeFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set supportedOutputGridSizes(value: OpticalFlowGridSizeFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get supportedHintGridSizes(): number {
+  get supportedHintGridSizes(): OpticalFlowGridSizeFlagsNV {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set supportedHintGridSizes(value: OpticalFlowGridSizeFlagsNV) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get hintSupported(): number {
+  get hintSupported(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set hintSupported(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get costSupported(): number {
+  get costSupported(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set costSupported(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get bidirectionalFlowSupported(): number {
+  get bidirectionalFlowSupported(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set bidirectionalFlowSupported(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get globalFlowSupported(): number {
+  get globalFlowSupported(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set globalFlowSupported(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -141,7 +141,7 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
   get minWidth(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set minWidth(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -149,7 +149,7 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
   get minHeight(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set minHeight(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -157,7 +157,7 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
   get maxWidth(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxWidth(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -165,7 +165,7 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
   get maxHeight(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set maxHeight(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -173,7 +173,7 @@ export class PhysicalDeviceOpticalFlowPropertiesNV implements BaseStruct {
   get maxNumRegionsOfInterest(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set maxNumRegionsOfInterest(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }

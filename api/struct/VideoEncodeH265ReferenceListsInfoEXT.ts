@@ -11,8 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VideoEncodeH265DpbSlotInfoEXT} from "./VideoEncodeH265DpbSlotInfoEXT.ts";
-import {StdVideoEncodeH265ReferenceModifications} from "./StdVideoEncodeH265ReferenceModifications.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitVideoEncodeH265ReferenceListsInfoEXT {
@@ -63,18 +61,18 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_REFERENCE_LISTS_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -82,7 +80,7 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
   get referenceList0EntryCount(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set referenceList0EntryCount(value: number) {
     this.#view.setUint8(16, Number(value));
   }
@@ -90,7 +88,7 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
   get pReferenceList0Entries(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pReferenceList0Entries(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -98,7 +96,7 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
   get referenceList1EntryCount(): number {
     return this.#view.getUint8(32);
   }
-
+  
   set referenceList1EntryCount(value: number) {
     this.#view.setUint8(32, Number(value));
   }
@@ -106,7 +104,7 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
   get pReferenceList1Entries(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pReferenceList1Entries(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -114,7 +112,7 @@ export class VideoEncodeH265ReferenceListsInfoEXT implements BaseStruct {
   get pReferenceModifications(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pReferenceModifications(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {StdVideoH264PpsFlags} from "./StdVideoH264PpsFlags.ts";
-import {StdVideoH264ScalingLists} from "./StdVideoH264ScalingLists.ts";
 import { StdVideoH264WeightedBipredIdc } from "../enum.ts";
 
 export interface InitStdVideoH264PictureParameterSet {
@@ -75,7 +74,6 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get flags(): StdVideoH264PpsFlags {
     return new StdVideoH264PpsFlags(this.#data.subarray(0, 0 + StdVideoH264PpsFlags.size));
   }
-
   set flags(value: StdVideoH264PpsFlags) {
     if (value[BUFFER].byteLength < StdVideoH264PpsFlags.size) {
       throw new Error("Data buffer too small");
@@ -86,7 +84,7 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get seq_parameter_set_id(): number {
     return this.#view.getUint8(32);
   }
-
+  
   set seq_parameter_set_id(value: number) {
     this.#view.setUint8(32, Number(value));
   }
@@ -94,7 +92,7 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get pic_parameter_set_id(): number {
     return this.#view.getUint8(33);
   }
-
+  
   set pic_parameter_set_id(value: number) {
     this.#view.setUint8(33, Number(value));
   }
@@ -102,7 +100,7 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get num_ref_idx_l0_default_active_minus1(): number {
     return this.#view.getUint8(34);
   }
-
+  
   set num_ref_idx_l0_default_active_minus1(value: number) {
     this.#view.setUint8(34, Number(value));
   }
@@ -110,23 +108,23 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get num_ref_idx_l1_default_active_minus1(): number {
     return this.#view.getUint8(35);
   }
-
+  
   set num_ref_idx_l1_default_active_minus1(value: number) {
     this.#view.setUint8(35, Number(value));
   }
 
-  get weighted_bipred_idc(): number {
-    return this.#view.getUint32(36, LE);
+  get weighted_bipred_idc(): StdVideoH264WeightedBipredIdc {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set weighted_bipred_idc(value: StdVideoH264WeightedBipredIdc) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
   get pic_init_qp_minus26(): number {
     return this.#view.getInt8(40);
   }
-
+  
   set pic_init_qp_minus26(value: number) {
     this.#view.setInt8(40, Number(value));
   }
@@ -134,7 +132,7 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get pic_init_qs_minus26(): number {
     return this.#view.getInt8(41);
   }
-
+  
   set pic_init_qs_minus26(value: number) {
     this.#view.setInt8(41, Number(value));
   }
@@ -142,7 +140,7 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get chroma_qp_index_offset(): number {
     return this.#view.getInt8(42);
   }
-
+  
   set chroma_qp_index_offset(value: number) {
     this.#view.setInt8(42, Number(value));
   }
@@ -150,15 +148,16 @@ export class StdVideoH264PictureParameterSet implements BaseStruct {
   get second_chroma_qp_index_offset(): number {
     return this.#view.getInt8(43);
   }
-
+  
   set second_chroma_qp_index_offset(value: number) {
     this.#view.setInt8(43, Number(value));
   }
 
+  /** Must be a valid pointer if StdVideoH264PpsFlags::pic_scaling_matrix_present_flag is set. */
   get pScalingLists(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pScalingLists(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

@@ -18,7 +18,7 @@ import { DisplaySurfaceCreateFlagsKHR, DisplayModeKHR } from "../def.ts";
 export interface InitDisplaySurfaceCreateInfoKHR {
   pNext?: AnyPointer;
   flags?: DisplaySurfaceCreateFlagsKHR;
-  displayMode?: DisplayModeKHR;
+  displayMode?: AnyPointer;
   planeIndex?: number;
   planeStackIndex?: number;
   transform?: SurfaceTransformFlagBitsKHR;
@@ -69,82 +69,88 @@ export class DisplaySurfaceCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.DISPLAY_SURFACE_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): DisplaySurfaceCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DisplaySurfaceCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** The mode to use when displaying this surface */
   get displayMode(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set displayMode(value: DisplayModeKHR) {
+  
+  set displayMode(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** The plane on which this surface appears.  Must be between 0 and the value returned by vkGetPhysicalDeviceDisplayPlanePropertiesKHR() in pPropertyCount. */
   get planeIndex(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set planeIndex(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** The z-order of the plane. */
   get planeStackIndex(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set planeStackIndex(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get transform(): number {
-    return this.#view.getUint32(40, LE);
+  /** Transform to apply to the images as part of the scanout operation */
+  get transform(): SurfaceTransformFlagBitsKHR {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set transform(value: SurfaceTransformFlagBitsKHR) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
+  /** Global alpha value.  Must be between 0 and 1, inclusive.  Ignored if alphaMode is not VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR */
   get globalAlpha(): number {
     return this.#view.getFloat32(44, LE);
   }
-
+  
   set globalAlpha(value: number) {
     this.#view.setFloat32(44, Number(value), LE);
   }
 
-  get alphaMode(): number {
-    return this.#view.getUint32(48, LE);
+  /** What type of alpha blending to use.  Must be a bit from vkGetDisplayPlanePropertiesKHR::supportedAlpha. */
+  get alphaMode(): DisplayPlaneAlphaFlagBitsKHR {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set alphaMode(value: DisplayPlaneAlphaFlagBitsKHR) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
+  /** size of the images to use with this surface */
   get imageExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(52, 52 + Extent2D.size));
   }
-
   set imageExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {Viewport} from "./Viewport.ts";
 import { StructureType } from "../enum.ts";
 import { Bool32 } from "../def.ts";
 
@@ -59,26 +58,26 @@ export class CommandBufferInheritanceViewportScissorInfoNV implements BaseStruct
     this.sType = StructureType.COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get viewportScissor2D(): number {
+  get viewportScissor2D(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set viewportScissor2D(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -86,7 +85,7 @@ export class CommandBufferInheritanceViewportScissorInfoNV implements BaseStruct
   get viewportDepthCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set viewportDepthCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -94,7 +93,7 @@ export class CommandBufferInheritanceViewportScissorInfoNV implements BaseStruct
   get pViewportDepths(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pViewportDepths(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

@@ -52,18 +52,20 @@ export class MemoryHeap implements BaseStruct {
     }
   }
 
+  /** Available memory in the heap */
   get size(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
-  get flags(): number {
+  /** Flags for the heap */
+  get flags(): MemoryHeapFlags {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set flags(value: MemoryHeapFlags) {
     this.#view.setUint32(8, Number(value), LE);
   }

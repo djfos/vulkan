@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {MicromapUsageEXT} from "./MicromapUsageEXT.ts";
 import { StructureType, IndexType } from "../enum.ts";
 import { DeviceSize, MicromapEXT } from "../def.ts";
 import { DeviceOrHostAddressConstKHR } from "../union.ts";
@@ -25,7 +24,7 @@ export interface InitAccelerationStructureTrianglesOpacityMicromapEXT {
   usageCountsCount?: number;
   pUsageCounts?: AnyPointer;
   ppUsageCounts?: AnyPointer;
-  micromap?: MicromapEXT;
+  micromap?: AnyPointer;
 }
 
 export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStruct {
@@ -70,50 +69,49 @@ export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStr
     this.sType = StructureType.ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get indexType(): number {
-    return this.#view.getUint32(16, LE);
+  get indexType(): IndexType {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set indexType(value: IndexType) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get indexBuffer(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get indexBuffer(): DeviceOrHostAddressConstKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set indexBuffer(value: DeviceOrHostAddressConstKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
   get indexStride(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set indexStride(value: DeviceSize) {
+  
+  set indexStride(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get baseTriangle(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set baseTriangle(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -121,7 +119,7 @@ export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStr
   get usageCountsCount(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set usageCountsCount(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -129,7 +127,7 @@ export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStr
   get pUsageCounts(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pUsageCounts(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -137,7 +135,7 @@ export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStr
   get ppUsageCounts(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set ppUsageCounts(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
@@ -145,8 +143,8 @@ export class AccelerationStructureTrianglesOpacityMicromapEXT implements BaseStr
   get micromap(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
-  set micromap(value: MicromapEXT) {
+  
+  set micromap(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
 }

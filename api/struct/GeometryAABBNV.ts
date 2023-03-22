@@ -16,7 +16,7 @@ import { Buffer, DeviceSize } from "../def.ts";
 
 export interface InitGeometryAABBNV {
   pNext?: AnyPointer;
-  aabbData?: Buffer;
+  aabbData?: AnyPointer;
   numAABBs?: number;
   stride?: number;
   offset?: DeviceSize;
@@ -60,18 +60,18 @@ export class GeometryAABBNV implements BaseStruct {
     this.sType = StructureType.GEOMETRY_AABB_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,32 +79,34 @@ export class GeometryAABBNV implements BaseStruct {
   get aabbData(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set aabbData(value: Buffer) {
+  
+  set aabbData(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get numAABBs(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set numAABBs(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** Stride in bytes between AABBs */
   get stride(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set stride(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
+  /** Offset in bytes of the first AABB in aabbData */
   get offset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 }

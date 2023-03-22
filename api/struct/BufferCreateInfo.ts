@@ -64,58 +64,61 @@ export class BufferCreateInfo implements BaseStruct {
     this.sType = StructureType.BUFFER_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Buffer creation flags */
+  get flags(): BufferCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: BufferCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
-  get usage(): number {
+  /** Buffer usage flags */
+  get usage(): BufferUsageFlags {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set usage(value: BufferUsageFlags) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get sharingMode(): number {
-    return this.#view.getUint32(36, LE);
+  get sharingMode(): SharingMode {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set sharingMode(value: SharingMode) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
   get queueFamilyIndexCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set queueFamilyIndexCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -123,7 +126,7 @@ export class BufferCreateInfo implements BaseStruct {
   get pQueueFamilyIndices(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pQueueFamilyIndices(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

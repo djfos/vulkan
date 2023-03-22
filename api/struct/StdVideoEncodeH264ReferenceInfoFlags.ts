@@ -49,10 +49,11 @@ export class StdVideoEncodeH264ReferenceInfoFlags implements BaseStruct {
     }
   }
 
+  /** : A picture that is marked as "used for long-term reference", derived binary value from clause 8.2.5.1 Sequence of operations for decoded reference picture marking process */
   get used_for_long_term_reference(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set used_for_long_term_reference(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }

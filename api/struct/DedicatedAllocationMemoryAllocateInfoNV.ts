@@ -16,8 +16,8 @@ import { Image, Buffer } from "../def.ts";
 
 export interface InitDedicatedAllocationMemoryAllocateInfoNV {
   pNext?: AnyPointer;
-  image?: Image;
-  buffer?: Buffer;
+  image?: AnyPointer;
+  buffer?: AnyPointer;
 }
 
 export class DedicatedAllocationMemoryAllocateInfoNV implements BaseStruct {
@@ -56,35 +56,37 @@ export class DedicatedAllocationMemoryAllocateInfoNV implements BaseStruct {
     this.sType = StructureType.DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Image that this allocation will be bound to */
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
+  /** Buffer that this allocation will be bound to */
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

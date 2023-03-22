@@ -66,7 +66,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get transform_8x8_mode_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set transform_8x8_mode_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -74,7 +74,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get redundant_pic_cnt_present_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set redundant_pic_cnt_present_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -82,7 +82,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get constrained_intra_pred_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set constrained_intra_pred_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -90,7 +90,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get deblocking_filter_control_present_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set deblocking_filter_control_present_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -98,7 +98,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get weighted_pred_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set weighted_pred_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -106,7 +106,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get bottom_field_pic_order_in_frame_present_flag(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set bottom_field_pic_order_in_frame_present_flag(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -114,7 +114,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get entropy_coding_mode_flag(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set entropy_coding_mode_flag(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -122,7 +122,7 @@ export class StdVideoH264PpsFlags implements BaseStruct {
   get pic_scaling_matrix_present_flag(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set pic_scaling_matrix_present_flag(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }

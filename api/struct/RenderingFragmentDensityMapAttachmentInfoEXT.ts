@@ -16,7 +16,7 @@ import { ImageView } from "../def.ts";
 
 export interface InitRenderingFragmentDensityMapAttachmentInfoEXT {
   pNext?: AnyPointer;
-  imageView?: ImageView;
+  imageView?: AnyPointer;
   imageLayout?: ImageLayout;
 }
 
@@ -56,18 +56,18 @@ export class RenderingFragmentDensityMapAttachmentInfoEXT implements BaseStruct 
     this.sType = StructureType.RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,16 +75,16 @@ export class RenderingFragmentDensityMapAttachmentInfoEXT implements BaseStruct 
   get imageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set imageView(value: ImageView) {
+  
+  set imageView(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get imageLayout(): number {
-    return this.#view.getUint32(24, LE);
+  get imageLayout(): ImageLayout {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set imageLayout(value: ImageLayout) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 }

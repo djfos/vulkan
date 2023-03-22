@@ -21,7 +21,7 @@ export interface InitVideoPictureResourceInfoKHR {
   codedOffset?: Offset2D;
   codedExtent?: Extent2D;
   baseArrayLayer?: number;
-  imageViewBinding?: ImageView;
+  imageViewBinding?: AnyPointer;
 }
 
 export class VideoPictureResourceInfoKHR implements BaseStruct {
@@ -62,26 +62,26 @@ export class VideoPictureResourceInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_PICTURE_RESOURCE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** The offset to be used for the picture resource, currently only used in field mode */
   get codedOffset(): Offset2D {
     return new Offset2D(this.#data.subarray(16, 16 + Offset2D.size));
   }
-
   set codedOffset(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -89,10 +89,10 @@ export class VideoPictureResourceInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
+  /** The extent to be used for the picture resource */
   get codedExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(24, 24 + Extent2D.size));
   }
-
   set codedExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -100,19 +100,21 @@ export class VideoPictureResourceInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
+  /** The first array layer to be accessed for the Decode or Encode Operations */
   get baseArrayLayer(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set baseArrayLayer(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** The ImageView binding of the resource */
   get imageViewBinding(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
-  set imageViewBinding(value: ImageView) {
+  
+  set imageViewBinding(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 }

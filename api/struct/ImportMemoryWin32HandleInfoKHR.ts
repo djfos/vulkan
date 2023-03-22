@@ -16,8 +16,8 @@ import { StructureType, ExternalMemoryHandleTypeFlagBits } from "../enum.ts";
 export interface InitImportMemoryWin32HandleInfoKHR {
   pNext?: AnyPointer;
   handleType?: ExternalMemoryHandleTypeFlagBits;
-  handle?: Deno.PointerValue;
-  name?: Deno.PointerValue;
+  handle?: AnyPointer;
+  name?: AnyPointer;
 }
 
 export class ImportMemoryWin32HandleInfoKHR implements BaseStruct {
@@ -57,43 +57,43 @@ export class ImportMemoryWin32HandleInfoKHR implements BaseStruct {
     this.sType = StructureType.IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get handleType(): number {
-    return this.#view.getUint32(16, LE);
+  get handleType(): ExternalMemoryHandleTypeFlagBits {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set handleType(value: ExternalMemoryHandleTypeFlagBits) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get handle(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set handle(value: Deno.PointerValue) {
+  
+  set handle(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get name(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set name(value: Deno.PointerValue) {
+  
+  set name(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

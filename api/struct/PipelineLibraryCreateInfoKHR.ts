@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType } from "../enum.ts";
-import { Pipeline } from "../def.ts";
 
 export interface InitPipelineLibraryCreateInfoKHR {
   pNext?: AnyPointer;
@@ -56,18 +55,18 @@ export class PipelineLibraryCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.PIPELINE_LIBRARY_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class PipelineLibraryCreateInfoKHR implements BaseStruct {
   get libraryCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set libraryCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class PipelineLibraryCreateInfoKHR implements BaseStruct {
   get pLibraries(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pLibraries(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

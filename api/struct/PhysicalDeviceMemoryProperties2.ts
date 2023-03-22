@@ -20,7 +20,7 @@ export interface InitPhysicalDeviceMemoryProperties2 {
 }
 
 export class PhysicalDeviceMemoryProperties2 implements BaseStruct {
-  static size = 48;
+  static size = 536;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -54,18 +54,18 @@ export class PhysicalDeviceMemoryProperties2 implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class PhysicalDeviceMemoryProperties2 implements BaseStruct {
   get memoryProperties(): PhysicalDeviceMemoryProperties {
     return new PhysicalDeviceMemoryProperties(this.#data.subarray(16, 16 + PhysicalDeviceMemoryProperties.size));
   }
-
   set memoryProperties(value: PhysicalDeviceMemoryProperties) {
     if (value[BUFFER].byteLength < PhysicalDeviceMemoryProperties.size) {
       throw new Error("Data buffer too small");

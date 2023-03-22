@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {CoarseSampleLocationNV} from "./CoarseSampleLocationNV.ts";
 import { ShadingRatePaletteEntryNV } from "../enum.ts";
 
 export interface InitCoarseSampleOrderCustomNV {
@@ -57,18 +56,18 @@ export class CoarseSampleOrderCustomNV implements BaseStruct {
     }
   }
 
-  get shadingRate(): number {
-    return this.#view.getUint32(0, LE);
+  get shadingRate(): ShadingRatePaletteEntryNV {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set shadingRate(value: ShadingRatePaletteEntryNV) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get sampleCount(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set sampleCount(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -76,7 +75,7 @@ export class CoarseSampleOrderCustomNV implements BaseStruct {
   get sampleLocationCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set sampleLocationCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -84,7 +83,7 @@ export class CoarseSampleOrderCustomNV implements BaseStruct {
   get pSampleLocations(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pSampleLocations(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }

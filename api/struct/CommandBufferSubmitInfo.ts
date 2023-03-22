@@ -16,7 +16,7 @@ import { CommandBuffer } from "../def.ts";
 
 export interface InitCommandBufferSubmitInfo {
   pNext?: AnyPointer;
-  commandBuffer?: CommandBuffer;
+  commandBuffer?: AnyPointer;
   deviceMask?: number;
 }
 
@@ -56,18 +56,18 @@ export class CommandBufferSubmitInfo implements BaseStruct {
     this.sType = StructureType.COMMAND_BUFFER_SUBMIT_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,15 +75,15 @@ export class CommandBufferSubmitInfo implements BaseStruct {
   get commandBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set commandBuffer(value: CommandBuffer) {
+  
+  set commandBuffer(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get deviceMask(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set deviceMask(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

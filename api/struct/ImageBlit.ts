@@ -60,7 +60,6 @@ export class ImageBlit implements BaseStruct {
   get srcSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(0, 0 + ImageSubresourceLayers.size));
   }
-
   set srcSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -68,21 +67,21 @@ export class ImageBlit implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get srcOffsets(): Offset3D[] {
     const result: Offset3D[] = [];
     for (let i = 0; i < 2; i++) {
-      result.push((() => {
-        return new Offset3D(this.#data.subarray(16 + i * 12, 16 + i * 12 + Offset3D.size));
-      })());
+      const start = 16 + i * Offset3D.size;
+      const element = new Offset3D(this.#data.subarray(start, start + Offset3D.size));
+      result.push(element);
     }
     return result;
   }
-
   set srcOffsets(value: Offset3D[]) {
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
     for (let i = 0; i < value.length; i++) {
-      if (value[i][BUFFER].byteLength < Offset3D.size) {
-        throw new Error("Data buffer too small");
-      }
       this.#data.set(value[i][BUFFER], 16 + i * 12);
     }
   }
@@ -90,7 +89,6 @@ export class ImageBlit implements BaseStruct {
   get dstSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(40, 40 + ImageSubresourceLayers.size));
   }
-
   set dstSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -98,21 +96,21 @@ export class ImageBlit implements BaseStruct {
     this.#data.set(value[BUFFER], 40);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get dstOffsets(): Offset3D[] {
     const result: Offset3D[] = [];
     for (let i = 0; i < 2; i++) {
-      result.push((() => {
-        return new Offset3D(this.#data.subarray(56 + i * 12, 56 + i * 12 + Offset3D.size));
-      })());
+      const start = 56 + i * Offset3D.size;
+      const element = new Offset3D(this.#data.subarray(start, start + Offset3D.size));
+      result.push(element);
     }
     return result;
   }
-
   set dstOffsets(value: Offset3D[]) {
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
     for (let i = 0; i < value.length; i++) {
-      if (value[i][BUFFER].byteLength < Offset3D.size) {
-        throw new Error("Data buffer too small");
-      }
       this.#data.set(value[i][BUFFER], 56 + i * 12);
     }
   }

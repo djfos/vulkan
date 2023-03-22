@@ -11,9 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VideoEncodeH265ReferenceListsInfoEXT} from "./VideoEncodeH265ReferenceListsInfoEXT.ts";
-import {VideoEncodeH265NaluSliceSegmentInfoEXT} from "./VideoEncodeH265NaluSliceSegmentInfoEXT.ts";
-import {StdVideoEncodeH265PictureInfo} from "./StdVideoEncodeH265PictureInfo.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitVideoEncodeH265VclFrameInfoEXT {
@@ -62,18 +59,18 @@ export class VideoEncodeH265VclFrameInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_VCL_FRAME_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -81,7 +78,7 @@ export class VideoEncodeH265VclFrameInfoEXT implements BaseStruct {
   get pReferenceFinalLists(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pReferenceFinalLists(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
@@ -89,7 +86,7 @@ export class VideoEncodeH265VclFrameInfoEXT implements BaseStruct {
   get naluSliceSegmentEntryCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set naluSliceSegmentEntryCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -97,7 +94,7 @@ export class VideoEncodeH265VclFrameInfoEXT implements BaseStruct {
   get pNaluSliceSegmentEntries(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pNaluSliceSegmentEntries(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -105,7 +102,7 @@ export class VideoEncodeH265VclFrameInfoEXT implements BaseStruct {
   get pCurrentPictureInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pCurrentPictureInfo(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

@@ -60,50 +60,54 @@ export class PhysicalDeviceSubgroupSizeControlProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** The minimum subgroup size supported by this device */
   get minSubgroupSize(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set minSubgroupSize(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** The maximum subgroup size supported by this device */
   get maxSubgroupSize(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxSubgroupSize(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** The maximum number of subgroups supported in a workgroup */
   get maxComputeWorkgroupSubgroups(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set maxComputeWorkgroupSubgroups(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get requiredSubgroupSizeStages(): number {
+  /** The shader stages that support specifying a subgroup size */
+  get requiredSubgroupSizeStages(): ShaderStageFlags {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set requiredSubgroupSizeStages(value: ShaderStageFlags) {
     this.#view.setUint32(28, Number(value), LE);
   }

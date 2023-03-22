@@ -17,8 +17,8 @@ import { Pipeline, IndirectCommandsLayoutNV } from "../def.ts";
 export interface InitGeneratedCommandsMemoryRequirementsInfoNV {
   pNext?: AnyPointer;
   pipelineBindPoint?: PipelineBindPoint;
-  pipeline?: Pipeline;
-  indirectCommandsLayout?: IndirectCommandsLayoutNV;
+  pipeline?: AnyPointer;
+  indirectCommandsLayout?: AnyPointer;
   maxSequencesCount?: number;
 }
 
@@ -60,50 +60,50 @@ export class GeneratedCommandsMemoryRequirementsInfoNV implements BaseStruct {
     this.sType = StructureType.GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get pipelineBindPoint(): number {
-    return this.#view.getUint32(16, LE);
+  get pipelineBindPoint(): PipelineBindPoint {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set pipelineBindPoint(value: PipelineBindPoint) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get pipeline(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set pipeline(value: Pipeline) {
+  
+  set pipeline(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get indirectCommandsLayout(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set indirectCommandsLayout(value: IndirectCommandsLayoutNV) {
+  
+  set indirectCommandsLayout(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get maxSequencesCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxSequencesCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }

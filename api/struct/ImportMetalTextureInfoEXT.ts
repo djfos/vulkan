@@ -17,7 +17,7 @@ import { MTLTexture_id } from "../def.ts";
 export interface InitImportMetalTextureInfoEXT {
   pNext?: AnyPointer;
   plane?: ImageAspectFlagBits;
-  mtlTexture?: MTLTexture_id;
+  mtlTexture?: AnyPointer;
 }
 
 export class ImportMetalTextureInfoEXT implements BaseStruct {
@@ -56,35 +56,35 @@ export class ImportMetalTextureInfoEXT implements BaseStruct {
     this.sType = StructureType.IMPORT_METAL_TEXTURE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get plane(): number {
-    return this.#view.getUint32(16, LE);
+  get plane(): ImageAspectFlagBits {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set plane(value: ImageAspectFlagBits) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get mtlTexture(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set mtlTexture(value: MTLTexture_id) {
+  
+  set mtlTexture(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

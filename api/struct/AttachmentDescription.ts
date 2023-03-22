@@ -67,75 +67,79 @@ export class AttachmentDescription implements BaseStruct {
     }
   }
 
-  get flags(): number {
+  get flags(): AttachmentDescriptionFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set flags(value: AttachmentDescriptionFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(4, LE);
+  get format(): Format {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
-  get samples(): number {
-    return this.#view.getUint32(8, LE);
+  get samples(): SampleCountFlagBits {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set samples(value: SampleCountFlagBits) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
-  get loadOp(): number {
-    return this.#view.getUint32(12, LE);
+  /** Load operation for color or depth data */
+  get loadOp(): AttachmentLoadOp {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set loadOp(value: AttachmentLoadOp) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 
-  get storeOp(): number {
-    return this.#view.getUint32(16, LE);
+  /** Store operation for color or depth data */
+  get storeOp(): AttachmentStoreOp {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set storeOp(value: AttachmentStoreOp) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get stencilLoadOp(): number {
-    return this.#view.getUint32(20, LE);
+  /** Load operation for stencil data */
+  get stencilLoadOp(): AttachmentLoadOp {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set stencilLoadOp(value: AttachmentLoadOp) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get stencilStoreOp(): number {
-    return this.#view.getUint32(24, LE);
+  /** Store operation for stencil data */
+  get stencilStoreOp(): AttachmentStoreOp {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set stencilStoreOp(value: AttachmentStoreOp) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get initialLayout(): number {
-    return this.#view.getUint32(28, LE);
+  get initialLayout(): ImageLayout {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set initialLayout(value: ImageLayout) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
-  get finalLayout(): number {
-    return this.#view.getUint32(32, LE);
+  get finalLayout(): ImageLayout {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set finalLayout(value: ImageLayout) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 }

@@ -60,18 +60,18 @@ export class PhysicalDeviceImageProcessingPropertiesQCOM implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,7 +79,7 @@ export class PhysicalDeviceImageProcessingPropertiesQCOM implements BaseStruct {
   get maxWeightFilterPhases(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxWeightFilterPhases(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -87,7 +87,6 @@ export class PhysicalDeviceImageProcessingPropertiesQCOM implements BaseStruct {
   get maxWeightFilterDimension(): Extent2D {
     return new Extent2D(this.#data.subarray(20, 20 + Extent2D.size));
   }
-
   set maxWeightFilterDimension(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -98,7 +97,6 @@ export class PhysicalDeviceImageProcessingPropertiesQCOM implements BaseStruct {
   get maxBlockMatchRegion(): Extent2D {
     return new Extent2D(this.#data.subarray(28, 28 + Extent2D.size));
   }
-
   set maxBlockMatchRegion(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -109,7 +107,6 @@ export class PhysicalDeviceImageProcessingPropertiesQCOM implements BaseStruct {
   get maxBoxFilterBlockSize(): Extent2D {
     return new Extent2D(this.#data.subarray(36, 36 + Extent2D.size));
   }
-
   set maxBoxFilterBlockSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

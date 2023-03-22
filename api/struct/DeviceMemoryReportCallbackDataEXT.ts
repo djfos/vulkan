@@ -66,42 +66,42 @@ export class DeviceMemoryReportCallbackDataEXT implements BaseStruct {
     this.sType = StructureType.DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): DeviceMemoryReportFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DeviceMemoryReportFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(20, LE);
+  get type(): DeviceMemoryReportEventTypeEXT {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set type(value: DeviceMemoryReportEventTypeEXT) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
   get memoryObjectId(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set memoryObjectId(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
@@ -109,23 +109,23 @@ export class DeviceMemoryReportCallbackDataEXT implements BaseStruct {
   get size(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
-  get objectType(): number {
-    return this.#view.getUint32(40, LE);
+  get objectType(): ObjectType {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set objectType(value: ObjectType) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
   get objectHandle(): bigint {
     return this.#view.getBigUint64(48, LE);
   }
-
+  
   set objectHandle(value: number | bigint) {
     this.#view.setBigUint64(48, BigInt(value), LE);
   }
@@ -133,7 +133,7 @@ export class DeviceMemoryReportCallbackDataEXT implements BaseStruct {
   get heapIndex(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set heapIndex(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }

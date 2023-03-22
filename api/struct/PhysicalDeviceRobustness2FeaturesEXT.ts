@@ -58,42 +58,42 @@ export class PhysicalDeviceRobustness2FeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get robustBufferAccess2(): number {
+  get robustBufferAccess2(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set robustBufferAccess2(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get robustImageAccess2(): number {
+  get robustImageAccess2(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set robustImageAccess2(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get nullDescriptor(): number {
+  get nullDescriptor(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set nullDescriptor(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }

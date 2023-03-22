@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {PresentRegionKHR} from "./PresentRegionKHR.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitPresentRegionsKHR {
@@ -56,34 +55,36 @@ export class PresentRegionsKHR implements BaseStruct {
     this.sType = StructureType.PRESENT_REGIONS_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Copy of VkPresentInfoKHR::swapchainCount */
   get swapchainCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set swapchainCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** The regions that have changed */
   get pRegions(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pRegions(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

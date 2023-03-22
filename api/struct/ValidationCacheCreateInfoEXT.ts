@@ -58,26 +58,26 @@ export class ValidationCacheCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.VALIDATION_CACHE_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): ValidationCacheCreateFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ValidationCacheCreateFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,7 +85,7 @@ export class ValidationCacheCreateInfoEXT implements BaseStruct {
   get initialDataSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set initialDataSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
@@ -93,7 +93,7 @@ export class ValidationCacheCreateInfoEXT implements BaseStruct {
   get pInitialData(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pInitialData(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

@@ -53,18 +53,26 @@ export class DeviceFaultVendorInfoEXT implements BaseStruct {
     }
   }
 
+  /** Free-form description of the fault */
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 0, 256);
+    return new Uint8Array(this.#data.buffer, 0, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
   get vendorFaultCode(): bigint {
     return this.#view.getBigUint64(256, LE);
   }
-
+  
   set vendorFaultCode(value: number | bigint) {
     this.#view.setBigUint64(256, BigInt(value), LE);
   }
@@ -72,7 +80,7 @@ export class DeviceFaultVendorInfoEXT implements BaseStruct {
   get vendorFaultData(): bigint {
     return this.#view.getBigUint64(264, LE);
   }
-
+  
   set vendorFaultData(value: number | bigint) {
     this.#view.setBigUint64(264, BigInt(value), LE);
   }

@@ -54,26 +54,33 @@ export class RenderPassSubpassFeedbackInfoEXT implements BaseStruct {
     }
   }
 
-  get subpassMergeStatus(): number {
-    return this.#view.getUint32(0, LE);
+  get subpassMergeStatus(): SubpassMergeStatusEXT {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set subpassMergeStatus(value: SubpassMergeStatusEXT) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 4, 256);
+    return new Uint8Array(this.#data.buffer, 4, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 4);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 4);
   }
 
   get postMergeIndex(): number {
     return this.#view.getUint32(260, LE);
   }
-
+  
   set postMergeIndex(value: number) {
     this.#view.setUint32(260, Number(value), LE);
   }

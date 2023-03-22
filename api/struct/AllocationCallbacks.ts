@@ -62,7 +62,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pUserData(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
+  
   set pUserData(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
@@ -70,7 +70,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pfnAllocation(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pfnAllocation(value: Deno.PointerValue) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -78,7 +78,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pfnReallocation(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pfnReallocation(value: Deno.PointerValue) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
@@ -86,7 +86,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pfnFree(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pfnFree(value: Deno.PointerValue) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -94,7 +94,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pfnInternalAllocation(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pfnInternalAllocation(value: Deno.PointerValue) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -102,7 +102,7 @@ export class AllocationCallbacks implements BaseStruct {
   get pfnInternalFree(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pfnInternalFree(value: Deno.PointerValue) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

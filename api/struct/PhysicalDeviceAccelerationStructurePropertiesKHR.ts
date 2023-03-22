@@ -67,18 +67,18 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
     this.sType = StructureType.PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -86,7 +86,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxGeometryCount(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set maxGeometryCount(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
@@ -94,7 +94,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxInstanceCount(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set maxInstanceCount(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
@@ -102,7 +102,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxPrimitiveCount(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
+  
   set maxPrimitiveCount(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
@@ -110,7 +110,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxPerStageDescriptorAccelerationStructures(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxPerStageDescriptorAccelerationStructures(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -118,7 +118,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxPerStageDescriptorUpdateAfterBindAccelerationStructures(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set maxPerStageDescriptorUpdateAfterBindAccelerationStructures(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -126,7 +126,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxDescriptorSetAccelerationStructures(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxDescriptorSetAccelerationStructures(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -134,7 +134,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get maxDescriptorSetUpdateAfterBindAccelerationStructures(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set maxDescriptorSetUpdateAfterBindAccelerationStructures(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -142,7 +142,7 @@ export class PhysicalDeviceAccelerationStructurePropertiesKHR implements BaseStr
   get minAccelerationStructureScratchOffsetAlignment(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set minAccelerationStructureScratchOffsetAlignment(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }

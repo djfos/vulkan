@@ -16,7 +16,7 @@ import { Semaphore, PipelineStageFlags2 } from "../def.ts";
 
 export interface InitSemaphoreSubmitInfo {
   pNext?: AnyPointer;
-  semaphore?: Semaphore;
+  semaphore?: AnyPointer;
   value?: number | bigint;
   stageMask?: PipelineStageFlags2;
   deviceIndex?: number;
@@ -60,18 +60,18 @@ export class SemaphoreSubmitInfo implements BaseStruct {
     this.sType = StructureType.SEMAPHORE_SUBMIT_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,15 +79,15 @@ export class SemaphoreSubmitInfo implements BaseStruct {
   get semaphore(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set semaphore(value: Semaphore) {
+  
+  set semaphore(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get value(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set value(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
@@ -95,15 +95,15 @@ export class SemaphoreSubmitInfo implements BaseStruct {
   get stageMask(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set stageMask(value: PipelineStageFlags2) {
+  
+  set stageMask(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get deviceIndex(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set deviceIndex(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }

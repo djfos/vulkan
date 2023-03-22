@@ -11,14 +11,13 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {BufferCopy2} from "./BufferCopy2.ts";
 import { StructureType } from "../enum.ts";
 import { Buffer } from "../def.ts";
 
 export interface InitCopyBufferInfo2 {
   pNext?: AnyPointer;
-  srcBuffer?: Buffer;
-  dstBuffer?: Buffer;
+  srcBuffer?: AnyPointer;
+  dstBuffer?: AnyPointer;
   regionCount?: number;
   pRegions?: AnyPointer;
 }
@@ -61,18 +60,18 @@ export class CopyBufferInfo2 implements BaseStruct {
     this.sType = StructureType.COPY_BUFFER_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -80,23 +79,23 @@ export class CopyBufferInfo2 implements BaseStruct {
   get srcBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set srcBuffer(value: Buffer) {
+  
+  set srcBuffer(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get dstBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set dstBuffer(value: Buffer) {
+  
+  set dstBuffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get regionCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set regionCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -104,7 +103,7 @@ export class CopyBufferInfo2 implements BaseStruct {
   get pRegions(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pRegions(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

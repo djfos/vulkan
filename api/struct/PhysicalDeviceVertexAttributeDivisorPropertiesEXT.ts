@@ -53,26 +53,27 @@ export class PhysicalDeviceVertexAttributeDivisorPropertiesEXT implements BaseSt
     this.sType = StructureType.PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** max value of vertex attribute divisor */
   get maxVertexAttribDivisor(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxVertexAttribDivisor(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }

@@ -68,18 +68,19 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
     }
   }
 
-  get supportedAlpha(): number {
+  /** Types of alpha blending supported, if any. */
+  get supportedAlpha(): DisplayPlaneAlphaFlagsKHR {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set supportedAlpha(value: DisplayPlaneAlphaFlagsKHR) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Does the plane have any position and extent restrictions? */
   get minSrcPosition(): Offset2D {
     return new Offset2D(this.#data.subarray(4, 4 + Offset2D.size));
   }
-
   set minSrcPosition(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -90,7 +91,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get maxSrcPosition(): Offset2D {
     return new Offset2D(this.#data.subarray(12, 12 + Offset2D.size));
   }
-
   set maxSrcPosition(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -101,7 +101,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get minSrcExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(20, 20 + Extent2D.size));
   }
-
   set minSrcExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -112,7 +111,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get maxSrcExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(28, 28 + Extent2D.size));
   }
-
   set maxSrcExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -123,7 +121,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get minDstPosition(): Offset2D {
     return new Offset2D(this.#data.subarray(36, 36 + Offset2D.size));
   }
-
   set minDstPosition(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -134,7 +131,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get maxDstPosition(): Offset2D {
     return new Offset2D(this.#data.subarray(44, 44 + Offset2D.size));
   }
-
   set maxDstPosition(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -145,7 +141,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get minDstExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(52, 52 + Extent2D.size));
   }
-
   set minDstExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -156,7 +151,6 @@ export class DisplayPlaneCapabilitiesKHR implements BaseStruct {
   get maxDstExtent(): Extent2D {
     return new Extent2D(this.#data.subarray(60, 60 + Extent2D.size));
   }
-
   set maxDstExtent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

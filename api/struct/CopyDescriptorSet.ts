@@ -16,10 +16,10 @@ import { DescriptorSet } from "../def.ts";
 
 export interface InitCopyDescriptorSet {
   pNext?: AnyPointer;
-  srcSet?: DescriptorSet;
+  srcSet?: AnyPointer;
   srcBinding?: number;
   srcArrayElement?: number;
-  dstSet?: DescriptorSet;
+  dstSet?: AnyPointer;
   dstBinding?: number;
   dstArrayElement?: number;
   descriptorCount?: number;
@@ -66,74 +66,81 @@ export class CopyDescriptorSet implements BaseStruct {
     this.sType = StructureType.COPY_DESCRIPTOR_SET;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Source descriptor set */
   get srcSet(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set srcSet(value: DescriptorSet) {
+  
+  set srcSet(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
+  /** Binding within the source descriptor set to copy from */
   get srcBinding(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set srcBinding(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** Array element within the source binding to copy from */
   get srcArrayElement(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set srcArrayElement(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
+  /** Destination descriptor set */
   get dstSet(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set dstSet(value: DescriptorSet) {
+  
+  set dstSet(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
+  /** Binding within the destination descriptor set to copy to */
   get dstBinding(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set dstBinding(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
+  /** Array element within the destination binding to copy to */
   get dstArrayElement(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set dstArrayElement(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
+  /** Number of descriptors to write (determines the size of the array pointed by pDescriptors) */
   get descriptorCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set descriptorCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }

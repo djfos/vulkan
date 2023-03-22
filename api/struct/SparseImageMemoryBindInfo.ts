@@ -11,11 +11,10 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {SparseImageMemoryBind} from "./SparseImageMemoryBind.ts";
 import { Image } from "../def.ts";
 
 export interface InitSparseImageMemoryBindInfo {
-  image?: Image;
+  image?: AnyPointer;
   bindCount?: number;
   pBinds?: AnyPointer;
 }
@@ -58,15 +57,15 @@ export class SparseImageMemoryBindInfo implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
   get bindCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set bindCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -74,7 +73,7 @@ export class SparseImageMemoryBindInfo implements BaseStruct {
   get pBinds(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pBinds(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }

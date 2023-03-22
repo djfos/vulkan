@@ -67,18 +67,18 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -86,7 +86,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get shaderGroupHandleSize(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderGroupHandleSize(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -94,7 +94,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxRecursionDepth(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxRecursionDepth(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -102,7 +102,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxShaderGroupStride(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set maxShaderGroupStride(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -110,7 +110,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get shaderGroupBaseAlignment(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set shaderGroupBaseAlignment(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -118,7 +118,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxGeometryCount(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
+  
   set maxGeometryCount(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
@@ -126,7 +126,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxInstanceCount(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
+  
   set maxInstanceCount(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
@@ -134,7 +134,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxTriangleCount(): bigint {
     return this.#view.getBigUint64(48, LE);
   }
-
+  
   set maxTriangleCount(value: number | bigint) {
     this.#view.setBigUint64(48, BigInt(value), LE);
   }
@@ -142,7 +142,7 @@ export class PhysicalDeviceRayTracingPropertiesNV implements BaseStruct {
   get maxDescriptorSetAccelerationStructures(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set maxDescriptorSetAccelerationStructures(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }

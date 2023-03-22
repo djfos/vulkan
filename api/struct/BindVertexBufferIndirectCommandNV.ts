@@ -57,15 +57,15 @@ export class BindVertexBufferIndirectCommandNV implements BaseStruct {
   get bufferAddress(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set bufferAddress(value: DeviceAddress) {
+  
+  set bufferAddress(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
   get size(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set size(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -73,7 +73,7 @@ export class BindVertexBufferIndirectCommandNV implements BaseStruct {
   get stride(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set stride(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }

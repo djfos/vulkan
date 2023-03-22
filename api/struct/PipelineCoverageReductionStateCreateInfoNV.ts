@@ -56,35 +56,35 @@ export class PipelineCoverageReductionStateCreateInfoNV implements BaseStruct {
     this.sType = StructureType.PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineCoverageReductionStateCreateFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCoverageReductionStateCreateFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get coverageReductionMode(): number {
-    return this.#view.getUint32(20, LE);
+  get coverageReductionMode(): CoverageReductionModeNV {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set coverageReductionMode(value: CoverageReductionModeNV) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 }

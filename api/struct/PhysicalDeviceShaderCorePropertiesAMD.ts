@@ -79,130 +79,144 @@ export class PhysicalDeviceShaderCorePropertiesAMD implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** number of shader engines */
   get shaderEngineCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderEngineCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** number of shader arrays */
   get shaderArraysPerEngineCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderArraysPerEngineCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** number of physical CUs per shader array */
   get computeUnitsPerShaderArray(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set computeUnitsPerShaderArray(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** number of SIMDs per compute unit */
   get simdPerComputeUnit(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set simdPerComputeUnit(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
+  /** number of wavefront slots in each SIMD */
   get wavefrontsPerSimd(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set wavefrontsPerSimd(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** maximum number of threads per wavefront */
   get wavefrontSize(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set wavefrontSize(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
+  /** number of physical SGPRs per SIMD */
   get sgprsPerSimd(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set sgprsPerSimd(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
+  /** minimum number of SGPRs that can be allocated by a wave */
   get minSgprAllocation(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set minSgprAllocation(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
+  /** number of available SGPRs */
   get maxSgprAllocation(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxSgprAllocation(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
+  /** SGPRs are allocated in groups of this size */
   get sgprAllocationGranularity(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set sgprAllocationGranularity(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
+  /** number of physical VGPRs per SIMD */
   get vgprsPerSimd(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set vgprsPerSimd(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
+  /** minimum number of VGPRs that can be allocated by a wave */
   get minVgprAllocation(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set minVgprAllocation(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
+  /** number of available VGPRs */
   get maxVgprAllocation(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set maxVgprAllocation(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
+  /** VGPRs are allocated in groups of this size */
   get vgprAllocationGranularity(): number {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set vgprAllocationGranularity(value: number) {
     this.#view.setUint32(68, Number(value), LE);
   }

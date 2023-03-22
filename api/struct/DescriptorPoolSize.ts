@@ -52,18 +52,18 @@ export class DescriptorPoolSize implements BaseStruct {
     }
   }
 
-  get type(): number {
-    return this.#view.getUint32(0, LE);
+  get type(): DescriptorType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set type(value: DescriptorType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get descriptorCount(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set descriptorCount(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

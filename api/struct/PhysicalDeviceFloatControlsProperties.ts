@@ -86,154 +86,169 @@ export class PhysicalDeviceFloatControlsProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get denormBehaviorIndependence(): number {
-    return this.#view.getUint32(16, LE);
+  get denormBehaviorIndependence(): ShaderFloatControlsIndependence {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set denormBehaviorIndependence(value: ShaderFloatControlsIndependence) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get roundingModeIndependence(): number {
-    return this.#view.getUint32(20, LE);
+  get roundingModeIndependence(): ShaderFloatControlsIndependence {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set roundingModeIndependence(value: ShaderFloatControlsIndependence) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get shaderSignedZeroInfNanPreserveFloat16(): number {
+  /** An implementation can preserve signed zero, nan, inf */
+  get shaderSignedZeroInfNanPreserveFloat16(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set shaderSignedZeroInfNanPreserveFloat16(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get shaderSignedZeroInfNanPreserveFloat32(): number {
+  /** An implementation can preserve signed zero, nan, inf */
+  get shaderSignedZeroInfNanPreserveFloat32(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set shaderSignedZeroInfNanPreserveFloat32(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get shaderSignedZeroInfNanPreserveFloat64(): number {
+  /** An implementation can preserve signed zero, nan, inf */
+  get shaderSignedZeroInfNanPreserveFloat64(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set shaderSignedZeroInfNanPreserveFloat64(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get shaderDenormPreserveFloat16(): number {
+  /** An implementation can preserve  denormals */
+  get shaderDenormPreserveFloat16(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set shaderDenormPreserveFloat16(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get shaderDenormPreserveFloat32(): number {
+  /** An implementation can preserve  denormals */
+  get shaderDenormPreserveFloat32(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set shaderDenormPreserveFloat32(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get shaderDenormPreserveFloat64(): number {
+  /** An implementation can preserve  denormals */
+  get shaderDenormPreserveFloat64(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set shaderDenormPreserveFloat64(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get shaderDenormFlushToZeroFloat16(): number {
+  /** An implementation can flush to zero  denormals */
+  get shaderDenormFlushToZeroFloat16(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set shaderDenormFlushToZeroFloat16(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get shaderDenormFlushToZeroFloat32(): number {
+  /** An implementation can flush to zero  denormals */
+  get shaderDenormFlushToZeroFloat32(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set shaderDenormFlushToZeroFloat32(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get shaderDenormFlushToZeroFloat64(): number {
+  /** An implementation can flush to zero  denormals */
+  get shaderDenormFlushToZeroFloat64(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set shaderDenormFlushToZeroFloat64(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get shaderRoundingModeRTEFloat16(): number {
+  /** An implementation can support RTE */
+  get shaderRoundingModeRTEFloat16(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set shaderRoundingModeRTEFloat16(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get shaderRoundingModeRTEFloat32(): number {
+  /** An implementation can support RTE */
+  get shaderRoundingModeRTEFloat32(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set shaderRoundingModeRTEFloat32(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get shaderRoundingModeRTEFloat64(): number {
+  /** An implementation can support RTE */
+  get shaderRoundingModeRTEFloat64(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set shaderRoundingModeRTEFloat64(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get shaderRoundingModeRTZFloat16(): number {
+  /** An implementation can support RTZ */
+  get shaderRoundingModeRTZFloat16(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set shaderRoundingModeRTZFloat16(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get shaderRoundingModeRTZFloat32(): number {
+  /** An implementation can support RTZ */
+  get shaderRoundingModeRTZFloat32(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set shaderRoundingModeRTZFloat32(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get shaderRoundingModeRTZFloat64(): number {
+  /** An implementation can support RTZ */
+  get shaderRoundingModeRTZFloat64(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set shaderRoundingModeRTZFloat64(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }

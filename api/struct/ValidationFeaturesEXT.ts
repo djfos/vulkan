@@ -11,7 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { StructureType, ValidationFeatureEnableEXT, ValidationFeatureDisableEXT } from "../enum.ts";
+import { StructureType } from "../enum.ts";
 
 export interface InitValidationFeaturesEXT {
   pNext?: AnyPointer;
@@ -59,50 +59,55 @@ export class ValidationFeaturesEXT implements BaseStruct {
     this.sType = StructureType.VALIDATION_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  /** Must be VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT */
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Number of validation features to enable */
   get enabledValidationFeatureCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set enabledValidationFeatureCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Validation features to enable */
   get pEnabledValidationFeatures(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pEnabledValidationFeatures(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** Number of validation features to disable */
   get disabledValidationFeatureCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set disabledValidationFeatureCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** Validation features to disable */
   get pDisabledValidationFeatures(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pDisabledValidationFeatures(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

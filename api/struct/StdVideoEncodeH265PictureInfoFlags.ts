@@ -60,7 +60,7 @@ export class StdVideoEncodeH265PictureInfoFlags implements BaseStruct {
   get is_reference_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set is_reference_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -68,7 +68,7 @@ export class StdVideoEncodeH265PictureInfoFlags implements BaseStruct {
   get IrapPicFlag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set IrapPicFlag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -76,7 +76,7 @@ export class StdVideoEncodeH265PictureInfoFlags implements BaseStruct {
   get long_term_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set long_term_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -84,7 +84,7 @@ export class StdVideoEncodeH265PictureInfoFlags implements BaseStruct {
   get discardable_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set discardable_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -92,7 +92,7 @@ export class StdVideoEncodeH265PictureInfoFlags implements BaseStruct {
   get cross_layer_bla_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set cross_layer_bla_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }

@@ -54,18 +54,18 @@ export class FormatProperties2 implements BaseStruct {
     this.sType = StructureType.FORMAT_PROPERTIES_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class FormatProperties2 implements BaseStruct {
   get formatProperties(): FormatProperties {
     return new FormatProperties(this.#data.subarray(16, 16 + FormatProperties.size));
   }
-
   set formatProperties(value: FormatProperties) {
     if (value[BUFFER].byteLength < FormatProperties.size) {
       throw new Error("Data buffer too small");

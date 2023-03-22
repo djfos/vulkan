@@ -62,58 +62,79 @@ export class PhysicalDeviceIDProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_ID_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
   get deviceUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 16, 16);
+    return new Uint8Array(this.#data.buffer, 16, 16);
   }
-
   set deviceUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
   get driverUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 32, 16);
+    return new Uint8Array(this.#data.buffer, 32, 16);
   }
-
   set driverUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 32);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 32);
   }
 
   get deviceLUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 48, 8);
+    return new Uint8Array(this.#data.buffer, 48, 8);
   }
-
   set deviceLUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 48);
+    if (value.length > 8) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 48);
   }
 
   get deviceNodeMask(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set deviceNodeMask(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get deviceLUIDValid(): number {
+  get deviceLUIDValid(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set deviceLUIDValid(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }

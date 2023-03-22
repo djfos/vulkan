@@ -50,10 +50,17 @@ export class TransformMatrixKHR implements BaseStruct {
   }
 
   get matrix(): Float32Array {
-    return new Float32Array(this.#data.buffer, this.#data.byteOffset + 0, 3);
+    return new Float32Array(this.#data.buffer, 0, 3);
   }
-
   set matrix(value: Float32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 }

@@ -57,35 +57,34 @@ export class AccelerationStructureGeometryAabbsDataKHR implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get data(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get data(): DeviceOrHostAddressConstKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set data(value: DeviceOrHostAddressConstKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
   get stride(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set stride(value: DeviceSize) {
+  
+  set stride(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 }

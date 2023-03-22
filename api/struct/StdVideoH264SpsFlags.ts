@@ -82,7 +82,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set0_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set constraint_set0_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -90,7 +90,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set1_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set constraint_set1_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -98,7 +98,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set2_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set constraint_set2_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -106,7 +106,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set3_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set constraint_set3_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -114,7 +114,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set4_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set constraint_set4_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -122,7 +122,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get constraint_set5_flag(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set constraint_set5_flag(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -130,7 +130,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get direct_8x8_inference_flag(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set direct_8x8_inference_flag(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -138,7 +138,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get mb_adaptive_frame_field_flag(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set mb_adaptive_frame_field_flag(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -146,7 +146,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get frame_mbs_only_flag(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set frame_mbs_only_flag(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -154,7 +154,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get delta_pic_order_always_zero_flag(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set delta_pic_order_always_zero_flag(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -162,7 +162,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get separate_colour_plane_flag(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set separate_colour_plane_flag(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -170,7 +170,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get gaps_in_frame_num_value_allowed_flag(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set gaps_in_frame_num_value_allowed_flag(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -178,7 +178,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get qpprime_y_zero_transform_bypass_flag(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set qpprime_y_zero_transform_bypass_flag(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -186,7 +186,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get frame_cropping_flag(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set frame_cropping_flag(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -194,7 +194,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get seq_scaling_matrix_present_flag(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set seq_scaling_matrix_present_flag(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -202,7 +202,7 @@ export class StdVideoH264SpsFlags implements BaseStruct {
   get vui_parameters_present_flag(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set vui_parameters_present_flag(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }

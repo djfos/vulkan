@@ -72,18 +72,18 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
     this.sType = StructureType.PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -91,7 +91,7 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
   get maxTransformFeedbackStreams(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxTransformFeedbackStreams(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -99,7 +99,7 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
   get maxTransformFeedbackBuffers(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxTransformFeedbackBuffers(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -107,15 +107,15 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
   get maxTransformFeedbackBufferSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set maxTransformFeedbackBufferSize(value: DeviceSize) {
+  
+  set maxTransformFeedbackBufferSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get maxTransformFeedbackStreamDataSize(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set maxTransformFeedbackStreamDataSize(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -123,7 +123,7 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
   get maxTransformFeedbackBufferDataSize(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set maxTransformFeedbackBufferDataSize(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -131,39 +131,39 @@ export class PhysicalDeviceTransformFeedbackPropertiesEXT implements BaseStruct 
   get maxTransformFeedbackBufferDataStride(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxTransformFeedbackBufferDataStride(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get transformFeedbackQueries(): number {
+  get transformFeedbackQueries(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set transformFeedbackQueries(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get transformFeedbackStreamsLinesTriangles(): number {
+  get transformFeedbackStreamsLinesTriangles(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set transformFeedbackStreamsLinesTriangles(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get transformFeedbackRasterizationStreamSelect(): number {
+  get transformFeedbackRasterizationStreamSelect(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set transformFeedbackRasterizationStreamSelect(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get transformFeedbackDraw(): number {
+  get transformFeedbackDraw(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set transformFeedbackDraw(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }

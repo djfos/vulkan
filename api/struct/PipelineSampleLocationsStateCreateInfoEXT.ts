@@ -57,26 +57,26 @@ export class PipelineSampleLocationsStateCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get sampleLocationsEnable(): number {
+  get sampleLocationsEnable(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set sampleLocationsEnable(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -84,7 +84,6 @@ export class PipelineSampleLocationsStateCreateInfoEXT implements BaseStruct {
   get sampleLocationsInfo(): SampleLocationsInfoEXT {
     return new SampleLocationsInfoEXT(this.#data.subarray(24, 24 + SampleLocationsInfoEXT.size));
   }
-
   set sampleLocationsInfo(value: SampleLocationsInfoEXT) {
     if (value[BUFFER].byteLength < SampleLocationsInfoEXT.size) {
       throw new Error("Data buffer too small");

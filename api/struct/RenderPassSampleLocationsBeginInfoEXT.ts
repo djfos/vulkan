@@ -11,8 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {AttachmentSampleLocationsEXT} from "./AttachmentSampleLocationsEXT.ts";
-import {SubpassSampleLocationsEXT} from "./SubpassSampleLocationsEXT.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitRenderPassSampleLocationsBeginInfoEXT {
@@ -61,18 +59,18 @@ export class RenderPassSampleLocationsBeginInfoEXT implements BaseStruct {
     this.sType = StructureType.RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -80,7 +78,7 @@ export class RenderPassSampleLocationsBeginInfoEXT implements BaseStruct {
   get attachmentInitialSampleLocationsCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set attachmentInitialSampleLocationsCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -88,7 +86,7 @@ export class RenderPassSampleLocationsBeginInfoEXT implements BaseStruct {
   get pAttachmentInitialSampleLocations(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pAttachmentInitialSampleLocations(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -96,7 +94,7 @@ export class RenderPassSampleLocationsBeginInfoEXT implements BaseStruct {
   get postSubpassSampleLocationsCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set postSubpassSampleLocationsCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -104,7 +102,7 @@ export class RenderPassSampleLocationsBeginInfoEXT implements BaseStruct {
   get pPostSubpassSampleLocations(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pPostSubpassSampleLocations(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

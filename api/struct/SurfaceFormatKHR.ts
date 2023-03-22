@@ -52,19 +52,21 @@ export class SurfaceFormatKHR implements BaseStruct {
     }
   }
 
-  get format(): number {
-    return this.#view.getUint32(0, LE);
+  /** Supported pair of rendering format */
+  get format(): Format {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get colorSpace(): number {
-    return this.#view.getUint32(4, LE);
+  /** and color space for the surface */
+  get colorSpace(): ColorSpaceKHR {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set colorSpace(value: ColorSpaceKHR) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 }

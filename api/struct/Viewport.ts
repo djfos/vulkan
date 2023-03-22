@@ -62,7 +62,7 @@ export class Viewport implements BaseStruct {
   get x(): number {
     return this.#view.getFloat32(0, LE);
   }
-
+  
   set x(value: number) {
     this.#view.setFloat32(0, Number(value), LE);
   }
@@ -70,7 +70,7 @@ export class Viewport implements BaseStruct {
   get y(): number {
     return this.#view.getFloat32(4, LE);
   }
-
+  
   set y(value: number) {
     this.#view.setFloat32(4, Number(value), LE);
   }
@@ -78,7 +78,7 @@ export class Viewport implements BaseStruct {
   get width(): number {
     return this.#view.getFloat32(8, LE);
   }
-
+  
   set width(value: number) {
     this.#view.setFloat32(8, Number(value), LE);
   }
@@ -86,7 +86,7 @@ export class Viewport implements BaseStruct {
   get height(): number {
     return this.#view.getFloat32(12, LE);
   }
-
+  
   set height(value: number) {
     this.#view.setFloat32(12, Number(value), LE);
   }
@@ -94,7 +94,7 @@ export class Viewport implements BaseStruct {
   get minDepth(): number {
     return this.#view.getFloat32(16, LE);
   }
-
+  
   set minDepth(value: number) {
     this.#view.setFloat32(16, Number(value), LE);
   }
@@ -102,7 +102,7 @@ export class Viewport implements BaseStruct {
   get maxDepth(): number {
     return this.#view.getFloat32(20, LE);
   }
-
+  
   set maxDepth(value: number) {
     this.#view.setFloat32(20, Number(value), LE);
   }

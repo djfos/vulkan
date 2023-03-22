@@ -11,24 +11,23 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {IndirectCommandsStreamNV} from "./IndirectCommandsStreamNV.ts";
 import { StructureType, PipelineBindPoint } from "../enum.ts";
 import { Pipeline, IndirectCommandsLayoutNV, Buffer, DeviceSize } from "../def.ts";
 
 export interface InitGeneratedCommandsInfoNV {
   pNext?: AnyPointer;
   pipelineBindPoint?: PipelineBindPoint;
-  pipeline?: Pipeline;
-  indirectCommandsLayout?: IndirectCommandsLayoutNV;
+  pipeline?: AnyPointer;
+  indirectCommandsLayout?: AnyPointer;
   streamCount?: number;
   pStreams?: AnyPointer;
   sequencesCount?: number;
-  preprocessBuffer?: Buffer;
+  preprocessBuffer?: AnyPointer;
   preprocessOffset?: DeviceSize;
   preprocessSize?: DeviceSize;
-  sequencesCountBuffer?: Buffer;
+  sequencesCountBuffer?: AnyPointer;
   sequencesCountOffset?: DeviceSize;
-  sequencesIndexBuffer?: Buffer;
+  sequencesIndexBuffer?: AnyPointer;
   sequencesIndexOffset?: DeviceSize;
 }
 
@@ -79,50 +78,50 @@ export class GeneratedCommandsInfoNV implements BaseStruct {
     this.sType = StructureType.GENERATED_COMMANDS_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get pipelineBindPoint(): number {
-    return this.#view.getUint32(16, LE);
+  get pipelineBindPoint(): PipelineBindPoint {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set pipelineBindPoint(value: PipelineBindPoint) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get pipeline(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set pipeline(value: Pipeline) {
+  
+  set pipeline(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get indirectCommandsLayout(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set indirectCommandsLayout(value: IndirectCommandsLayoutNV) {
+  
+  set indirectCommandsLayout(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get streamCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set streamCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -130,7 +129,7 @@ export class GeneratedCommandsInfoNV implements BaseStruct {
   get pStreams(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pStreams(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -138,7 +137,7 @@ export class GeneratedCommandsInfoNV implements BaseStruct {
   get sequencesCount(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set sequencesCount(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -146,56 +145,56 @@ export class GeneratedCommandsInfoNV implements BaseStruct {
   get preprocessBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
-  set preprocessBuffer(value: Buffer) {
+  
+  set preprocessBuffer(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
 
   get preprocessOffset(): bigint {
     return this.#view.getBigUint64(72, LE);
   }
-
-  set preprocessOffset(value: DeviceSize) {
+  
+  set preprocessOffset(value: number | bigint) {
     this.#view.setBigUint64(72, BigInt(value), LE);
   }
 
   get preprocessSize(): bigint {
     return this.#view.getBigUint64(80, LE);
   }
-
-  set preprocessSize(value: DeviceSize) {
+  
+  set preprocessSize(value: number | bigint) {
     this.#view.setBigUint64(80, BigInt(value), LE);
   }
 
   get sequencesCountBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 88, LE);
   }
-
-  set sequencesCountBuffer(value: Buffer) {
+  
+  set sequencesCountBuffer(value: AnyPointer) {
     this.#view.setBigUint64(88, BigInt(anyPointer(value)), LE);
   }
 
   get sequencesCountOffset(): bigint {
     return this.#view.getBigUint64(96, LE);
   }
-
-  set sequencesCountOffset(value: DeviceSize) {
+  
+  set sequencesCountOffset(value: number | bigint) {
     this.#view.setBigUint64(96, BigInt(value), LE);
   }
 
   get sequencesIndexBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 104, LE);
   }
-
-  set sequencesIndexBuffer(value: Buffer) {
+  
+  set sequencesIndexBuffer(value: AnyPointer) {
     this.#view.setBigUint64(104, BigInt(anyPointer(value)), LE);
   }
 
   get sequencesIndexOffset(): bigint {
     return this.#view.getBigUint64(112, LE);
   }
-
-  set sequencesIndexOffset(value: DeviceSize) {
+  
+  set sequencesIndexOffset(value: number | bigint) {
     this.#view.setBigUint64(112, BigInt(value), LE);
   }
 }

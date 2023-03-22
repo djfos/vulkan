@@ -17,7 +17,7 @@ export interface InitPipelineFragmentShadingRateEnumStateCreateInfoNV {
   pNext?: AnyPointer;
   shadingRateType?: FragmentShadingRateTypeNV;
   shadingRate?: FragmentShadingRateNV;
-  combinerOps?: Uint32Array;
+  combinerOps?: Int32Array;
 }
 
 export class PipelineFragmentShadingRateEnumStateCreateInfoNV implements BaseStruct {
@@ -57,43 +57,50 @@ export class PipelineFragmentShadingRateEnumStateCreateInfoNV implements BaseStr
     this.sType = StructureType.PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shadingRateType(): number {
-    return this.#view.getUint32(16, LE);
+  get shadingRateType(): FragmentShadingRateTypeNV {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set shadingRateType(value: FragmentShadingRateTypeNV) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get shadingRate(): number {
-    return this.#view.getUint32(20, LE);
+  get shadingRate(): FragmentShadingRateNV {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set shadingRate(value: FragmentShadingRateNV) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get combinerOps(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 24, 2);
+  get combinerOps(): Int32Array {
+    return new Int32Array(this.#data.buffer, 24, 2);
   }
-
-  set combinerOps(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 24);
+  set combinerOps(value: Int32Array) {
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 24);
   }
 }

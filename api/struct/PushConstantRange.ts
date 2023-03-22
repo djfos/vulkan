@@ -54,26 +54,29 @@ export class PushConstantRange implements BaseStruct {
     }
   }
 
-  get stageFlags(): number {
+  /** Which stages use the range */
+  get stageFlags(): ShaderStageFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set stageFlags(value: ShaderStageFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Start of the range, in bytes */
   get offset(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set offset(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** Size of the range, in bytes */
   get size(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set size(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

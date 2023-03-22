@@ -74,74 +74,75 @@ export class PipelineRasterizationStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineRasterizationStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineRasterizationStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get depthClampEnable(): number {
+  get depthClampEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set depthClampEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get rasterizerDiscardEnable(): number {
+  get rasterizerDiscardEnable(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set rasterizerDiscardEnable(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get polygonMode(): number {
-    return this.#view.getUint32(28, LE);
+  /** optional (GL45) */
+  get polygonMode(): PolygonMode {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set polygonMode(value: PolygonMode) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
-  get cullMode(): number {
+  get cullMode(): CullModeFlags {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set cullMode(value: CullModeFlags) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get frontFace(): number {
-    return this.#view.getUint32(36, LE);
+  get frontFace(): FrontFace {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set frontFace(value: FrontFace) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
-  get depthBiasEnable(): number {
+  get depthBiasEnable(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set depthBiasEnable(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -149,7 +150,7 @@ export class PipelineRasterizationStateCreateInfo implements BaseStruct {
   get depthBiasConstantFactor(): number {
     return this.#view.getFloat32(44, LE);
   }
-
+  
   set depthBiasConstantFactor(value: number) {
     this.#view.setFloat32(44, Number(value), LE);
   }
@@ -157,7 +158,7 @@ export class PipelineRasterizationStateCreateInfo implements BaseStruct {
   get depthBiasClamp(): number {
     return this.#view.getFloat32(48, LE);
   }
-
+  
   set depthBiasClamp(value: number) {
     this.#view.setFloat32(48, Number(value), LE);
   }
@@ -165,7 +166,7 @@ export class PipelineRasterizationStateCreateInfo implements BaseStruct {
   get depthBiasSlopeFactor(): number {
     return this.#view.getFloat32(52, LE);
   }
-
+  
   set depthBiasSlopeFactor(value: number) {
     this.#view.setFloat32(52, Number(value), LE);
   }
@@ -173,7 +174,7 @@ export class PipelineRasterizationStateCreateInfo implements BaseStruct {
   get lineWidth(): number {
     return this.#view.getFloat32(56, LE);
   }
-
+  
   set lineWidth(value: number) {
     this.#view.setFloat32(56, Number(value), LE);
   }

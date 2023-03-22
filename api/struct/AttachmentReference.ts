@@ -55,16 +55,16 @@ export class AttachmentReference implements BaseStruct {
   get attachment(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set attachment(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get layout(): number {
-    return this.#view.getUint32(4, LE);
+  get layout(): ImageLayout {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set layout(value: ImageLayout) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 }

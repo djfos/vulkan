@@ -25,7 +25,7 @@ export interface InitImageMemoryBarrier2 {
   newLayout?: ImageLayout;
   srcQueueFamilyIndex?: number;
   dstQueueFamilyIndex?: number;
-  image?: Image;
+  image?: AnyPointer;
   subresourceRange?: ImageSubresourceRange;
 }
 
@@ -73,18 +73,18 @@ export class ImageMemoryBarrier2 implements BaseStruct {
     this.sType = StructureType.IMAGE_MEMORY_BARRIER_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -92,55 +92,55 @@ export class ImageMemoryBarrier2 implements BaseStruct {
   get srcStageMask(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set srcStageMask(value: PipelineStageFlags2) {
+  
+  set srcStageMask(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get srcAccessMask(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set srcAccessMask(value: AccessFlags2) {
+  
+  set srcAccessMask(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get dstStageMask(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set dstStageMask(value: PipelineStageFlags2) {
+  
+  set dstStageMask(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get dstAccessMask(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set dstAccessMask(value: AccessFlags2) {
+  
+  set dstAccessMask(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
-  get oldLayout(): number {
-    return this.#view.getUint32(48, LE);
+  get oldLayout(): ImageLayout {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set oldLayout(value: ImageLayout) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
-  get newLayout(): number {
-    return this.#view.getUint32(52, LE);
+  get newLayout(): ImageLayout {
+    return this.#view.getInt32(52, LE);
   }
-
+  
   set newLayout(value: ImageLayout) {
-    this.#view.setUint32(52, Number(value), LE);
+    this.#view.setInt32(52, Number(value), LE);
   }
 
   get srcQueueFamilyIndex(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set srcQueueFamilyIndex(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -148,7 +148,7 @@ export class ImageMemoryBarrier2 implements BaseStruct {
   get dstQueueFamilyIndex(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set dstQueueFamilyIndex(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
@@ -156,15 +156,14 @@ export class ImageMemoryBarrier2 implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
 
   get subresourceRange(): ImageSubresourceRange {
     return new ImageSubresourceRange(this.#data.subarray(72, 72 + ImageSubresourceRange.size));
   }
-
   set subresourceRange(value: ImageSubresourceRange) {
     if (value[BUFFER].byteLength < ImageSubresourceRange.size) {
       throw new Error("Data buffer too small");

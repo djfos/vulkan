@@ -63,10 +63,10 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
     }
   }
 
-  get shaderStageMask(): number {
+  get shaderStageMask(): ShaderStageFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set shaderStageMask(value: ShaderStageFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -74,7 +74,6 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
   get resourceUsage(): ShaderResourceUsageAMD {
     return new ShaderResourceUsageAMD(this.#data.subarray(8, 8 + ShaderResourceUsageAMD.size));
   }
-
   set resourceUsage(value: ShaderResourceUsageAMD) {
     if (value[BUFFER].byteLength < ShaderResourceUsageAMD.size) {
       throw new Error("Data buffer too small");
@@ -85,7 +84,7 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
   get numPhysicalVgprs(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set numPhysicalVgprs(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -93,7 +92,7 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
   get numPhysicalSgprs(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set numPhysicalSgprs(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -101,7 +100,7 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
   get numAvailableVgprs(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set numAvailableVgprs(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -109,16 +108,23 @@ export class ShaderStatisticsInfoAMD implements BaseStruct {
   get numAvailableSgprs(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set numAvailableSgprs(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
   get computeWorkGroupSize(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 56, 3);
+    return new Uint32Array(this.#data.buffer, 56, 3);
   }
-
   set computeWorkGroupSize(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 56);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 56);
   }
 }

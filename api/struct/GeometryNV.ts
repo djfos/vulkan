@@ -59,34 +59,33 @@ export class GeometryNV implements BaseStruct {
     this.sType = StructureType.GEOMETRY_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get geometryType(): number {
-    return this.#view.getUint32(16, LE);
+  get geometryType(): GeometryTypeKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set geometryType(value: GeometryTypeKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get geometry(): GeometryDataNV {
     return new GeometryDataNV(this.#data.subarray(24, 24 + GeometryDataNV.size));
   }
-
   set geometry(value: GeometryDataNV) {
     if (value[BUFFER].byteLength < GeometryDataNV.size) {
       throw new Error("Data buffer too small");
@@ -94,10 +93,10 @@ export class GeometryNV implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
-  get flags(): number {
+  get flags(): GeometryFlagsKHR {
     return this.#view.getUint32(160, LE);
   }
-
+  
   set flags(value: GeometryFlagsKHR) {
     this.#view.setUint32(160, Number(value), LE);
   }

@@ -21,7 +21,7 @@ export interface InitClearAttachment {
 }
 
 export class ClearAttachment implements BaseStruct {
-  static size = 16;
+  static size = 24;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -55,10 +55,10 @@ export class ClearAttachment implements BaseStruct {
     }
   }
 
-  get aspectMask(): number {
+  get aspectMask(): ImageAspectFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set aspectMask(value: ImageAspectFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -66,16 +66,15 @@ export class ClearAttachment implements BaseStruct {
   get colorAttachment(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set colorAttachment(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get clearValue(): unknown {
-    throw new Error(`Unknown type: {"union":[{"union":["f32","i32","u32"]},{"struct":["f32","u32"]}]}`);
+  get clearValue(): ClearValue {
+    throw new Error(`Unknown type: {"union":[{"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]},{"struct":["f32","u32"]}]}`);
   }
-
   set clearValue(value: ClearValue) {
-    throw new Error(`Unknown type: {"union":[{"union":["f32","i32","u32"]},{"struct":["f32","u32"]}]}`);
+    throw new Error(`Unknown type: {"union":[{"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]},{"struct":["f32","u32"]}]}`);
   }
 }

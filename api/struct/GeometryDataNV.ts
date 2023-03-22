@@ -56,7 +56,6 @@ export class GeometryDataNV implements BaseStruct {
   get triangles(): GeometryTrianglesNV {
     return new GeometryTrianglesNV(this.#data.subarray(0, 0 + GeometryTrianglesNV.size));
   }
-
   set triangles(value: GeometryTrianglesNV) {
     if (value[BUFFER].byteLength < GeometryTrianglesNV.size) {
       throw new Error("Data buffer too small");
@@ -67,7 +66,6 @@ export class GeometryDataNV implements BaseStruct {
   get aabbs(): GeometryAABBNV {
     return new GeometryAABBNV(this.#data.subarray(96, 96 + GeometryAABBNV.size));
   }
-
   set aabbs(value: GeometryAABBNV) {
     if (value[BUFFER].byteLength < GeometryAABBNV.size) {
       throw new Error("Data buffer too small");

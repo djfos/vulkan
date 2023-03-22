@@ -11,8 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {Viewport} from "./Viewport.ts";
-import {Rect2D} from "./Rect2D.ts";
 import { StructureType } from "../enum.ts";
 import { PipelineViewportStateCreateFlags } from "../def.ts";
 
@@ -64,26 +62,26 @@ export class PipelineViewportStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_VIEWPORT_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineViewportStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineViewportStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -91,7 +89,7 @@ export class PipelineViewportStateCreateInfo implements BaseStruct {
   get viewportCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set viewportCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -99,7 +97,7 @@ export class PipelineViewportStateCreateInfo implements BaseStruct {
   get pViewports(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pViewports(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -107,7 +105,7 @@ export class PipelineViewportStateCreateInfo implements BaseStruct {
   get scissorCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set scissorCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -115,7 +113,7 @@ export class PipelineViewportStateCreateInfo implements BaseStruct {
   get pScissors(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pScissors(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

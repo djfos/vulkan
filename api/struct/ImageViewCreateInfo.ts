@@ -19,7 +19,7 @@ import { ImageViewCreateFlags, Image } from "../def.ts";
 export interface InitImageViewCreateInfo {
   pNext?: AnyPointer;
   flags?: ImageViewCreateFlags;
-  image?: Image;
+  image?: AnyPointer;
   viewType?: ImageViewType;
   format?: Format;
   components?: ComponentMapping;
@@ -66,26 +66,26 @@ export class ImageViewCreateInfo implements BaseStruct {
     this.sType = StructureType.IMAGE_VIEW_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): ImageViewCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ImageViewCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -93,31 +93,30 @@ export class ImageViewCreateInfo implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
-  get viewType(): number {
-    return this.#view.getUint32(32, LE);
+  get viewType(): ImageViewType {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set viewType(value: ImageViewType) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(36, LE);
+  get format(): Format {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
   get components(): ComponentMapping {
     return new ComponentMapping(this.#data.subarray(40, 40 + ComponentMapping.size));
   }
-
   set components(value: ComponentMapping) {
     if (value[BUFFER].byteLength < ComponentMapping.size) {
       throw new Error("Data buffer too small");
@@ -128,7 +127,6 @@ export class ImageViewCreateInfo implements BaseStruct {
   get subresourceRange(): ImageSubresourceRange {
     return new ImageSubresourceRange(this.#data.subarray(56, 56 + ImageSubresourceRange.size));
   }
-
   set subresourceRange(value: ImageSubresourceRange) {
     if (value[BUFFER].byteLength < ImageSubresourceRange.size) {
       throw new Error("Data buffer too small");

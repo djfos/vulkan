@@ -82,122 +82,149 @@ export class PhysicalDeviceVulkan11Properties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
   get deviceUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 16, 16);
+    return new Uint8Array(this.#data.buffer, 16, 16);
   }
-
   set deviceUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
   get driverUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 32, 16);
+    return new Uint8Array(this.#data.buffer, 32, 16);
   }
-
   set driverUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 32);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 32);
   }
 
   get deviceLUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 48, 8);
+    return new Uint8Array(this.#data.buffer, 48, 8);
   }
-
   set deviceLUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 48);
+    if (value.length > 8) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 48);
   }
 
   get deviceNodeMask(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set deviceNodeMask(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get deviceLUIDValid(): number {
+  get deviceLUIDValid(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set deviceLUIDValid(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
+  /** The size of a subgroup for this queue. */
   get subgroupSize(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set subgroupSize(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get subgroupSupportedStages(): number {
+  /** Bitfield of what shader stages support subgroup operations */
+  get subgroupSupportedStages(): ShaderStageFlags {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set subgroupSupportedStages(value: ShaderStageFlags) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get subgroupSupportedOperations(): number {
+  /** Bitfield of what subgroup operations are supported. */
+  get subgroupSupportedOperations(): SubgroupFeatureFlags {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set subgroupSupportedOperations(value: SubgroupFeatureFlags) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get subgroupQuadOperationsInAllStages(): number {
+  /** Flag to specify whether quad operations are available in all stages. */
+  get subgroupQuadOperationsInAllStages(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set subgroupQuadOperationsInAllStages(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get pointClippingBehavior(): number {
-    return this.#view.getUint32(80, LE);
+  get pointClippingBehavior(): PointClippingBehavior {
+    return this.#view.getInt32(80, LE);
   }
-
+  
   set pointClippingBehavior(value: PointClippingBehavior) {
-    this.#view.setUint32(80, Number(value), LE);
+    this.#view.setInt32(80, Number(value), LE);
   }
 
+  /** max number of views in a subpass */
   get maxMultiviewViewCount(): number {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set maxMultiviewViewCount(value: number) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
+  /** max instance index for a draw in a multiview subpass */
   get maxMultiviewInstanceIndex(): number {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set maxMultiviewInstanceIndex(value: number) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get protectedNoFault(): number {
+  get protectedNoFault(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set protectedNoFault(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }
@@ -205,7 +232,7 @@ export class PhysicalDeviceVulkan11Properties implements BaseStruct {
   get maxPerSetDescriptors(): number {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set maxPerSetDescriptors(value: number) {
     this.#view.setUint32(96, Number(value), LE);
   }
@@ -213,8 +240,8 @@ export class PhysicalDeviceVulkan11Properties implements BaseStruct {
   get maxMemoryAllocationSize(): bigint {
     return this.#view.getBigUint64(104, LE);
   }
-
-  set maxMemoryAllocationSize(value: DeviceSize) {
+  
+  set maxMemoryAllocationSize(value: number | bigint) {
     this.#view.setBigUint64(104, BigInt(value), LE);
   }
 }

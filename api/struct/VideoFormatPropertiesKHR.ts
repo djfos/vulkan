@@ -65,34 +65,33 @@ export class VideoFormatPropertiesKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_FORMAT_PROPERTIES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(16, LE);
+  get format(): Format {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get componentMapping(): ComponentMapping {
     return new ComponentMapping(this.#data.subarray(20, 20 + ComponentMapping.size));
   }
-
   set componentMapping(value: ComponentMapping) {
     if (value[BUFFER].byteLength < ComponentMapping.size) {
       throw new Error("Data buffer too small");
@@ -100,34 +99,34 @@ export class VideoFormatPropertiesKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 20);
   }
 
-  get imageCreateFlags(): number {
+  get imageCreateFlags(): ImageCreateFlags {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set imageCreateFlags(value: ImageCreateFlags) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get imageType(): number {
-    return this.#view.getUint32(40, LE);
+  get imageType(): ImageType {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set imageType(value: ImageType) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
-  get imageTiling(): number {
-    return this.#view.getUint32(44, LE);
+  get imageTiling(): ImageTiling {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set imageTiling(value: ImageTiling) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
-  get imageUsageFlags(): number {
+  get imageUsageFlags(): ImageUsageFlags {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set imageUsageFlags(value: ImageUsageFlags) {
     this.#view.setUint32(48, Number(value), LE);
   }

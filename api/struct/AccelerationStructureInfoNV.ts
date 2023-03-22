@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {GeometryNV} from "./GeometryNV.ts";
 import { StructureType, AccelerationStructureTypeNV } from "../enum.ts";
 import { BuildAccelerationStructureFlagsNV } from "../def.ts";
 
@@ -63,34 +62,34 @@ export class AccelerationStructureInfoNV implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(16, LE);
+  get type(): AccelerationStructureTypeNV {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set type(value: AccelerationStructureTypeNV) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): BuildAccelerationStructureFlagsNV {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set flags(value: BuildAccelerationStructureFlagsNV) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -98,7 +97,7 @@ export class AccelerationStructureInfoNV implements BaseStruct {
   get instanceCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set instanceCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -106,7 +105,7 @@ export class AccelerationStructureInfoNV implements BaseStruct {
   get geometryCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set geometryCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -114,7 +113,7 @@ export class AccelerationStructureInfoNV implements BaseStruct {
   get pGeometries(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pGeometries(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

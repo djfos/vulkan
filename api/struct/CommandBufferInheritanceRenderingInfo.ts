@@ -66,26 +66,26 @@ export class CommandBufferInheritanceRenderingInfo implements BaseStruct {
     this.sType = StructureType.COMMAND_BUFFER_INHERITANCE_RENDERING_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): RenderingFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: RenderingFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -93,7 +93,7 @@ export class CommandBufferInheritanceRenderingInfo implements BaseStruct {
   get viewMask(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set viewMask(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -101,7 +101,7 @@ export class CommandBufferInheritanceRenderingInfo implements BaseStruct {
   get colorAttachmentCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set colorAttachmentCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -109,32 +109,32 @@ export class CommandBufferInheritanceRenderingInfo implements BaseStruct {
   get pColorAttachmentFormats(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pColorAttachmentFormats(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
-  get depthAttachmentFormat(): number {
-    return this.#view.getUint32(40, LE);
+  get depthAttachmentFormat(): Format {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set depthAttachmentFormat(value: Format) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
-  get stencilAttachmentFormat(): number {
-    return this.#view.getUint32(44, LE);
+  get stencilAttachmentFormat(): Format {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set stencilAttachmentFormat(value: Format) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
-  get rasterizationSamples(): number {
-    return this.#view.getUint32(48, LE);
+  get rasterizationSamples(): SampleCountFlagBits {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set rasterizationSamples(value: SampleCountFlagBits) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 }

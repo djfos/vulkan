@@ -15,7 +15,7 @@ import {DisplayModeParametersKHR} from "./DisplayModeParametersKHR.ts";
 import { DisplayModeKHR } from "../def.ts";
 
 export interface InitDisplayModePropertiesKHR {
-  displayMode?: DisplayModeKHR;
+  displayMode?: AnyPointer;
   parameters?: DisplayModeParametersKHR;
 }
 
@@ -53,18 +53,19 @@ export class DisplayModePropertiesKHR implements BaseStruct {
     }
   }
 
+  /** Handle of this display mode. */
   get displayMode(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set displayMode(value: DisplayModeKHR) {
+  
+  set displayMode(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
+  /** The parameters this mode uses. */
   get parameters(): DisplayModeParametersKHR {
     return new DisplayModeParametersKHR(this.#data.subarray(8, 8 + DisplayModeParametersKHR.size));
   }
-
   set parameters(value: DisplayModeParametersKHR) {
     if (value[BUFFER].byteLength < DisplayModeParametersKHR.size) {
       throw new Error("Data buffer too small");

@@ -87,18 +87,18 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
     this.sType = StructureType.PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -106,7 +106,6 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get minFragmentShadingRateAttachmentTexelSize(): Extent2D {
     return new Extent2D(this.#data.subarray(16, 16 + Extent2D.size));
   }
-
   set minFragmentShadingRateAttachmentTexelSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -117,7 +116,6 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get maxFragmentShadingRateAttachmentTexelSize(): Extent2D {
     return new Extent2D(this.#data.subarray(24, 24 + Extent2D.size));
   }
-
   set maxFragmentShadingRateAttachmentTexelSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -128,31 +126,31 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get maxFragmentShadingRateAttachmentTexelSizeAspectRatio(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set maxFragmentShadingRateAttachmentTexelSizeAspectRatio(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get primitiveFragmentShadingRateWithMultipleViewports(): number {
+  get primitiveFragmentShadingRateWithMultipleViewports(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set primitiveFragmentShadingRateWithMultipleViewports(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get layeredShadingRateAttachments(): number {
+  get layeredShadingRateAttachments(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set layeredShadingRateAttachments(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get fragmentShadingRateNonTrivialCombinerOps(): number {
+  get fragmentShadingRateNonTrivialCombinerOps(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set fragmentShadingRateNonTrivialCombinerOps(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -160,7 +158,6 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get maxFragmentSize(): Extent2D {
     return new Extent2D(this.#data.subarray(48, 48 + Extent2D.size));
   }
-
   set maxFragmentSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -171,7 +168,7 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get maxFragmentSizeAspectRatio(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set maxFragmentSizeAspectRatio(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -179,71 +176,71 @@ export class PhysicalDeviceFragmentShadingRatePropertiesKHR implements BaseStruc
   get maxFragmentShadingRateCoverageSamples(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set maxFragmentShadingRateCoverageSamples(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get maxFragmentShadingRateRasterizationSamples(): number {
-    return this.#view.getUint32(64, LE);
+  get maxFragmentShadingRateRasterizationSamples(): SampleCountFlagBits {
+    return this.#view.getInt32(64, LE);
   }
-
+  
   set maxFragmentShadingRateRasterizationSamples(value: SampleCountFlagBits) {
-    this.#view.setUint32(64, Number(value), LE);
+    this.#view.setInt32(64, Number(value), LE);
   }
 
-  get fragmentShadingRateWithShaderDepthStencilWrites(): number {
+  get fragmentShadingRateWithShaderDepthStencilWrites(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set fragmentShadingRateWithShaderDepthStencilWrites(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get fragmentShadingRateWithSampleMask(): number {
+  get fragmentShadingRateWithSampleMask(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set fragmentShadingRateWithSampleMask(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get fragmentShadingRateWithShaderSampleMask(): number {
+  get fragmentShadingRateWithShaderSampleMask(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set fragmentShadingRateWithShaderSampleMask(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get fragmentShadingRateWithConservativeRasterization(): number {
+  get fragmentShadingRateWithConservativeRasterization(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set fragmentShadingRateWithConservativeRasterization(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }
 
-  get fragmentShadingRateWithFragmentShaderInterlock(): number {
+  get fragmentShadingRateWithFragmentShaderInterlock(): Bool32 {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set fragmentShadingRateWithFragmentShaderInterlock(value: Bool32) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
-  get fragmentShadingRateWithCustomSampleLocations(): number {
+  get fragmentShadingRateWithCustomSampleLocations(): Bool32 {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set fragmentShadingRateWithCustomSampleLocations(value: Bool32) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get fragmentShadingRateStrictMultiplyCombiner(): number {
+  get fragmentShadingRateStrictMultiplyCombiner(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set fragmentShadingRateStrictMultiplyCombiner(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }

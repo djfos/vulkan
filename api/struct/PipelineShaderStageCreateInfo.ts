@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {SpecializationInfo} from "./SpecializationInfo.ts";
 import { StructureType, ShaderStageFlagBits } from "../enum.ts";
 import { PipelineShaderStageCreateFlags, ShaderModule } from "../def.ts";
 
@@ -19,7 +18,7 @@ export interface InitPipelineShaderStageCreateInfo {
   pNext?: AnyPointer;
   flags?: PipelineShaderStageCreateFlags;
   stage?: ShaderStageFlagBits;
-  module?: ShaderModule;
+  module?: AnyPointer;
   pName?: AnyPointer;
   pSpecializationInfo?: AnyPointer;
 }
@@ -63,50 +62,53 @@ export class PipelineShaderStageCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_SHADER_STAGE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineShaderStageCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineShaderStageCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get stage(): number {
-    return this.#view.getUint32(20, LE);
+  /** Shader stage */
+  get stage(): ShaderStageFlagBits {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set stage(value: ShaderStageFlagBits) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
+  /** Module containing entry point */
   get module(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set module(value: ShaderModule) {
+  
+  set module(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** Null-terminated entry point name */
   get pName(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pName(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -114,7 +116,7 @@ export class PipelineShaderStageCreateInfo implements BaseStruct {
   get pSpecializationInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pSpecializationInfo(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

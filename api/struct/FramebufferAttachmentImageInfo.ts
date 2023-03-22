@@ -11,7 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { StructureType, Format } from "../enum.ts";
+import { StructureType } from "../enum.ts";
 import { ImageCreateFlags, ImageUsageFlags } from "../def.ts";
 
 export interface InitFramebufferAttachmentImageInfo {
@@ -66,34 +66,36 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
     this.sType = StructureType.FRAMEBUFFER_ATTACHMENT_IMAGE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Image creation flags */
+  get flags(): ImageCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ImageCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get usage(): number {
+  /** Image usage flags */
+  get usage(): ImageUsageFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set usage(value: ImageUsageFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -101,7 +103,7 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
   get width(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set width(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -109,7 +111,7 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
   get height(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set height(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -117,7 +119,7 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
   get layerCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set layerCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -125,7 +127,7 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
   get viewFormatCount(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set viewFormatCount(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -133,7 +135,7 @@ export class FramebufferAttachmentImageInfo implements BaseStruct {
   get pViewFormats(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pViewFormats(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

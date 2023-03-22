@@ -54,10 +54,10 @@ export class ImageSubresource implements BaseStruct {
     }
   }
 
-  get aspectMask(): number {
+  get aspectMask(): ImageAspectFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set aspectMask(value: ImageAspectFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -65,7 +65,7 @@ export class ImageSubresource implements BaseStruct {
   get mipLevel(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set mipLevel(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -73,7 +73,7 @@ export class ImageSubresource implements BaseStruct {
   get arrayLayer(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set arrayLayer(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

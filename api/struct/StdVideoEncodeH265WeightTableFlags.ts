@@ -55,34 +55,38 @@ export class StdVideoEncodeH265WeightTableFlags implements BaseStruct {
     }
   }
 
+  /** bit 0 - num_ref_idx_l0_active_minus1 */
   get luma_weight_l0_flag(): number {
     return this.#view.getUint16(0, LE);
   }
-
+  
   set luma_weight_l0_flag(value: number) {
     this.#view.setUint16(0, Number(value), LE);
   }
 
+  /** bit 0 - num_ref_idx_l0_active_minus1 */
   get chroma_weight_l0_flag(): number {
     return this.#view.getUint16(2, LE);
   }
-
+  
   set chroma_weight_l0_flag(value: number) {
     this.#view.setUint16(2, Number(value), LE);
   }
 
+  /** bit 0 - num_ref_idx_l1_active_minus1 */
   get luma_weight_l1_flag(): number {
     return this.#view.getUint16(4, LE);
   }
-
+  
   set luma_weight_l1_flag(value: number) {
     this.#view.setUint16(4, Number(value), LE);
   }
 
+  /** bit 0 - num_ref_idx_l1_active_minus1 */
   get chroma_weight_l1_flag(): number {
     return this.#view.getUint16(6, LE);
   }
-
+  
   set chroma_weight_l1_flag(value: number) {
     this.#view.setUint16(6, Number(value), LE);
   }

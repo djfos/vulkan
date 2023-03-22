@@ -73,7 +73,6 @@ export class StdVideoEncodeH264WeightTable implements BaseStruct {
   get flags(): StdVideoEncodeH264WeightTableFlags {
     return new StdVideoEncodeH264WeightTableFlags(this.#data.subarray(0, 0 + StdVideoEncodeH264WeightTableFlags.size));
   }
-
   set flags(value: StdVideoEncodeH264WeightTableFlags) {
     if (value[BUFFER].byteLength < StdVideoEncodeH264WeightTableFlags.size) {
       throw new Error("Data buffer too small");
@@ -84,7 +83,7 @@ export class StdVideoEncodeH264WeightTable implements BaseStruct {
   get luma_log2_weight_denom(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set luma_log2_weight_denom(value: number) {
     this.#view.setUint8(16, Number(value));
   }
@@ -92,72 +91,136 @@ export class StdVideoEncodeH264WeightTable implements BaseStruct {
   get chroma_log2_weight_denom(): number {
     return this.#view.getUint8(17);
   }
-
+  
   set chroma_log2_weight_denom(value: number) {
     this.#view.setUint8(17, Number(value));
   }
 
+  /** valid entry range is [0, num_ref_idx_l0_active_minus1] */
   get luma_weight_l0(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 18, 32);
+    return new Int8Array(this.#data.buffer, 18, 32);
   }
-
   set luma_weight_l0(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 18);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 18);
   }
 
+  /** valid entry range is [0, num_ref_idx_l0_active_minus1] */
   get luma_offset_l0(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 50, 32);
+    return new Int8Array(this.#data.buffer, 50, 32);
   }
-
   set luma_offset_l0(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 50);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 50);
   }
 
+  /** [i][j]: valid entry range for i is [0, num_ref_idx_l0_active_minus1]; j = 0 for Cb, j = 1 for Cr */
   get chroma_weight_l0(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 82, 64);
+    return new Int8Array(this.#data.buffer, 82, 64);
   }
-
   set chroma_weight_l0(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 82);
+    if (value.length > 64) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 82);
   }
 
+  /** [i][j]: valid entry range for i is [0, num_ref_idx_l0_active_minus1]; j = 0 for Cb, j = 1 for Cr */
   get chroma_offset_l0(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 146, 64);
+    return new Int8Array(this.#data.buffer, 146, 64);
   }
-
   set chroma_offset_l0(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 146);
+    if (value.length > 64) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 146);
   }
 
+  /** valid entry range is [0, num_ref_idx_l1_active_minus1] */
   get luma_weight_l1(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 210, 32);
+    return new Int8Array(this.#data.buffer, 210, 32);
   }
-
   set luma_weight_l1(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 210);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 210);
   }
 
+  /** valid entry range is [0, num_ref_idx_l1_active_minus1] */
   get luma_offset_l1(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 242, 32);
+    return new Int8Array(this.#data.buffer, 242, 32);
   }
-
   set luma_offset_l1(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 242);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 242);
   }
 
+  /** [i][j]: valid entry range for i is [0, num_ref_idx_l1_active_minus1]; j = 0 for Cb, j = 1 for Cr */
   get chroma_weight_l1(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 274, 64);
+    return new Int8Array(this.#data.buffer, 274, 64);
   }
-
   set chroma_weight_l1(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 274);
+    if (value.length > 64) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 274);
   }
 
+  /** [i][j]: valid entry range for i is [0, num_ref_idx_l1_active_minus1]; j = 0 for Cb, j = 1 for Cr */
   get chroma_offset_l1(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 338, 64);
+    return new Int8Array(this.#data.buffer, 338, 64);
   }
-
   set chroma_offset_l1(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 338);
+    if (value.length > 64) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 338);
   }
 }

@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {VideoPictureResourceInfoKHR} from "./VideoPictureResourceInfoKHR.ts";
-import {VideoReferenceSlotInfoKHR} from "./VideoReferenceSlotInfoKHR.ts";
 import { StructureType } from "../enum.ts";
 import { VideoEncodeFlagsKHR, Buffer, DeviceSize } from "../def.ts";
 
@@ -20,7 +19,7 @@ export interface InitVideoEncodeInfoKHR {
   pNext?: AnyPointer;
   flags?: VideoEncodeFlagsKHR;
   qualityLevel?: number;
-  dstBitstreamBuffer?: Buffer;
+  dstBitstreamBuffer?: AnyPointer;
   dstBitstreamBufferOffset?: DeviceSize;
   dstBitstreamBufferMaxRange?: DeviceSize;
   srcPictureResource?: VideoPictureResourceInfoKHR;
@@ -74,26 +73,26 @@ export class VideoEncodeInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoEncodeFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoEncodeFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -101,7 +100,7 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get qualityLevel(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set qualityLevel(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -109,31 +108,30 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get dstBitstreamBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set dstBitstreamBuffer(value: Buffer) {
+  
+  set dstBitstreamBuffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get dstBitstreamBufferOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set dstBitstreamBufferOffset(value: DeviceSize) {
+  
+  set dstBitstreamBufferOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get dstBitstreamBufferMaxRange(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set dstBitstreamBufferMaxRange(value: DeviceSize) {
+  
+  set dstBitstreamBufferMaxRange(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
   get srcPictureResource(): VideoPictureResourceInfoKHR {
     return new VideoPictureResourceInfoKHR(this.#data.subarray(48, 48 + VideoPictureResourceInfoKHR.size));
   }
-
   set srcPictureResource(value: VideoPictureResourceInfoKHR) {
     if (value[BUFFER].byteLength < VideoPictureResourceInfoKHR.size) {
       throw new Error("Data buffer too small");
@@ -144,7 +142,7 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get pSetupReferenceSlot(): Deno.PointerValue {
     return pointerFromView(this.#view, 96, LE);
   }
-
+  
   set pSetupReferenceSlot(value: AnyPointer) {
     this.#view.setBigUint64(96, BigInt(anyPointer(value)), LE);
   }
@@ -152,7 +150,7 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get referenceSlotCount(): number {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set referenceSlotCount(value: number) {
     this.#view.setUint32(104, Number(value), LE);
   }
@@ -160,7 +158,7 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get pReferenceSlots(): Deno.PointerValue {
     return pointerFromView(this.#view, 112, LE);
   }
-
+  
   set pReferenceSlots(value: AnyPointer) {
     this.#view.setBigUint64(112, BigInt(anyPointer(value)), LE);
   }
@@ -168,7 +166,7 @@ export class VideoEncodeInfoKHR implements BaseStruct {
   get precedingExternallyEncodedBytes(): number {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set precedingExternallyEncodedBytes(value: number) {
     this.#view.setUint32(120, Number(value), LE);
   }

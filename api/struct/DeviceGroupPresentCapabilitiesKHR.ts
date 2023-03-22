@@ -56,34 +56,41 @@ export class DeviceGroupPresentCapabilitiesKHR implements BaseStruct {
     this.sType = StructureType.DEVICE_GROUP_PRESENT_CAPABILITIES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
   get presentMask(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 16, 32);
+    return new Uint32Array(this.#data.buffer, 16, 32);
   }
-
   set presentMask(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
-  get modes(): number {
+  get modes(): DeviceGroupPresentModeFlagsKHR {
     return this.#view.getUint32(144, LE);
   }
-
+  
   set modes(value: DeviceGroupPresentModeFlagsKHR) {
     this.#view.setUint32(144, Number(value), LE);
   }

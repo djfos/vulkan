@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType } from "../enum.ts";
-import { AccelerationStructureKHR } from "../def.ts";
 
 export interface InitWriteDescriptorSetAccelerationStructureKHR {
   pNext?: AnyPointer;
@@ -56,18 +55,18 @@ export class WriteDescriptorSetAccelerationStructureKHR implements BaseStruct {
     this.sType = StructureType.WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class WriteDescriptorSetAccelerationStructureKHR implements BaseStruct {
   get accelerationStructureCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set accelerationStructureCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class WriteDescriptorSetAccelerationStructureKHR implements BaseStruct {
   get pAccelerationStructures(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pAccelerationStructures(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

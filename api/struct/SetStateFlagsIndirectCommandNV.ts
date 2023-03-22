@@ -52,7 +52,7 @@ export class SetStateFlagsIndirectCommandNV implements BaseStruct {
   get data(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set data(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }

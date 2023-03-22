@@ -56,7 +56,7 @@ export class DrawMeshTasksIndirectCommandEXT implements BaseStruct {
   get groupCountX(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set groupCountX(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -64,7 +64,7 @@ export class DrawMeshTasksIndirectCommandEXT implements BaseStruct {
   get groupCountY(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set groupCountY(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -72,7 +72,7 @@ export class DrawMeshTasksIndirectCommandEXT implements BaseStruct {
   get groupCountZ(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set groupCountZ(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

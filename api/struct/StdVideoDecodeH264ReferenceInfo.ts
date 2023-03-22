@@ -59,7 +59,6 @@ export class StdVideoDecodeH264ReferenceInfo implements BaseStruct {
   get flags(): StdVideoDecodeH264ReferenceInfoFlags {
     return new StdVideoDecodeH264ReferenceInfoFlags(this.#data.subarray(0, 0 + StdVideoDecodeH264ReferenceInfoFlags.size));
   }
-
   set flags(value: StdVideoDecodeH264ReferenceInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoDecodeH264ReferenceInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -67,27 +66,37 @@ export class StdVideoDecodeH264ReferenceInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** 7.4.3.3 Decoded reference picture marking semantics */
   get FrameNum(): number {
     return this.#view.getUint16(16, LE);
   }
-
+  
   set FrameNum(value: number) {
     this.#view.setUint16(16, Number(value), LE);
   }
 
+  /** for structure members 32-bit packing/alignment */
   get reserved(): number {
     return this.#view.getUint16(18, LE);
   }
-
+  
   set reserved(value: number) {
     this.#view.setUint16(18, Number(value), LE);
   }
 
+  /** TopFieldOrderCnt and BottomFieldOrderCnt fields. */
   get PicOrderCnt(): Int32Array {
-    return new Int32Array(this.#data.buffer, this.#data.byteOffset + 20, 2);
+    return new Int32Array(this.#data.buffer, 20, 2);
   }
-
   set PicOrderCnt(value: Int32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 }

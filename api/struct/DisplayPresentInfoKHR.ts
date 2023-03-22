@@ -59,26 +59,26 @@ export class DisplayPresentInfoKHR implements BaseStruct {
     this.sType = StructureType.DISPLAY_PRESENT_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Rectangle within the presentable image to read pixel data from when presenting to the display. */
   get srcRect(): Rect2D {
     return new Rect2D(this.#data.subarray(16, 16 + Rect2D.size));
   }
-
   set srcRect(value: Rect2D) {
     if (value[BUFFER].byteLength < Rect2D.size) {
       throw new Error("Data buffer too small");
@@ -86,10 +86,10 @@ export class DisplayPresentInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
+  /** Rectangle within the current display mode's visible region to display srcRectangle in. */
   get dstRect(): Rect2D {
     return new Rect2D(this.#data.subarray(32, 32 + Rect2D.size));
   }
-
   set dstRect(value: Rect2D) {
     if (value[BUFFER].byteLength < Rect2D.size) {
       throw new Error("Data buffer too small");
@@ -97,10 +97,11 @@ export class DisplayPresentInfoKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 32);
   }
 
-  get persistent(): number {
+  /** For smart displays, use buffered mode.  If the display properties member "persistentMode" is VK_FALSE, this member must always be VK_FALSE. */
+  get persistent(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set persistent(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }

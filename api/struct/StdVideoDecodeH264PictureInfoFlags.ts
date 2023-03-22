@@ -59,50 +59,56 @@ export class StdVideoDecodeH264PictureInfoFlags implements BaseStruct {
     }
   }
 
+  /** Is field picture */
   get field_pic_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set field_pic_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Is intra picture */
   get is_intra(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set is_intra(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** instantaneous decoding refresh (IDR) picture */
   get IdrPicFlag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set IdrPicFlag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
+  /** bottom (true) or top (false) field if field_pic_flag is set. */
   get bottom_field_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set bottom_field_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
+  /** This only applies to picture info, and not to the DPB lists. */
   get is_reference(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set is_reference(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** complementary field pair, complementary non-reference field pair, complementary reference field pair */
   get complementary_field_pair(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set complementary_field_pair(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }

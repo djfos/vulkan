@@ -21,7 +21,7 @@ export interface InitSamplerCustomBorderColorCreateInfoEXT {
 }
 
 export class SamplerCustomBorderColorCreateInfoEXT implements BaseStruct {
-  static size = 24;
+  static size = 40;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -56,35 +56,34 @@ export class SamplerCustomBorderColorCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get customBorderColor(): unknown {
-    throw new Error(`Unknown type: {"union":["f32","i32","u32"]}`);
+  get customBorderColor(): ClearColorValue {
+    throw new Error(`Unknown type: {"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]}`);
   }
-
   set customBorderColor(value: ClearColorValue) {
-    throw new Error(`Unknown type: {"union":["f32","i32","u32"]}`);
+    throw new Error(`Unknown type: {"union":[{"array":"f32","len":4},{"array":"i32","len":4},{"array":"u32","len":4}]}`);
   }
 
-  get format(): number {
-    return this.#view.getUint32(20, LE);
+  get format(): Format {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 }

@@ -60,50 +60,50 @@ export class FramebufferMixedSamplesCombinationNV implements BaseStruct {
     this.sType = StructureType.FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get coverageReductionMode(): number {
-    return this.#view.getUint32(16, LE);
+  get coverageReductionMode(): CoverageReductionModeNV {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set coverageReductionMode(value: CoverageReductionModeNV) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get rasterizationSamples(): number {
-    return this.#view.getUint32(20, LE);
+  get rasterizationSamples(): SampleCountFlagBits {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set rasterizationSamples(value: SampleCountFlagBits) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get depthStencilSamples(): number {
+  get depthStencilSamples(): SampleCountFlags {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set depthStencilSamples(value: SampleCountFlags) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get colorSamples(): number {
+  get colorSamples(): SampleCountFlags {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set colorSamples(value: SampleCountFlags) {
     this.#view.setUint32(28, Number(value), LE);
   }

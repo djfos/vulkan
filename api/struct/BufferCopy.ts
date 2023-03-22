@@ -54,27 +54,30 @@ export class BufferCopy implements BaseStruct {
     }
   }
 
+  /** Specified in bytes */
   get srcOffset(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set srcOffset(value: DeviceSize) {
+  
+  set srcOffset(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get dstOffset(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set dstOffset(value: DeviceSize) {
+  
+  set dstOffset(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 }

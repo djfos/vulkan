@@ -73,66 +73,67 @@ export class PipelineDepthStencilStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineDepthStencilStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineDepthStencilStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get depthTestEnable(): number {
+  get depthTestEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set depthTestEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get depthWriteEnable(): number {
+  get depthWriteEnable(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set depthWriteEnable(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get depthCompareOp(): number {
-    return this.#view.getUint32(28, LE);
+  get depthCompareOp(): CompareOp {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set depthCompareOp(value: CompareOp) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
-  get depthBoundsTestEnable(): number {
+  /** optional (depth_bounds_test) */
+  get depthBoundsTestEnable(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set depthBoundsTestEnable(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get stencilTestEnable(): number {
+  get stencilTestEnable(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set stencilTestEnable(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -140,7 +141,6 @@ export class PipelineDepthStencilStateCreateInfo implements BaseStruct {
   get front(): StencilOpState {
     return new StencilOpState(this.#data.subarray(40, 40 + StencilOpState.size));
   }
-
   set front(value: StencilOpState) {
     if (value[BUFFER].byteLength < StencilOpState.size) {
       throw new Error("Data buffer too small");
@@ -151,7 +151,6 @@ export class PipelineDepthStencilStateCreateInfo implements BaseStruct {
   get back(): StencilOpState {
     return new StencilOpState(this.#data.subarray(68, 68 + StencilOpState.size));
   }
-
   set back(value: StencilOpState) {
     if (value[BUFFER].byteLength < StencilOpState.size) {
       throw new Error("Data buffer too small");
@@ -162,7 +161,7 @@ export class PipelineDepthStencilStateCreateInfo implements BaseStruct {
   get minDepthBounds(): number {
     return this.#view.getFloat32(96, LE);
   }
-
+  
   set minDepthBounds(value: number) {
     this.#view.setFloat32(96, Number(value), LE);
   }
@@ -170,7 +169,7 @@ export class PipelineDepthStencilStateCreateInfo implements BaseStruct {
   get maxDepthBounds(): number {
     return this.#view.getFloat32(100, LE);
   }
-
+  
   set maxDepthBounds(value: number) {
     this.#view.setFloat32(100, Number(value), LE);
   }

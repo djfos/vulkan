@@ -56,35 +56,49 @@ export class PhysicalDeviceMemoryBudgetPropertiesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
   get heapBudget(): BigUint64Array {
-    return new BigUint64Array(this.#data.buffer, this.#data.byteOffset + 16, 16);
+    return new BigUint64Array(this.#data.buffer, 16, 16);
   }
-
   set heapBudget(value: BigUint64Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
   get heapUsage(): BigUint64Array {
-    return new BigUint64Array(this.#data.buffer, this.#data.byteOffset + 144, 16);
+    return new BigUint64Array(this.#data.buffer, 144, 16);
   }
-
   set heapUsage(value: BigUint64Array) {
-    this.#data.set(new Uint8Array(value.buffer), 144);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 144);
   }
 }

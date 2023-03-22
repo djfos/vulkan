@@ -58,18 +58,18 @@ export class AttachmentReference2 implements BaseStruct {
     this.sType = StructureType.ATTACHMENT_REFERENCE_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,23 +77,23 @@ export class AttachmentReference2 implements BaseStruct {
   get attachment(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set attachment(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get layout(): number {
-    return this.#view.getUint32(20, LE);
+  get layout(): ImageLayout {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set layout(value: ImageLayout) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get aspectMask(): number {
+  get aspectMask(): ImageAspectFlags {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set aspectMask(value: ImageAspectFlags) {
     this.#view.setUint32(24, Number(value), LE);
   }

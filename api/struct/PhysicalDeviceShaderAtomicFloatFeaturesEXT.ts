@@ -76,114 +76,114 @@ export class PhysicalDeviceShaderAtomicFloatFeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shaderBufferFloat32Atomics(): number {
+  get shaderBufferFloat32Atomics(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderBufferFloat32Atomics(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get shaderBufferFloat32AtomicAdd(): number {
+  get shaderBufferFloat32AtomicAdd(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderBufferFloat32AtomicAdd(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get shaderBufferFloat64Atomics(): number {
+  get shaderBufferFloat64Atomics(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set shaderBufferFloat64Atomics(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get shaderBufferFloat64AtomicAdd(): number {
+  get shaderBufferFloat64AtomicAdd(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set shaderBufferFloat64AtomicAdd(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get shaderSharedFloat32Atomics(): number {
+  get shaderSharedFloat32Atomics(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set shaderSharedFloat32Atomics(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get shaderSharedFloat32AtomicAdd(): number {
+  get shaderSharedFloat32AtomicAdd(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set shaderSharedFloat32AtomicAdd(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get shaderSharedFloat64Atomics(): number {
+  get shaderSharedFloat64Atomics(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set shaderSharedFloat64Atomics(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get shaderSharedFloat64AtomicAdd(): number {
+  get shaderSharedFloat64AtomicAdd(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set shaderSharedFloat64AtomicAdd(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get shaderImageFloat32Atomics(): number {
+  get shaderImageFloat32Atomics(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set shaderImageFloat32Atomics(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get shaderImageFloat32AtomicAdd(): number {
+  get shaderImageFloat32AtomicAdd(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set shaderImageFloat32AtomicAdd(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get sparseImageFloat32Atomics(): number {
+  get sparseImageFloat32Atomics(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set sparseImageFloat32Atomics(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get sparseImageFloat32AtomicAdd(): number {
+  get sparseImageFloat32AtomicAdd(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set sparseImageFloat32AtomicAdd(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }

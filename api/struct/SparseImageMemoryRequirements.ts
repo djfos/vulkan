@@ -62,7 +62,6 @@ export class SparseImageMemoryRequirements implements BaseStruct {
   get formatProperties(): SparseImageFormatProperties {
     return new SparseImageFormatProperties(this.#data.subarray(0, 0 + SparseImageFormatProperties.size));
   }
-
   set formatProperties(value: SparseImageFormatProperties) {
     if (value[BUFFER].byteLength < SparseImageFormatProperties.size) {
       throw new Error("Data buffer too small");
@@ -73,32 +72,35 @@ export class SparseImageMemoryRequirements implements BaseStruct {
   get imageMipTailFirstLod(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set imageMipTailFirstLod(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** Specified in bytes, must be a multiple of sparse block size in bytes / alignment */
   get imageMipTailSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set imageMipTailSize(value: DeviceSize) {
+  
+  set imageMipTailSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Specified in bytes, must be a multiple of sparse block size in bytes / alignment */
   get imageMipTailOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set imageMipTailOffset(value: DeviceSize) {
+  
+  set imageMipTailOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
+  /** Specified in bytes, must be a multiple of sparse block size in bytes / alignment */
   get imageMipTailStride(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set imageMipTailStride(value: DeviceSize) {
+  
+  set imageMipTailStride(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 }

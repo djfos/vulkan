@@ -56,7 +56,7 @@ export class VideoEncodeH265QpEXT implements BaseStruct {
   get qpI(): number {
     return this.#view.getInt32(0, LE);
   }
-
+  
   set qpI(value: number) {
     this.#view.setInt32(0, Number(value), LE);
   }
@@ -64,7 +64,7 @@ export class VideoEncodeH265QpEXT implements BaseStruct {
   get qpP(): number {
     return this.#view.getInt32(4, LE);
   }
-
+  
   set qpP(value: number) {
     this.#view.setInt32(4, Number(value), LE);
   }
@@ -72,7 +72,7 @@ export class VideoEncodeH265QpEXT implements BaseStruct {
   get qpB(): number {
     return this.#view.getInt32(8, LE);
   }
-
+  
   set qpB(value: number) {
     this.#view.setInt32(8, Number(value), LE);
   }

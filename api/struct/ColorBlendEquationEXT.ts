@@ -60,51 +60,51 @@ export class ColorBlendEquationEXT implements BaseStruct {
     }
   }
 
-  get srcColorBlendFactor(): number {
-    return this.#view.getUint32(0, LE);
+  get srcColorBlendFactor(): BlendFactor {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set srcColorBlendFactor(value: BlendFactor) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get dstColorBlendFactor(): number {
-    return this.#view.getUint32(4, LE);
+  get dstColorBlendFactor(): BlendFactor {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set dstColorBlendFactor(value: BlendFactor) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
-  get colorBlendOp(): number {
-    return this.#view.getUint32(8, LE);
+  get colorBlendOp(): BlendOp {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set colorBlendOp(value: BlendOp) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
-  get srcAlphaBlendFactor(): number {
-    return this.#view.getUint32(12, LE);
+  get srcAlphaBlendFactor(): BlendFactor {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set srcAlphaBlendFactor(value: BlendFactor) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 
-  get dstAlphaBlendFactor(): number {
-    return this.#view.getUint32(16, LE);
+  get dstAlphaBlendFactor(): BlendFactor {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set dstAlphaBlendFactor(value: BlendFactor) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get alphaBlendOp(): number {
-    return this.#view.getUint32(20, LE);
+  get alphaBlendOp(): BlendOp {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set alphaBlendOp(value: BlendOp) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 }

@@ -1,4 +1,9 @@
 // deno-lint-ignore-file no-explicit-any
+import {
+  assert,
+  unreachable,
+} from "https://deno.land/std@0.179.0/_util/asserts.ts";
+
 const api = JSON.parse(
   Deno.readTextFileSync(new URL("../data/vk.json", import.meta.url)),
 );
@@ -149,55 +154,68 @@ export const tymap = {
   i64: "BigInt64Array",
   f32: "Float32Array",
   f64: "Float64Array",
-};
+  pointer: "BigUint64Array",
+} as const;
 
-export function typeToFFI(ty: string): any {
-  if (ty in C_TYPES_FFI) {
-    return (C_TYPES_FFI as any)[ty];
-  } else {
-    const enumty = enums.find((e) => e.name === ty);
-    if (enumty) {
-      return enumty.bitwidth === 32 ? "u32" : "u64";
-    }
-    const structty = api.registry.types.type.find((e: any) =>
-      e.$name === ty && e.$category === "struct" && e.member
-    );
-    if (structty) {
-      return {
-        struct: structty.member.map((f: any) =>
-          f["#text"]?.endsWith("*") ? "buffer" : typeToFFI(f.type["#text"])
-        ),
-      };
-    }
-    const unionty = api.registry.types.type.find((e: any) =>
-      e.$name === ty && e.$category === "union" && e.member
-    );
-    if (unionty) {
-      return {
-        union: unionty.member.map((f: any) =>
-          f["#text"]?.endsWith("*") ? "buffer" : typeToFFI(f.type["#text"])
-        ),
-      };
-    }
-    const tydef = typedefs.find((e) => e.name === ty);
-    if (tydef) {
-      return tydef.ffi;
-    }
-    if (ty.startsWith("PFN_")) {
-      return "function";
-    }
-    if (ty.startsWith("MTL") || ty.startsWith("CAMetal")) {
-      return "pointer";
-    }
-    throw new Error("Unknown type " + ty);
-  }
+type TupleElementUnion<T extends readonly any[]> = T[number];
+
+const ffiNumberTypes = [
+  "u8",
+  "i8",
+  "u16",
+  "i16",
+  "u32",
+  "i32",
+  "f32",
+  "f64",
+  "u64",
+  "i64",
+  "usize",
+  "isize",
+] as const;
+
+const ffiPlainTypes = [...ffiNumberTypes, "pointer", "function"] as const;
+type FFIPlainType = TupleElementUnion<typeof ffiPlainTypes>;
+
+export function isNarrayType(type: unknown): type is keyof typeof tymap {
+  return ffiNumberTypes.includes(type as any) && type != "usize" &&
+    type != "usize";
+}
+
+interface FFIStruct {
+  struct: FFIType[];
+}
+
+interface FFIUnion {
+  union: FFIType[];
+}
+
+interface FFIArray {
+  array: Exclude<FFIType, FFIArray>;
+  len: number;
+}
+
+export type FFIType =
+  | FFIPlainType
+  | FFIStruct
+  | FFIUnion
+  | FFIArray;
+
+interface TypeInfo {
+  name: string;
+  size: number;
+  alignment: number;
+  ffi: Exclude<FFIType, FFIArray>;
+  // for struct and union
+  member?: Field[];
+  sType?: string;
 }
 
 export interface Typedef {
   name: string;
   type: string;
   alias?: boolean;
-  ffi: any;
+  ffi: Exclude<FFIType, FFIArray>;
 }
 
 export interface Constant {
@@ -219,17 +237,17 @@ export interface Enums {
   enums: Constant[];
 }
 
+export type FieldType = TypeInfo | {
+  array: TypeInfo;
+  len: number;
+  narray?: (typeof tymap)[keyof typeof tymap];
+};
+
 export interface Field {
   name: string;
-  type: string;
   offset: number;
-  optional: boolean;
-  text?: string;
-  ffi: any;
-  len?: number | number[];
-  enum?: string | string[];
+  type: FieldType;
   comment?: string;
-  values?: string[];
 }
 
 export interface Struct {
@@ -237,19 +255,21 @@ export interface Struct {
   fields: Field[];
   comment?: string;
   size: number;
+  // some structs don't have sType
+  sType: string | undefined;
 }
 
 export interface UnionType {
   name: string;
   type: string;
-  ffi: any;
+  ffi: FFIType;
   text?: string;
   comment?: string;
 }
 
 export interface Union {
   name: string;
-  types: UnionType[];
+  types: Field[];
   comment?: string;
   size: number;
 }
@@ -261,7 +281,7 @@ export interface CommandParams {
   comment?: string;
   len?: string;
   optional: boolean;
-  ffi: any;
+  ffi: FFIType | "buffer";
 }
 
 export interface Command {
@@ -271,7 +291,10 @@ export interface Command {
   successCodes: string[];
   errorCodes: string[];
   comment?: string;
-  ffi: any;
+  ffi: {
+    parameters: (FFIType | "buffer")[];
+    result: FFIType | "void";
+  };
 }
 
 export interface Vender {
@@ -323,135 +346,6 @@ for (const data of api.registry.enums) {
   }
 }
 
-export function isStruct(type: any) {
-  return typeof type === "object" && type !== null && ("struct" in type);
-}
-
-export function isUnion(type: any) {
-  return typeof type === "object" && type !== null && ("union" in type);
-}
-
-export function isArray(type: any) {
-  return typeof type === "object" && type !== null && ("array" in type);
-}
-
-// export function getAlignSize(
-//   type: any,
-//   cache?: WeakMap<any, number | null>,
-// ): number {
-//   if (isStruct(type)) {
-//     return getAlignSize(type.struct[0], cache);
-//   } else if (isUnion(type)) {
-//     return getAlignSize(type.union[0], cache);
-//   } else if (isArray(type)) {
-//     return getAlignSize(type.array, cache);
-//   } else {
-//     return getTypeSize(type, cache);
-//   }
-// }
-
-interface TypeRequirement {
-  typeSize: number;
-  alignSize: number;
-}
-
-export function getTypeRequirement(
-  type: any,
-  cache = new WeakMap<any, TypeRequirement | null>(),
-): TypeRequirement {
-  if (isStruct(type)) {
-    const cached = cache.get(type);
-    if (cached !== undefined) {
-      if (cached === null) {
-        throw new TypeError("Recursive struct definition");
-      }
-      return cached;
-    }
-    cache.set(type, null);
-    let size = 0;
-    let alignment = 1;
-    for (const field of type.struct) {
-      const { typeSize, alignSize } = getTypeRequirement(field, cache);
-      alignment = Math.max(alignment, alignSize);
-      size = Math.ceil(size / alignSize) * alignSize;
-      size += typeSize;
-    }
-    size = Math.ceil(size / alignment) * alignment;
-    const requirement = { typeSize: size, alignSize: alignment };
-    cache.set(type, requirement);
-    return requirement;
-  }
-
-  if (isArray(type)) {
-    const cached = cache.get(type);
-    if (cached !== undefined) {
-      if (cached === null) {
-        throw new TypeError("Recursive array definition");
-      }
-      return cached;
-    }
-    cache.set(type, null);
-    let size = 0;
-    let alignment = 1;
-    for (let i = 0; i < type.len; i++) {
-      const { typeSize, alignSize } = getTypeRequirement(type.array, cache);
-      alignment = Math.max(alignment, alignSize);
-      size = Math.ceil(size / typeSize) * typeSize;
-      size += typeSize;
-    }
-    size = Math.ceil(size / alignment) * alignment;
-    const requirement = { typeSize: size, alignSize: alignment };
-    cache.set(type, requirement);
-    return requirement;
-  }
-
-  if (isUnion(type)) {
-    const cached = cache.get(type);
-    if (cached !== undefined) {
-      if (cached === null) {
-        throw new TypeError("Recursive union definition");
-      }
-      return cached;
-    }
-    cache.set(type, null);
-    let size = 0;
-    let alignment = 1;
-    for (const field of type.union) {
-      const { typeSize, alignSize } = getTypeRequirement(field, cache);
-      size = Math.max(size, typeSize);
-      alignment = Math.max(size, alignSize);
-    }
-    const requirement = { typeSize: size, alignSize: alignment };
-    cache.set(type, requirement);
-    return requirement;
-  }
-
-  switch (type) {
-    case "bool":
-    case "u8":
-    case "i8":
-      return { typeSize: 1, alignSize: 1 };
-    case "u16":
-    case "i16":
-      return { typeSize: 2, alignSize: 2 };
-    case "u32":
-    case "i32":
-    case "f32":
-      return { typeSize: 4, alignSize: 4 };
-    case "u64":
-    case "i64":
-    case "f64":
-    case "pointer":
-    case "buffer":
-    case "function":
-    case "usize":
-    case "isize":
-      return { typeSize: 8, alignSize: 8 };
-    default:
-      throw new TypeError(`Unsupported type: ${Deno.inspect(type)}`);
-  }
-}
-
 export function extendEnum(ext: {
   $extends: string;
   $alias?: string;
@@ -493,6 +387,11 @@ export function extendConstants(name: string, ext: any) {
   });
 }
 
+for (const vendor of api.registry.tags.tag) {
+  const name = vendor.$name;
+  vendors.push({ name });
+}
+
 for (const ft of api.registry.feature) {
   for (const x of ft.require) {
     if ("enum" in x) {
@@ -524,21 +423,302 @@ for (const ext of api.registry.extensions.extension) {
   }
 }
 
+function getFFIPlainTypeSize(type: FFIPlainType): number {
+  switch (type) {
+    case "u8":
+    case "i8":
+      return 1;
+    case "u16":
+    case "i16":
+      return 2;
+    case "u32":
+    case "i32":
+    case "f32":
+      return 4;
+    case "u64":
+    case "i64":
+    case "f64":
+    case "pointer":
+    case "function":
+    case "usize":
+    case "isize":
+      return 8;
+    default:
+      throw new TypeError(`Unsupported ffi type: ${type}`);
+  }
+}
+
+function isFFIPlainType(value: unknown): value is FFIPlainType {
+  return typeof value == "string" && ffiPlainTypes.includes(value as any);
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+export const typeInfoMap = new Map<string, TypeInfo | null>();
+
+export function getFoundTypeInfo(type: string) {
+  const info = typeInfoMap.get(type);
+  assert(info !== undefined && info !== null);
+  return info;
+}
+
+function addTypeInfo(info: TypeInfo) {
+  assert(!typeInfoMap.has(info.name));
+  typeInfoMap.set(info.name, info);
+}
+
+function align(size: number, alignment: number): number {
+  return Math.ceil(size / alignment) * alignment;
+}
+
+function maybeText(object: any) {
+  const value = object["#text"];
+  if (typeof value == "string") {
+    return value;
+  } else {
+    return undefined;
+  }
+}
+
+function getText(object: any) {
+  const value = maybeText(object);
+  assert(value !== undefined, `${object} has no text`);
+  return value;
+}
+
+function toAarray(value: any) {
+  return Array.isArray(value) ? value : [value];
+}
+
+function getConstantValue(name: string): any {
+  for (const _constants of constants) {
+    for (const _constant of _constants.constants) {
+      if (_constant.name == name) {
+        return _constant.value;
+      }
+    }
+  }
+  throw Error("constant not found.");
+}
+
+function getTypeInfoOrArrayInfo(member: any) {
+  const text = maybeText(member);
+
+  if (text?.endsWith("*")) {
+    const pointerSize = getFFIPlainTypeSize("pointer");
+    return {
+      name: "pointer",
+      alignment: pointerSize,
+      size: pointerSize,
+      ffi: "pointer",
+    } satisfies TypeInfo;
+  }
+
+  const type = getText(member.type);
+  const typeInfo = getTypeInfoRecursive(type);
+  // array
+  if (text?.startsWith("[")) {
+    let len: undefined | number = undefined;
+    if (member.enum) {
+      // <member><type>uint8_t</type> <name>ScalingList4x4</name>[<enum>STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS</enum>][<enum>STD_VIDEO_H264_SCALING_LIST_4X4_NUM_ELEMENTS</enum>]</member>
+      const enums = toAarray(member.enum);
+      const values = enums.map(getText).map(getConstantValue);
+      const numberValues = values.map((value) => {
+        const _v = typeof value == "number" ? value : Number(value);
+        assert((!isNaN(_v)) && _v !== 0);
+        return _v;
+      });
+      len = numberValues.reduce((acc, cur) => acc * cur, 1);
+    } else {
+      const match = text.match(/^\[(\d+)\]*/);
+      if (match) {
+        len = parseInt(match[1]);
+      }
+    }
+    if (len === undefined || isNaN(len)) {
+      throw new Error(`Invalid length: ${Deno.inspect(member)}`);
+    }
+
+    const narray = Reflect.get(tymap, String(typeInfo.ffi));
+    return { array: typeInfo, len, narray };
+  }
+  return typeInfo;
+}
+
+function getTypeInfoRecursive(typeName: string): TypeInfo {
+  {
+    assert(typeof typeName == "string");
+    const info = typeInfoMap.get(typeName);
+    if (info !== undefined) {
+      if (info === null) throw new TypeError("Recursive array definition");
+      return info;
+    }
+  }
+  // now, typeInfoMap doesn't has typeName.
+  // try to parse.
+
+  // mark
+  typeInfoMap.set(typeName, null);
+
+  const types = api.registry.types.type as any[];
+  const ty = types.find((ty) => ty.$name == typeName);
+  assert(["struct", "union"].includes(ty.$category) && ty.member);
+  const member: any[] = Array.isArray(ty.member) ? ty.member : [ty.member];
+  const fields = member.map((member): Field => {
+    const info = getTypeInfoOrArrayInfo(member);
+    const name = getText(member.name);
+    return {
+      name,
+      type: info,
+      offset: 0,
+      comment: member.comment && maybeText(member.comment),
+    };
+  });
+
+  const ffiArray: FFIType[] = fields.map((f) => {
+    const info = f.type;
+    if ("len" in info) {
+      return { array: info.array.ffi, len: info.len };
+    }
+    return info.ffi;
+  });
+
+  let ffi: FFIType | undefined = undefined;
+  let size = 0;
+  let alignment = 1;
+  if (ty.$category == "struct") {
+    ffi = { struct: ffiArray };
+    for (const f of fields) {
+      const typeInfo = f.type;
+      if ("len" in typeInfo) {
+        const _alignment = typeInfo.array.alignment;
+        const _size = typeInfo.array.size;
+        alignment = Math.max(alignment, _alignment);
+        size = align(size, _alignment);
+        f.offset = size;
+        size += _size * typeInfo.len;
+      } else {
+        alignment = Math.max(alignment, typeInfo.alignment);
+        size = align(size, typeInfo.alignment);
+        f.offset = size;
+        size += typeInfo.size;
+      }
+    }
+  } else if (ty.$category == "union") {
+    ffi = { union: ffiArray };
+    for (const f of fields) {
+      const info = f.type;
+      if ("len" in info) {
+        size = Math.max(size, info.array.size * info.len);
+        alignment = Math.max(alignment, info.array.alignment);
+      } else {
+        size = Math.max(size, info.size);
+        alignment = Math.max(alignment, info.alignment);
+      }
+    }
+  } else {
+    unreachable();
+  }
+  size = align(size, alignment);
+
+  assert(ffi !== undefined);
+  assert(typeInfoMap.get(typeName) === null);
+  const info: TypeInfo = {
+    name: typeName,
+    alignment,
+    size,
+    ffi,
+    member: fields,
+  };
+  typeInfoMap.set(typeName, info);
+  return info;
+}
+
+// primitives
+for (const [type, ffi] of Object.entries(C_TYPES_FFI)) {
+  if (isFFIPlainType(ffi)) {
+    const size = getFFIPlainTypeSize(ffi);
+    typeInfoMap.set(type, {
+      name: type,
+      size,
+      alignment: size,
+      ffi: ffi,
+    });
+  }
+}
+
+// plain types
 for (const ty of api.registry.types.type) {
+  if (ty.$alias) continue;
+
   if (
     (ty.$category === "basetype" || ty.$category === "bitmask") &&
     ty["#text"] === "typedef;"
   ) {
+    const typeInfo = getFoundTypeInfo(ty.type["#text"]);
+    addTypeInfo({
+      name: getText(ty.name),
+      size: typeInfo.size,
+      alignment: typeInfo.alignment,
+      ffi: typeInfo.ffi,
+    });
     typedefs.push({
       name: ty.name["#text"],
       type: typeToJS(ty.type["#text"]),
-      ffi: typeToFFI(ty.type["#text"]),
+      ffi: typeInfo.ffi,
     });
   } else if (ty.$category === "basetype") {
-    const name = ty.name["#text"];
-    const tx = ty["#text"];
+    const name = getText(ty.name);
+    const tx = getText(ty);
+    const pointerSize = getFFIPlainTypeSize("pointer");
     if (tx.startsWith("#ifdef __OBJC__")) {
       if (tx.includes("\ntypedef ") && tx.endsWith("*;\n#endif")) {
+        addTypeInfo({
+          name,
+          size: pointerSize,
+          alignment: pointerSize,
+          ffi: "pointer",
+        });
         typedefs.push({
           name,
           type: "Deno.PointerValue",
@@ -547,6 +727,12 @@ for (const ty of api.registry.types.type) {
       }
     }
     if (tx.startsWith("typedef struct ") && tx.endsWith("*;")) {
+      addTypeInfo({
+        name,
+        size: pointerSize,
+        alignment: pointerSize,
+        ffi: "pointer",
+      });
       typedefs.push({
         name,
         type: "Deno.PointerValue",
@@ -554,128 +740,179 @@ for (const ty of api.registry.types.type) {
       });
     }
   } else if (ty.$category === "handle") {
+    const pointerSize = getFFIPlainTypeSize("pointer");
+    const name = ty.$name ?? ty.name["#text"];
+    addTypeInfo({
+      name,
+      size: pointerSize,
+      alignment: pointerSize,
+      ffi: "pointer",
+    });
     typedefs.push({
-      name: ty.$name ?? ty.name["#text"],
+      name,
       type: ty.$alias ?? "Deno.PointerValue",
       ffi: "pointer",
     });
-  } else if (ty.$category === "struct" && ty.member) {
-    const struct: Struct = {
-      name: ty.$name,
-      fields: [],
-      comment: ty.$comment,
-      size: 0,
-    };
-    structs.push(struct);
-    if (!Array.isArray(ty.member)) ty.member = [ty.member];
-    let size = 0;
-    let alignment = 1;
-    struct.fields = ty.member.map((member: any) => {
-      const field: Field = {
-        name: member.name["#text"],
-        type: member.type["#text"],
-        offset: size,
-        optional: member.$optional,
-        text: member["#text"],
-        len: undefined,
-        comment: member.$comment,
-        ffi: "void",
-        values: member.$values?.split(","),
-        enum: member.enum
-          ? (Array.isArray(member.enum)
-            ? member.enum.map((e: any) => e["#text"])
-            : member.enum?.["#text"])
-          : undefined,
-      };
-
-      if (field.text?.endsWith("*")) {
-        field.ffi = "pointer";
-      } else {
-        field.ffi = typeToFFI(field.type);
-      }
-
-      if (field.text?.startsWith("[")) {
-        if (field.enum) {
-          if (Array.isArray(field.enum)) {
-            field.len = field.enum.map((en) => {
-              return constants.map((c) =>
-                c.constants.find((c) => c.name === en)
-              ).find((e) => e !== undefined)?.value!;
-            });
-          } else {field.len = constants.map((c) =>
-              c.constants.find((c) => c.name === field.enum)
-            ).find((e) => e !== undefined)?.value;}
-        } else {
-          const match = field.text.match(/^\[(\d+)\]*/);
-          if (match) {
-            field.len = match.slice(1).map((e) => parseInt(e));
-          }
-        }
-        if (!field.len) {
-          throw new Error(`Invalid length: ${Deno.inspect(field)}`);
-        }
-        field.ffi = {
-          array: field.ffi,
-          len: Array.isArray(field.len)
-            ? field.len.reduce((p, a) => p * a, 1)
-            : field.len,
-        };
-      }
-
-      const { typeSize, alignSize } = getTypeRequirement(field.ffi);
-      alignment = Math.max(alignment, alignSize);
-      size = Math.ceil(size / alignSize) * alignSize;
-
-      field.offset = size;
-
-      size += typeSize;
-      return field;
+  } else if (ty.$category === "enum") {
+    const name = ty.$name;
+    assert(typeof name == "string");
+    addTypeInfo({
+      name: name,
+      size: 4,
+      alignment: 4,
+      ffi: "i32",
     });
-    size = Math.ceil(size / alignment) * alignment;
-    struct.size = size;
-  } else if (ty.$category === "union" && ty.member) {
-    const union: Union = {
+  } else if (ty.$category === "funcpointer") {
+    const name = getText(ty.name);
+    const pointerSize = getFFIPlainTypeSize("pointer");
+    addTypeInfo({
+      name: name,
+      size: pointerSize,
+      alignment: pointerSize,
+      ffi: "function",
+    });
+  }
+}
+
+// alias
+for (const ty of api.registry.types.type) {
+  if (ty.$name && ty.$alias) {
+    const info = getTypeInfoRecursive(ty.$alias);
+    addTypeInfo({
       name: ty.$name,
-      types: [],
-      comment: ty.$comment,
-      size: 0,
-    };
-    unions.push(union);
-    if (!Array.isArray(ty.member)) ty.member = [ty.member];
-    union.types = ty.member.map((member: any) => ({
-      name: member.name["#text"],
-      type: member.type["#text"],
-      ffi: typeToFFI(member.type["#text"]),
-      comment: member.$comment,
-      text: member["#text"],
-    }));
-    union.size = getTypeRequirement({
-      union: union.types.map((e) => e.text?.endsWith("*") ? "pointer" : e.ffi),
-    }).typeSize;
-  } else if (ty.$name && ty.$alias) {
+      size: info.size,
+      alignment: info.alignment,
+      ffi: info.ffi,
+    });
     typedefs.push({
       name: ty.$name,
       type: ty.$alias,
       alias: true,
-      ffi: typeToFFI(ty.$alias),
+      ffi: info.ffi,
+    });
+  }
+}
+
+for (const ty of api.registry.types.type) {
+  if (ty.$category === "struct" && ty.member) {
+    const type = ty.$name;
+    const info = getTypeInfoRecursive(type);
+    typeInfoMap.set(info.name, info);
+  } else if (ty.$category === "union" && ty.member) {
+    const type = ty.$name;
+    const info = getTypeInfoRecursive(type);
+    typeInfoMap.set(info.name, info);
+  }
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+for (const ty of api.registry.types.type) {
+  if (ty.$category === "struct" && ty.member) {
+    const structName = ty.$name;
+    assert(typeof structName == "string");
+    const typeInfo = getFoundTypeInfo(structName);
+
+    const memberInfos = typeInfo.member;
+    assert(memberInfos !== undefined && memberInfos.length > 0);
+
+    let sType: string | undefined = undefined;
+    for (const member of toAarray(ty.member)) {
+      const name = getText(member.name);
+      if (name == "sType") {
+        const values = member.$values?.split(",");
+        if (values) {
+          // if (values.length > 1) console.log(`${structName}, ${values}`);
+          assert(values.length == 1);
+          sType = values[0];
+        }
+      }
+    }
+    structs.push({
+      name: structName,
+      fields: memberInfos,
+      comment: ty.$comment,
+      size: typeInfo.size,
+      sType,
+    });
+  } else if (ty.$category === "union" && ty.member) {
+    const unionName = ty.$name;
+    assert(typeof unionName == "string");
+    const typeInfo = getFoundTypeInfo(unionName);
+
+    const memberInfos = typeInfo.member;
+    assert(memberInfos !== undefined && memberInfos.length > 0);
+
+    unions.push({
+      name: ty.$name,
+      types: memberInfos,
+      comment: ty.$comment,
+      size: typeInfo.size,
     });
   }
 }
 
 for (const cmd of api.registry.commands.command) {
   if (cmd.$alias) continue; // TODO
-  const name = cmd.proto.name["#text"];
-  const type = cmd.proto.type["#text"];
+  const name = getText(cmd.proto.name);
+  const type = getText(cmd.proto.type);
   const params: CommandParams[] = [];
   if (cmd.param) {
-    if (!Array.isArray(cmd.param)) cmd.param = [cmd.param];
-    for (const param of cmd.param) {
-      const name = param.name["#text"];
-      const type = param.type["#text"];
+    const _params = toAarray(cmd.param);
+    for (const param of _params) {
+      const name = getText(param.name);
+      const type = getText(param.type);
       const optional = param.$optional;
       const len = param.$len;
       const comment = param.$comment;
-      const text = param["#text"];
+      const text = maybeText(param);
+
+      const getFFI = () => {
+        if (text?.endsWith("*")) return "buffer";
+        const typeInfo = getFoundTypeInfo(type);
+        return typeInfo.ffi;
+      };
+      const ffi = getFFI();
       params.push({
         name,
         type,
@@ -683,10 +920,18 @@ for (const cmd of api.registry.commands.command) {
         len,
         comment,
         text,
-        ffi: text?.endsWith("*") ? "buffer" : typeToFFI(type),
+        ffi,
       });
     }
   }
+
+  const getResult = () => {
+    const text = maybeText(cmd);
+    if (text?.endsWith("*")) return "pointer";
+    if (type == "void") return "void";
+    return getFoundTypeInfo(type).ffi;
+  };
+  const result = getResult();
   commands.push({
     name,
     type,
@@ -696,12 +941,7 @@ for (const cmd of api.registry.commands.command) {
     errorCodes: cmd.$errorcodes?.split(",") ?? [],
     ffi: {
       parameters: params.map((e) => e.ffi),
-      result: cmd["#text"]?.endsWith("*") ? "pointer" : typeToFFI(type),
+      result: result,
     },
   });
-}
-
-for (const vendor of api.registry.tags.tag) {
-  const name = vendor.$name;
-  vendors.push({ name });
 }

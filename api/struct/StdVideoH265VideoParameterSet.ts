@@ -12,9 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {StdVideoH265VpsFlags} from "./StdVideoH265VpsFlags.ts";
-import {StdVideoH265DecPicBufMgr} from "./StdVideoH265DecPicBufMgr.ts";
-import {StdVideoH265HrdParameters} from "./StdVideoH265HrdParameters.ts";
-import {StdVideoH265ProfileTierLevel} from "./StdVideoH265ProfileTierLevel.ts";
 
 export interface InitStdVideoH265VideoParameterSet {
   flags?: StdVideoH265VpsFlags;
@@ -78,7 +75,6 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get flags(): StdVideoH265VpsFlags {
     return new StdVideoH265VpsFlags(this.#data.subarray(0, 0 + StdVideoH265VpsFlags.size));
   }
-
   set flags(value: StdVideoH265VpsFlags) {
     if (value[BUFFER].byteLength < StdVideoH265VpsFlags.size) {
       throw new Error("Data buffer too small");
@@ -89,7 +85,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get vps_video_parameter_set_id(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set vps_video_parameter_set_id(value: number) {
     this.#view.setUint8(16, Number(value));
   }
@@ -97,23 +93,25 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get vps_max_sub_layers_minus1(): number {
     return this.#view.getUint8(17);
   }
-
+  
   set vps_max_sub_layers_minus1(value: number) {
     this.#view.setUint8(17, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint8(18);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint8(18, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved2(): number {
     return this.#view.getUint8(19);
   }
-
+  
   set reserved2(value: number) {
     this.#view.setUint8(19, Number(value));
   }
@@ -121,7 +119,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get vps_num_units_in_tick(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set vps_num_units_in_tick(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -129,7 +127,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get vps_time_scale(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set vps_time_scale(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -137,15 +135,16 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get vps_num_ticks_poc_diff_one_minus1(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set vps_num_ticks_poc_diff_one_minus1(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved3(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set reserved3(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -153,7 +152,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get pDecPicBufMgr(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pDecPicBufMgr(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -161,7 +160,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get pHrdParameters(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pHrdParameters(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -169,7 +168,7 @@ export class StdVideoH265VideoParameterSet implements BaseStruct {
   get pProfileTierLevel(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pProfileTierLevel(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

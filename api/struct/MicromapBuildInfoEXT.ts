@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {MicromapUsageEXT} from "./MicromapUsageEXT.ts";
 import { StructureType, MicromapTypeEXT, BuildMicromapModeEXT } from "../enum.ts";
 import { BuildMicromapFlagsEXT, MicromapEXT, DeviceSize } from "../def.ts";
 import { DeviceOrHostAddressConstKHR, DeviceOrHostAddressKHR } from "../union.ts";
@@ -21,7 +20,7 @@ export interface InitMicromapBuildInfoEXT {
   type?: MicromapTypeEXT;
   flags?: BuildMicromapFlagsEXT;
   mode?: BuildMicromapModeEXT;
-  dstMicromap?: MicromapEXT;
+  dstMicromap?: AnyPointer;
   usageCountsCount?: number;
   pUsageCounts?: AnyPointer;
   ppUsageCounts?: AnyPointer;
@@ -76,58 +75,58 @@ export class MicromapBuildInfoEXT implements BaseStruct {
     this.sType = StructureType.MICROMAP_BUILD_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(16, LE);
+  get type(): MicromapTypeEXT {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set type(value: MicromapTypeEXT) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): BuildMicromapFlagsEXT {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set flags(value: BuildMicromapFlagsEXT) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get mode(): number {
-    return this.#view.getUint32(24, LE);
+  get mode(): BuildMicromapModeEXT {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set mode(value: BuildMicromapModeEXT) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get dstMicromap(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set dstMicromap(value: MicromapEXT) {
+  
+  set dstMicromap(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get usageCountsCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set usageCountsCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -135,7 +134,7 @@ export class MicromapBuildInfoEXT implements BaseStruct {
   get pUsageCounts(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pUsageCounts(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -143,40 +142,37 @@ export class MicromapBuildInfoEXT implements BaseStruct {
   get ppUsageCounts(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set ppUsageCounts(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
 
-  get data(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get data(): DeviceOrHostAddressConstKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set data(value: DeviceOrHostAddressConstKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
-  get scratchData(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get scratchData(): DeviceOrHostAddressKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set scratchData(value: DeviceOrHostAddressKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
-  get triangleArray(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get triangleArray(): DeviceOrHostAddressConstKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set triangleArray(value: DeviceOrHostAddressConstKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
   get triangleArrayStride(): bigint {
     return this.#view.getBigUint64(88, LE);
   }
-
-  set triangleArrayStride(value: DeviceSize) {
+  
+  set triangleArrayStride(value: number | bigint) {
     this.#view.setBigUint64(88, BigInt(value), LE);
   }
 }

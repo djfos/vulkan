@@ -20,7 +20,6 @@ export interface InitStdVideoH265ProfileTierLevel {
   general_level_idc?: StdVideoH265LevelIdc;
 }
 
-/** profile_tier_level */
 export class StdVideoH265ProfileTierLevel implements BaseStruct {
   static size = 28;
 
@@ -59,7 +58,6 @@ export class StdVideoH265ProfileTierLevel implements BaseStruct {
   get flags(): StdVideoH265ProfileTierLevelFlags {
     return new StdVideoH265ProfileTierLevelFlags(this.#data.subarray(0, 0 + StdVideoH265ProfileTierLevelFlags.size));
   }
-
   set flags(value: StdVideoH265ProfileTierLevelFlags) {
     if (value[BUFFER].byteLength < StdVideoH265ProfileTierLevelFlags.size) {
       throw new Error("Data buffer too small");
@@ -67,19 +65,19 @@ export class StdVideoH265ProfileTierLevel implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
-  get general_profile_idc(): number {
-    return this.#view.getUint32(20, LE);
+  get general_profile_idc(): StdVideoH265ProfileIdc {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set general_profile_idc(value: StdVideoH265ProfileIdc) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get general_level_idc(): number {
-    return this.#view.getUint32(24, LE);
+  get general_level_idc(): StdVideoH265LevelIdc {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set general_level_idc(value: StdVideoH265LevelIdc) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 }

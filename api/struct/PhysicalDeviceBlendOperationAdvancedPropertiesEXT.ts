@@ -64,18 +64,18 @@ export class PhysicalDeviceBlendOperationAdvancedPropertiesEXT implements BaseSt
     this.sType = StructureType.PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -83,47 +83,47 @@ export class PhysicalDeviceBlendOperationAdvancedPropertiesEXT implements BaseSt
   get advancedBlendMaxColorAttachments(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set advancedBlendMaxColorAttachments(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get advancedBlendIndependentBlend(): number {
+  get advancedBlendIndependentBlend(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set advancedBlendIndependentBlend(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get advancedBlendNonPremultipliedSrcColor(): number {
+  get advancedBlendNonPremultipliedSrcColor(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set advancedBlendNonPremultipliedSrcColor(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get advancedBlendNonPremultipliedDstColor(): number {
+  get advancedBlendNonPremultipliedDstColor(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set advancedBlendNonPremultipliedDstColor(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get advancedBlendCorrelatedOverlap(): number {
+  get advancedBlendCorrelatedOverlap(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set advancedBlendCorrelatedOverlap(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get advancedBlendAllOperations(): number {
+  get advancedBlendAllOperations(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set advancedBlendAllOperations(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }

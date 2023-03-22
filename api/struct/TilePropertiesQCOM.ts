@@ -60,18 +60,18 @@ export class TilePropertiesQCOM implements BaseStruct {
     this.sType = StructureType.TILE_PROPERTIES_QCOM;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,7 +79,6 @@ export class TilePropertiesQCOM implements BaseStruct {
   get tileSize(): Extent3D {
     return new Extent3D(this.#data.subarray(16, 16 + Extent3D.size));
   }
-
   set tileSize(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");
@@ -90,7 +89,6 @@ export class TilePropertiesQCOM implements BaseStruct {
   get apronSize(): Extent2D {
     return new Extent2D(this.#data.subarray(28, 28 + Extent2D.size));
   }
-
   set apronSize(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -101,7 +99,6 @@ export class TilePropertiesQCOM implements BaseStruct {
   get origin(): Offset2D {
     return new Offset2D(this.#data.subarray(36, 36 + Offset2D.size));
   }
-
   set origin(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");

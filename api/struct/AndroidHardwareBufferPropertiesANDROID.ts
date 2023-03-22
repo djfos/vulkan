@@ -56,18 +56,18 @@ export class AndroidHardwareBufferPropertiesANDROID implements BaseStruct {
     this.sType = StructureType.ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,15 +75,15 @@ export class AndroidHardwareBufferPropertiesANDROID implements BaseStruct {
   get allocationSize(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set allocationSize(value: DeviceSize) {
+  
+  set allocationSize(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get memoryTypeBits(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set memoryTypeBits(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {InputAttachmentAspectReference} from "./InputAttachmentAspectReference.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitRenderPassInputAttachmentAspectCreateInfo {
@@ -56,18 +55,18 @@ export class RenderPassInputAttachmentAspectCreateInfo implements BaseStruct {
     this.sType = StructureType.RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class RenderPassInputAttachmentAspectCreateInfo implements BaseStruct {
   get aspectReferenceCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set aspectReferenceCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class RenderPassInputAttachmentAspectCreateInfo implements BaseStruct {
   get pAspectReferences(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pAspectReferences(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

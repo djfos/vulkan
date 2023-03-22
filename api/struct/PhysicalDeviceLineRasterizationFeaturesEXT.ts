@@ -64,66 +64,66 @@ export class PhysicalDeviceLineRasterizationFeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get rectangularLines(): number {
+  get rectangularLines(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set rectangularLines(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get bresenhamLines(): number {
+  get bresenhamLines(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set bresenhamLines(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get smoothLines(): number {
+  get smoothLines(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set smoothLines(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get stippledRectangularLines(): number {
+  get stippledRectangularLines(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set stippledRectangularLines(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get stippledBresenhamLines(): number {
+  get stippledBresenhamLines(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set stippledBresenhamLines(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get stippledSmoothLines(): number {
+  get stippledSmoothLines(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set stippledSmoothLines(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }

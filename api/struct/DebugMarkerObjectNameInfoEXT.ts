@@ -57,42 +57,45 @@ export class DebugMarkerObjectNameInfoEXT implements BaseStruct {
     this.sType = StructureType.DEBUG_MARKER_OBJECT_NAME_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get objectType(): number {
-    return this.#view.getUint32(16, LE);
+  /** The type of the object */
+  get objectType(): DebugReportObjectTypeEXT {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set objectType(value: DebugReportObjectTypeEXT) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
+  /** The handle of the object, cast to uint64_t */
   get object(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set object(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Name to apply to the object */
   get pObjectName(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pObjectName(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

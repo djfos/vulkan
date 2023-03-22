@@ -49,10 +49,11 @@ export class RefreshCycleDurationGOOGLE implements BaseStruct {
     }
   }
 
+  /** Number of nanoseconds from the start of one refresh cycle to the next */
   get refreshDuration(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
+  
   set refreshDuration(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }

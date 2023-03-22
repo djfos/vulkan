@@ -16,7 +16,7 @@ import { AccelerationStructureKHR } from "../def.ts";
 
 export interface InitAccelerationStructureDeviceAddressInfoKHR {
   pNext?: AnyPointer;
-  accelerationStructure?: AccelerationStructureKHR;
+  accelerationStructure?: AnyPointer;
 }
 
 export class AccelerationStructureDeviceAddressInfoKHR implements BaseStruct {
@@ -54,18 +54,18 @@ export class AccelerationStructureDeviceAddressInfoKHR implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class AccelerationStructureDeviceAddressInfoKHR implements BaseStruct {
   get accelerationStructure(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set accelerationStructure(value: AccelerationStructureKHR) {
+  
+  set accelerationStructure(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 }

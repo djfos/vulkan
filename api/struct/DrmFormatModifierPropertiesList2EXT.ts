@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {DrmFormatModifierProperties2EXT} from "./DrmFormatModifierProperties2EXT.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitDrmFormatModifierPropertiesList2EXT {
@@ -56,18 +55,18 @@ export class DrmFormatModifierPropertiesList2EXT implements BaseStruct {
     this.sType = StructureType.DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class DrmFormatModifierPropertiesList2EXT implements BaseStruct {
   get drmFormatModifierCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set drmFormatModifierCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +82,7 @@ export class DrmFormatModifierPropertiesList2EXT implements BaseStruct {
   get pDrmFormatModifierProperties(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pDrmFormatModifierProperties(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

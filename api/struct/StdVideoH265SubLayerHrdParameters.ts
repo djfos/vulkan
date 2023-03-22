@@ -20,7 +20,6 @@ export interface InitStdVideoH265SubLayerHrdParameters {
   cbr_flag?: number;
 }
 
-/** sub_layer_hrd_parameters */
 export class StdVideoH265SubLayerHrdParameters implements BaseStruct {
   static size = 516;
 
@@ -59,41 +58,70 @@ export class StdVideoH265SubLayerHrdParameters implements BaseStruct {
   }
 
   get bit_rate_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 0, 32);
+    return new Uint32Array(this.#data.buffer, 0, 32);
   }
-
   set bit_rate_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
   get cpb_size_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 128, 32);
+    return new Uint32Array(this.#data.buffer, 128, 32);
   }
-
   set cpb_size_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 128);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 128);
   }
 
   get cpb_size_du_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 256, 32);
+    return new Uint32Array(this.#data.buffer, 256, 32);
   }
-
   set cpb_size_du_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 256);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 256);
   }
 
   get bit_rate_du_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 384, 32);
+    return new Uint32Array(this.#data.buffer, 384, 32);
   }
-
   set bit_rate_du_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 384);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 384);
   }
 
+  /** each bit represents a range of CpbCounts (bit 0 - cpb_cnt_minus1) per sub-layer */
   get cbr_flag(): number {
     return this.#view.getUint32(512, LE);
   }
-
+  
   set cbr_flag(value: number) {
     this.#view.setUint32(512, Number(value), LE);
   }

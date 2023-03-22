@@ -14,7 +14,7 @@ import {
 import { DisplayKHR } from "../def.ts";
 
 export interface InitDisplayPlanePropertiesKHR {
-  currentDisplay?: DisplayKHR;
+  currentDisplay?: AnyPointer;
   currentStackIndex?: number;
 }
 
@@ -52,18 +52,20 @@ export class DisplayPlanePropertiesKHR implements BaseStruct {
     }
   }
 
+  /** Display the plane is currently associated with.  Will be VK_NULL_HANDLE if the plane is not in use. */
   get currentDisplay(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set currentDisplay(value: DisplayKHR) {
+  
+  set currentDisplay(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
+  /** Current z-order of the plane. */
   get currentStackIndex(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set currentStackIndex(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

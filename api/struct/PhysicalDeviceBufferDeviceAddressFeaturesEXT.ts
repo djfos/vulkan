@@ -58,42 +58,42 @@ export class PhysicalDeviceBufferDeviceAddressFeaturesEXT implements BaseStruct 
     this.sType = StructureType.PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get bufferDeviceAddress(): number {
+  get bufferDeviceAddress(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set bufferDeviceAddress(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get bufferDeviceAddressCaptureReplay(): number {
+  get bufferDeviceAddressCaptureReplay(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set bufferDeviceAddressCaptureReplay(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get bufferDeviceAddressMultiDevice(): number {
+  get bufferDeviceAddressMultiDevice(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set bufferDeviceAddressMultiDevice(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }

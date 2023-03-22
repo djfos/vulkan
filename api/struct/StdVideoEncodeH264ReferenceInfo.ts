@@ -61,7 +61,6 @@ export class StdVideoEncodeH264ReferenceInfo implements BaseStruct {
   get flags(): StdVideoEncodeH264ReferenceInfoFlags {
     return new StdVideoEncodeH264ReferenceInfoFlags(this.#data.subarray(0, 0 + StdVideoEncodeH264ReferenceInfoFlags.size));
   }
-
   set flags(value: StdVideoEncodeH264ReferenceInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoEncodeH264ReferenceInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -72,7 +71,7 @@ export class StdVideoEncodeH264ReferenceInfo implements BaseStruct {
   get FrameNum(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set FrameNum(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -80,7 +79,7 @@ export class StdVideoEncodeH264ReferenceInfo implements BaseStruct {
   get PicOrderCnt(): number {
     return this.#view.getInt32(8, LE);
   }
-
+  
   set PicOrderCnt(value: number) {
     this.#view.setInt32(8, Number(value), LE);
   }
@@ -88,7 +87,7 @@ export class StdVideoEncodeH264ReferenceInfo implements BaseStruct {
   get long_term_pic_num(): number {
     return this.#view.getUint16(12, LE);
   }
-
+  
   set long_term_pic_num(value: number) {
     this.#view.setUint16(12, Number(value), LE);
   }
@@ -96,7 +95,7 @@ export class StdVideoEncodeH264ReferenceInfo implements BaseStruct {
   get long_term_frame_idx(): number {
     return this.#view.getUint16(14, LE);
   }
-
+  
   set long_term_frame_idx(value: number) {
     this.#view.setUint16(14, Number(value), LE);
   }

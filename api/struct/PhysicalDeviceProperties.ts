@@ -28,7 +28,7 @@ export interface InitPhysicalDeviceProperties {
 }
 
 export class PhysicalDeviceProperties implements BaseStruct {
-  static size = 792;
+  static size = 824;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -71,7 +71,7 @@ export class PhysicalDeviceProperties implements BaseStruct {
   get apiVersion(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set apiVersion(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -79,7 +79,7 @@ export class PhysicalDeviceProperties implements BaseStruct {
   get driverVersion(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set driverVersion(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -87,7 +87,7 @@ export class PhysicalDeviceProperties implements BaseStruct {
   get vendorID(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set vendorID(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -95,39 +95,52 @@ export class PhysicalDeviceProperties implements BaseStruct {
   get deviceID(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set deviceID(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
-  get deviceType(): number {
-    return this.#view.getUint32(16, LE);
+  get deviceType(): PhysicalDeviceType {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set deviceType(value: PhysicalDeviceType) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get deviceName(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 20, 256);
+    return new Uint8Array(this.#data.buffer, 20, 256);
   }
-
   set deviceName(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 
   get pipelineCacheUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 276, 16);
+    return new Uint8Array(this.#data.buffer, 276, 16);
   }
-
   set pipelineCacheUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 276);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 276);
   }
 
   get limits(): PhysicalDeviceLimits {
     return new PhysicalDeviceLimits(this.#data.subarray(296, 296 + PhysicalDeviceLimits.size));
   }
-
   set limits(value: PhysicalDeviceLimits) {
     if (value[BUFFER].byteLength < PhysicalDeviceLimits.size) {
       throw new Error("Data buffer too small");
@@ -136,13 +149,12 @@ export class PhysicalDeviceProperties implements BaseStruct {
   }
 
   get sparseProperties(): PhysicalDeviceSparseProperties {
-    return new PhysicalDeviceSparseProperties(this.#data.subarray(768, 768 + PhysicalDeviceSparseProperties.size));
+    return new PhysicalDeviceSparseProperties(this.#data.subarray(800, 800 + PhysicalDeviceSparseProperties.size));
   }
-
   set sparseProperties(value: PhysicalDeviceSparseProperties) {
     if (value[BUFFER].byteLength < PhysicalDeviceSparseProperties.size) {
       throw new Error("Data buffer too small");
     }
-    this.#data.set(value[BUFFER], 768);
+    this.#data.set(value[BUFFER], 800);
   }
 }

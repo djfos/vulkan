@@ -16,10 +16,10 @@ import { Semaphore, SemaphoreImportFlags } from "../def.ts";
 
 export interface InitImportSemaphoreZirconHandleInfoFUCHSIA {
   pNext?: AnyPointer;
-  semaphore?: Semaphore;
+  semaphore?: AnyPointer;
   flags?: SemaphoreImportFlags;
   handleType?: ExternalSemaphoreHandleTypeFlagBits;
-  zirconHandle?: Deno.PointerValue;
+  zirconHandle?: AnyPointer;
 }
 
 export class ImportSemaphoreZirconHandleInfoFUCHSIA implements BaseStruct {
@@ -60,18 +60,18 @@ export class ImportSemaphoreZirconHandleInfoFUCHSIA implements BaseStruct {
     this.sType = StructureType.IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,32 +79,32 @@ export class ImportSemaphoreZirconHandleInfoFUCHSIA implements BaseStruct {
   get semaphore(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set semaphore(value: Semaphore) {
+  
+  set semaphore(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): SemaphoreImportFlags {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set flags(value: SemaphoreImportFlags) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get handleType(): number {
-    return this.#view.getUint32(28, LE);
+  get handleType(): ExternalSemaphoreHandleTypeFlagBits {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set handleType(value: ExternalSemaphoreHandleTypeFlagBits) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
   get zirconHandle(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set zirconHandle(value: Deno.PointerValue) {
+  
+  set zirconHandle(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

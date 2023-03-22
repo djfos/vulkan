@@ -14,12 +14,11 @@ import {
 import {Rect2D} from "./Rect2D.ts";
 import { StructureType } from "../enum.ts";
 import { RenderPass, Framebuffer } from "../def.ts";
-import { ClearValue } from "../union.ts";
 
 export interface InitRenderPassBeginInfo {
   pNext?: AnyPointer;
-  renderPass?: RenderPass;
-  framebuffer?: Framebuffer;
+  renderPass?: AnyPointer;
+  framebuffer?: AnyPointer;
   renderArea?: Rect2D;
   clearValueCount?: number;
   pClearValues?: AnyPointer;
@@ -64,18 +63,18 @@ export class RenderPassBeginInfo implements BaseStruct {
     this.sType = StructureType.RENDER_PASS_BEGIN_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -83,23 +82,22 @@ export class RenderPassBeginInfo implements BaseStruct {
   get renderPass(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set renderPass(value: RenderPass) {
+  
+  set renderPass(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get framebuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set framebuffer(value: Framebuffer) {
+  
+  set framebuffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get renderArea(): Rect2D {
     return new Rect2D(this.#data.subarray(32, 32 + Rect2D.size));
   }
-
   set renderArea(value: Rect2D) {
     if (value[BUFFER].byteLength < Rect2D.size) {
       throw new Error("Data buffer too small");
@@ -110,7 +108,7 @@ export class RenderPassBeginInfo implements BaseStruct {
   get clearValueCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set clearValueCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -118,7 +116,7 @@ export class RenderPassBeginInfo implements BaseStruct {
   get pClearValues(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pClearValues(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

@@ -59,10 +59,10 @@ export class ImageFormatProperties implements BaseStruct {
     }
   }
 
+  /** max image dimensions for this resource type */
   get maxExtent(): Extent3D {
     return new Extent3D(this.#data.subarray(0, 0 + Extent3D.size));
   }
-
   set maxExtent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");
@@ -70,35 +70,39 @@ export class ImageFormatProperties implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** max number of mipmap levels for this resource type */
   get maxMipLevels(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set maxMipLevels(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
+  /** max array size for this resource type */
   get maxArrayLayers(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxArrayLayers(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get sampleCounts(): number {
+  /** supported sample counts for this resource type */
+  get sampleCounts(): SampleCountFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set sampleCounts(value: SampleCountFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** max size (in bytes) of this resource type */
   get maxResourceSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set maxResourceSize(value: DeviceSize) {
+  
+  set maxResourceSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 }

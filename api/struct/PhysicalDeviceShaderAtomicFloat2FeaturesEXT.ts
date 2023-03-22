@@ -76,114 +76,114 @@ export class PhysicalDeviceShaderAtomicFloat2FeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shaderBufferFloat16Atomics(): number {
+  get shaderBufferFloat16Atomics(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderBufferFloat16Atomics(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get shaderBufferFloat16AtomicAdd(): number {
+  get shaderBufferFloat16AtomicAdd(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderBufferFloat16AtomicAdd(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get shaderBufferFloat16AtomicMinMax(): number {
+  get shaderBufferFloat16AtomicMinMax(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set shaderBufferFloat16AtomicMinMax(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get shaderBufferFloat32AtomicMinMax(): number {
+  get shaderBufferFloat32AtomicMinMax(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set shaderBufferFloat32AtomicMinMax(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get shaderBufferFloat64AtomicMinMax(): number {
+  get shaderBufferFloat64AtomicMinMax(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set shaderBufferFloat64AtomicMinMax(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get shaderSharedFloat16Atomics(): number {
+  get shaderSharedFloat16Atomics(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set shaderSharedFloat16Atomics(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get shaderSharedFloat16AtomicAdd(): number {
+  get shaderSharedFloat16AtomicAdd(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set shaderSharedFloat16AtomicAdd(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get shaderSharedFloat16AtomicMinMax(): number {
+  get shaderSharedFloat16AtomicMinMax(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set shaderSharedFloat16AtomicMinMax(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get shaderSharedFloat32AtomicMinMax(): number {
+  get shaderSharedFloat32AtomicMinMax(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set shaderSharedFloat32AtomicMinMax(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get shaderSharedFloat64AtomicMinMax(): number {
+  get shaderSharedFloat64AtomicMinMax(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set shaderSharedFloat64AtomicMinMax(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get shaderImageFloat32AtomicMinMax(): number {
+  get shaderImageFloat32AtomicMinMax(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set shaderImageFloat32AtomicMinMax(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get sparseImageFloat32AtomicMinMax(): number {
+  get sparseImageFloat32AtomicMinMax(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set sparseImageFloat32AtomicMinMax(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }

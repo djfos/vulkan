@@ -108,18 +108,18 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -127,39 +127,53 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxTaskWorkGroupTotalCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxTaskWorkGroupTotalCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
   get maxTaskWorkGroupCount(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 20, 3);
+    return new Uint32Array(this.#data.buffer, 20, 3);
   }
-
   set maxTaskWorkGroupCount(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 
   get maxTaskWorkGroupInvocations(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set maxTaskWorkGroupInvocations(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
   get maxTaskWorkGroupSize(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 36, 3);
+    return new Uint32Array(this.#data.buffer, 36, 3);
   }
-
   set maxTaskWorkGroupSize(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 36);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 36);
   }
 
   get maxTaskPayloadSize(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxTaskPayloadSize(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -167,7 +181,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxTaskSharedMemorySize(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set maxTaskSharedMemorySize(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -175,7 +189,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxTaskPayloadAndSharedMemorySize(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set maxTaskPayloadAndSharedMemorySize(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -183,39 +197,53 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshWorkGroupTotalCount(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set maxMeshWorkGroupTotalCount(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
   get maxMeshWorkGroupCount(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 64, 3);
+    return new Uint32Array(this.#data.buffer, 64, 3);
   }
-
   set maxMeshWorkGroupCount(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 64);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 64);
   }
 
   get maxMeshWorkGroupInvocations(): number {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set maxMeshWorkGroupInvocations(value: number) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
   get maxMeshWorkGroupSize(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 80, 3);
+    return new Uint32Array(this.#data.buffer, 80, 3);
   }
-
   set maxMeshWorkGroupSize(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 80);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 80);
   }
 
   get maxMeshSharedMemorySize(): number {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set maxMeshSharedMemorySize(value: number) {
     this.#view.setUint32(92, Number(value), LE);
   }
@@ -223,7 +251,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshPayloadAndSharedMemorySize(): number {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set maxMeshPayloadAndSharedMemorySize(value: number) {
     this.#view.setUint32(96, Number(value), LE);
   }
@@ -231,7 +259,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshOutputMemorySize(): number {
     return this.#view.getUint32(100, LE);
   }
-
+  
   set maxMeshOutputMemorySize(value: number) {
     this.#view.setUint32(100, Number(value), LE);
   }
@@ -239,7 +267,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshPayloadAndOutputMemorySize(): number {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set maxMeshPayloadAndOutputMemorySize(value: number) {
     this.#view.setUint32(104, Number(value), LE);
   }
@@ -247,7 +275,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshOutputComponents(): number {
     return this.#view.getUint32(108, LE);
   }
-
+  
   set maxMeshOutputComponents(value: number) {
     this.#view.setUint32(108, Number(value), LE);
   }
@@ -255,7 +283,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshOutputVertices(): number {
     return this.#view.getUint32(112, LE);
   }
-
+  
   set maxMeshOutputVertices(value: number) {
     this.#view.setUint32(112, Number(value), LE);
   }
@@ -263,7 +291,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshOutputPrimitives(): number {
     return this.#view.getUint32(116, LE);
   }
-
+  
   set maxMeshOutputPrimitives(value: number) {
     this.#view.setUint32(116, Number(value), LE);
   }
@@ -271,7 +299,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshOutputLayers(): number {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set maxMeshOutputLayers(value: number) {
     this.#view.setUint32(120, Number(value), LE);
   }
@@ -279,7 +307,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxMeshMultiviewViewCount(): number {
     return this.#view.getUint32(124, LE);
   }
-
+  
   set maxMeshMultiviewViewCount(value: number) {
     this.#view.setUint32(124, Number(value), LE);
   }
@@ -287,7 +315,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get meshOutputPerVertexGranularity(): number {
     return this.#view.getUint32(128, LE);
   }
-
+  
   set meshOutputPerVertexGranularity(value: number) {
     this.#view.setUint32(128, Number(value), LE);
   }
@@ -295,7 +323,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get meshOutputPerPrimitiveGranularity(): number {
     return this.#view.getUint32(132, LE);
   }
-
+  
   set meshOutputPerPrimitiveGranularity(value: number) {
     this.#view.setUint32(132, Number(value), LE);
   }
@@ -303,7 +331,7 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxPreferredTaskWorkGroupInvocations(): number {
     return this.#view.getUint32(136, LE);
   }
-
+  
   set maxPreferredTaskWorkGroupInvocations(value: number) {
     this.#view.setUint32(136, Number(value), LE);
   }
@@ -311,39 +339,39 @@ export class PhysicalDeviceMeshShaderPropertiesEXT implements BaseStruct {
   get maxPreferredMeshWorkGroupInvocations(): number {
     return this.#view.getUint32(140, LE);
   }
-
+  
   set maxPreferredMeshWorkGroupInvocations(value: number) {
     this.#view.setUint32(140, Number(value), LE);
   }
 
-  get prefersLocalInvocationVertexOutput(): number {
+  get prefersLocalInvocationVertexOutput(): Bool32 {
     return this.#view.getUint32(144, LE);
   }
-
+  
   set prefersLocalInvocationVertexOutput(value: Bool32) {
     this.#view.setUint32(144, Number(value), LE);
   }
 
-  get prefersLocalInvocationPrimitiveOutput(): number {
+  get prefersLocalInvocationPrimitiveOutput(): Bool32 {
     return this.#view.getUint32(148, LE);
   }
-
+  
   set prefersLocalInvocationPrimitiveOutput(value: Bool32) {
     this.#view.setUint32(148, Number(value), LE);
   }
 
-  get prefersCompactVertexOutput(): number {
+  get prefersCompactVertexOutput(): Bool32 {
     return this.#view.getUint32(152, LE);
   }
-
+  
   set prefersCompactVertexOutput(value: Bool32) {
     this.#view.setUint32(152, Number(value), LE);
   }
 
-  get prefersCompactPrimitiveOutput(): number {
+  get prefersCompactPrimitiveOutput(): Bool32 {
     return this.#view.getUint32(156, LE);
   }
-
+  
   set prefersCompactPrimitiveOutput(value: Bool32) {
     this.#view.setUint32(156, Number(value), LE);
   }

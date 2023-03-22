@@ -57,7 +57,6 @@ export class ClearRect implements BaseStruct {
   get rect(): Rect2D {
     return new Rect2D(this.#data.subarray(0, 0 + Rect2D.size));
   }
-
   set rect(value: Rect2D) {
     if (value[BUFFER].byteLength < Rect2D.size) {
       throw new Error("Data buffer too small");
@@ -68,7 +67,7 @@ export class ClearRect implements BaseStruct {
   get baseArrayLayer(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set baseArrayLayer(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -76,7 +75,7 @@ export class ClearRect implements BaseStruct {
   get layerCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set layerCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }

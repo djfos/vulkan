@@ -54,7 +54,7 @@ export class VertexInputBindingDivisorDescriptionEXT implements BaseStruct {
   get binding(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set binding(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class VertexInputBindingDivisorDescriptionEXT implements BaseStruct {
   get divisor(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set divisor(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

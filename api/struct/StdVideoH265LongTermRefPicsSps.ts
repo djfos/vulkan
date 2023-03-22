@@ -51,19 +51,27 @@ export class StdVideoH265LongTermRefPicsSps implements BaseStruct {
     }
   }
 
+  /** each bit represents a used_by_curr_pic_lt_sps_flag[i] syntax */
   get used_by_curr_pic_lt_sps_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set used_by_curr_pic_lt_sps_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
   get lt_ref_pic_poc_lsb_sps(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 4, 32);
+    return new Uint32Array(this.#data.buffer, 4, 32);
   }
-
   set lt_ref_pic_poc_lsb_sps(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 4);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 4);
   }
 }

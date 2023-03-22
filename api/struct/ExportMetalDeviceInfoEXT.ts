@@ -16,7 +16,7 @@ import { MTLDevice_id } from "../def.ts";
 
 export interface InitExportMetalDeviceInfoEXT {
   pNext?: AnyPointer;
-  mtlDevice?: MTLDevice_id;
+  mtlDevice?: AnyPointer;
 }
 
 export class ExportMetalDeviceInfoEXT implements BaseStruct {
@@ -54,18 +54,18 @@ export class ExportMetalDeviceInfoEXT implements BaseStruct {
     this.sType = StructureType.EXPORT_METAL_DEVICE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class ExportMetalDeviceInfoEXT implements BaseStruct {
   get mtlDevice(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set mtlDevice(value: MTLDevice_id) {
+  
+  set mtlDevice(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 }

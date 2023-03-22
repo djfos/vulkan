@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType } from "../enum.ts";
-import { Bool32 } from "../def.ts";
 
 export interface InitPipelineColorWriteCreateInfoEXT {
   pNext?: AnyPointer;
@@ -56,26 +55,27 @@ export class PipelineColorWriteCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.PIPELINE_COLOR_WRITE_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** # of pAttachments */
   get attachmentCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set attachmentCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +83,7 @@ export class PipelineColorWriteCreateInfoEXT implements BaseStruct {
   get pColorWriteEnables(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pColorWriteEnables(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

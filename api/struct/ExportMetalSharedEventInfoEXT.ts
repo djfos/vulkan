@@ -16,9 +16,9 @@ import { Semaphore, Event, MTLSharedEvent_id } from "../def.ts";
 
 export interface InitExportMetalSharedEventInfoEXT {
   pNext?: AnyPointer;
-  semaphore?: Semaphore;
-  event?: Event;
-  mtlSharedEvent?: MTLSharedEvent_id;
+  semaphore?: AnyPointer;
+  event?: AnyPointer;
+  mtlSharedEvent?: AnyPointer;
 }
 
 export class ExportMetalSharedEventInfoEXT implements BaseStruct {
@@ -58,18 +58,18 @@ export class ExportMetalSharedEventInfoEXT implements BaseStruct {
     this.sType = StructureType.EXPORT_METAL_SHARED_EVENT_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,24 +77,24 @@ export class ExportMetalSharedEventInfoEXT implements BaseStruct {
   get semaphore(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set semaphore(value: Semaphore) {
+  
+  set semaphore(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get event(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set event(value: Event) {
+  
+  set event(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get mtlSharedEvent(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set mtlSharedEvent(value: MTLSharedEvent_id) {
+  
+  set mtlSharedEvent(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

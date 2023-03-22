@@ -56,7 +56,7 @@ export class StdVideoEncodeH264PictureInfoFlags implements BaseStruct {
   get idr_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set idr_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -64,15 +64,16 @@ export class StdVideoEncodeH264PictureInfoFlags implements BaseStruct {
   get is_reference_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set is_reference_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** : A picture that is marked as "used for long-term reference", derived binary value from clause 8.2.5.1 Sequence of operations for decoded reference picture marking process */
   get used_for_long_term_reference(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set used_for_long_term_reference(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

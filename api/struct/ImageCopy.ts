@@ -63,7 +63,6 @@ export class ImageCopy implements BaseStruct {
   get srcSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(0, 0 + ImageSubresourceLayers.size));
   }
-
   set srcSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -71,10 +70,10 @@ export class ImageCopy implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get srcOffset(): Offset3D {
     return new Offset3D(this.#data.subarray(16, 16 + Offset3D.size));
   }
-
   set srcOffset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -85,7 +84,6 @@ export class ImageCopy implements BaseStruct {
   get dstSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(28, 28 + ImageSubresourceLayers.size));
   }
-
   set dstSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -93,10 +91,10 @@ export class ImageCopy implements BaseStruct {
     this.#data.set(value[BUFFER], 28);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get dstOffset(): Offset3D {
     return new Offset3D(this.#data.subarray(44, 44 + Offset3D.size));
   }
-
   set dstOffset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -104,10 +102,10 @@ export class ImageCopy implements BaseStruct {
     this.#data.set(value[BUFFER], 44);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get extent(): Extent3D {
     return new Extent3D(this.#data.subarray(56, 56 + Extent3D.size));
   }
-
   set extent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");

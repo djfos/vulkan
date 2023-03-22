@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {SubresourceLayout} from "./SubresourceLayout.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitImageDrmFormatModifierExplicitCreateInfoEXT {
@@ -58,18 +57,18 @@ export class ImageDrmFormatModifierExplicitCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,7 +76,7 @@ export class ImageDrmFormatModifierExplicitCreateInfoEXT implements BaseStruct {
   get drmFormatModifier(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set drmFormatModifier(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
@@ -85,7 +84,7 @@ export class ImageDrmFormatModifierExplicitCreateInfoEXT implements BaseStruct {
   get drmFormatModifierPlaneCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set drmFormatModifierPlaneCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -93,7 +92,7 @@ export class ImageDrmFormatModifierExplicitCreateInfoEXT implements BaseStruct {
   get pPlaneLayouts(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pPlaneLayouts(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

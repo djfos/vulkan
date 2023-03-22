@@ -12,14 +12,13 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {VideoPictureResourceInfoKHR} from "./VideoPictureResourceInfoKHR.ts";
-import {VideoReferenceSlotInfoKHR} from "./VideoReferenceSlotInfoKHR.ts";
 import { StructureType } from "../enum.ts";
 import { VideoDecodeFlagsKHR, Buffer, DeviceSize } from "../def.ts";
 
 export interface InitVideoDecodeInfoKHR {
   pNext?: AnyPointer;
   flags?: VideoDecodeFlagsKHR;
-  srcBuffer?: Buffer;
+  srcBuffer?: AnyPointer;
   srcBufferOffset?: DeviceSize;
   srcBufferRange?: DeviceSize;
   dstPictureResource?: VideoPictureResourceInfoKHR;
@@ -70,26 +69,26 @@ export class VideoDecodeInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_DECODE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoDecodeFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoDecodeFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -97,31 +96,30 @@ export class VideoDecodeInfoKHR implements BaseStruct {
   get srcBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set srcBuffer(value: Buffer) {
+  
+  set srcBuffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get srcBufferOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set srcBufferOffset(value: DeviceSize) {
+  
+  set srcBufferOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get srcBufferRange(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set srcBufferRange(value: DeviceSize) {
+  
+  set srcBufferRange(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
   get dstPictureResource(): VideoPictureResourceInfoKHR {
     return new VideoPictureResourceInfoKHR(this.#data.subarray(48, 48 + VideoPictureResourceInfoKHR.size));
   }
-
   set dstPictureResource(value: VideoPictureResourceInfoKHR) {
     if (value[BUFFER].byteLength < VideoPictureResourceInfoKHR.size) {
       throw new Error("Data buffer too small");
@@ -132,7 +130,7 @@ export class VideoDecodeInfoKHR implements BaseStruct {
   get pSetupReferenceSlot(): Deno.PointerValue {
     return pointerFromView(this.#view, 96, LE);
   }
-
+  
   set pSetupReferenceSlot(value: AnyPointer) {
     this.#view.setBigUint64(96, BigInt(anyPointer(value)), LE);
   }
@@ -140,7 +138,7 @@ export class VideoDecodeInfoKHR implements BaseStruct {
   get referenceSlotCount(): number {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set referenceSlotCount(value: number) {
     this.#view.setUint32(104, Number(value), LE);
   }
@@ -148,7 +146,7 @@ export class VideoDecodeInfoKHR implements BaseStruct {
   get pReferenceSlots(): Deno.PointerValue {
     return pointerFromView(this.#view, 112, LE);
   }
-
+  
   set pReferenceSlots(value: AnyPointer) {
     this.#view.setBigUint64(112, BigInt(anyPointer(value)), LE);
   }

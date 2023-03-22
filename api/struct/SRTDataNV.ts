@@ -82,7 +82,7 @@ export class SRTDataNV implements BaseStruct {
   get sx(): number {
     return this.#view.getFloat32(0, LE);
   }
-
+  
   set sx(value: number) {
     this.#view.setFloat32(0, Number(value), LE);
   }
@@ -90,7 +90,7 @@ export class SRTDataNV implements BaseStruct {
   get a(): number {
     return this.#view.getFloat32(4, LE);
   }
-
+  
   set a(value: number) {
     this.#view.setFloat32(4, Number(value), LE);
   }
@@ -98,7 +98,7 @@ export class SRTDataNV implements BaseStruct {
   get b(): number {
     return this.#view.getFloat32(8, LE);
   }
-
+  
   set b(value: number) {
     this.#view.setFloat32(8, Number(value), LE);
   }
@@ -106,7 +106,7 @@ export class SRTDataNV implements BaseStruct {
   get pvx(): number {
     return this.#view.getFloat32(12, LE);
   }
-
+  
   set pvx(value: number) {
     this.#view.setFloat32(12, Number(value), LE);
   }
@@ -114,7 +114,7 @@ export class SRTDataNV implements BaseStruct {
   get sy(): number {
     return this.#view.getFloat32(16, LE);
   }
-
+  
   set sy(value: number) {
     this.#view.setFloat32(16, Number(value), LE);
   }
@@ -122,7 +122,7 @@ export class SRTDataNV implements BaseStruct {
   get c(): number {
     return this.#view.getFloat32(20, LE);
   }
-
+  
   set c(value: number) {
     this.#view.setFloat32(20, Number(value), LE);
   }
@@ -130,7 +130,7 @@ export class SRTDataNV implements BaseStruct {
   get pvy(): number {
     return this.#view.getFloat32(24, LE);
   }
-
+  
   set pvy(value: number) {
     this.#view.setFloat32(24, Number(value), LE);
   }
@@ -138,7 +138,7 @@ export class SRTDataNV implements BaseStruct {
   get sz(): number {
     return this.#view.getFloat32(28, LE);
   }
-
+  
   set sz(value: number) {
     this.#view.setFloat32(28, Number(value), LE);
   }
@@ -146,7 +146,7 @@ export class SRTDataNV implements BaseStruct {
   get pvz(): number {
     return this.#view.getFloat32(32, LE);
   }
-
+  
   set pvz(value: number) {
     this.#view.setFloat32(32, Number(value), LE);
   }
@@ -154,7 +154,7 @@ export class SRTDataNV implements BaseStruct {
   get qx(): number {
     return this.#view.getFloat32(36, LE);
   }
-
+  
   set qx(value: number) {
     this.#view.setFloat32(36, Number(value), LE);
   }
@@ -162,7 +162,7 @@ export class SRTDataNV implements BaseStruct {
   get qy(): number {
     return this.#view.getFloat32(40, LE);
   }
-
+  
   set qy(value: number) {
     this.#view.setFloat32(40, Number(value), LE);
   }
@@ -170,7 +170,7 @@ export class SRTDataNV implements BaseStruct {
   get qz(): number {
     return this.#view.getFloat32(44, LE);
   }
-
+  
   set qz(value: number) {
     this.#view.setFloat32(44, Number(value), LE);
   }
@@ -178,7 +178,7 @@ export class SRTDataNV implements BaseStruct {
   get qw(): number {
     return this.#view.getFloat32(48, LE);
   }
-
+  
   set qw(value: number) {
     this.#view.setFloat32(48, Number(value), LE);
   }
@@ -186,7 +186,7 @@ export class SRTDataNV implements BaseStruct {
   get tx(): number {
     return this.#view.getFloat32(52, LE);
   }
-
+  
   set tx(value: number) {
     this.#view.setFloat32(52, Number(value), LE);
   }
@@ -194,7 +194,7 @@ export class SRTDataNV implements BaseStruct {
   get ty(): number {
     return this.#view.getFloat32(56, LE);
   }
-
+  
   set ty(value: number) {
     this.#view.setFloat32(56, Number(value), LE);
   }
@@ -202,7 +202,7 @@ export class SRTDataNV implements BaseStruct {
   get tz(): number {
     return this.#view.getFloat32(60, LE);
   }
-
+  
   set tz(value: number) {
     this.#view.setFloat32(60, Number(value), LE);
   }

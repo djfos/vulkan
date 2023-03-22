@@ -15,8 +15,8 @@ import { ImageLayout } from "../enum.ts";
 import { Sampler, ImageView } from "../def.ts";
 
 export interface InitDescriptorImageInfo {
-  sampler?: Sampler;
-  imageView?: ImageView;
+  sampler?: AnyPointer;
+  imageView?: AnyPointer;
   imageLayout?: ImageLayout;
 }
 
@@ -55,27 +55,30 @@ export class DescriptorImageInfo implements BaseStruct {
     }
   }
 
+  /** Sampler to write to the descriptor in case it is a SAMPLER or COMBINED_IMAGE_SAMPLER descriptor. Ignored otherwise. */
   get sampler(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set sampler(value: Sampler) {
+  
+  set sampler(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
+  /** Image view to write to the descriptor in case it is a SAMPLED_IMAGE, STORAGE_IMAGE, COMBINED_IMAGE_SAMPLER, or INPUT_ATTACHMENT descriptor. Ignored otherwise. */
   get imageView(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
-  set imageView(value: ImageView) {
+  
+  set imageView(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get imageLayout(): number {
-    return this.#view.getUint32(16, LE);
+  /** Layout the image is expected to be in when accessed using this descriptor (only used if imageView is not VK_NULL_HANDLE). */
+  get imageLayout(): ImageLayout {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set imageLayout(value: ImageLayout) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 }

@@ -54,7 +54,7 @@ export class ClearDepthStencilValue implements BaseStruct {
   get depth(): number {
     return this.#view.getFloat32(0, LE);
   }
-
+  
   set depth(value: number) {
     this.#view.setFloat32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class ClearDepthStencilValue implements BaseStruct {
   get stencil(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set stencil(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

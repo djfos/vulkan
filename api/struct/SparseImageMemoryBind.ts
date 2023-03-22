@@ -20,7 +20,7 @@ export interface InitSparseImageMemoryBind {
   subresource?: ImageSubresource;
   offset?: Offset3D;
   extent?: Extent3D;
-  memory?: DeviceMemory;
+  memory?: AnyPointer;
   memoryOffset?: DeviceSize;
   flags?: SparseMemoryBindFlags;
 }
@@ -66,7 +66,6 @@ export class SparseImageMemoryBind implements BaseStruct {
   get subresource(): ImageSubresource {
     return new ImageSubresource(this.#data.subarray(0, 0 + ImageSubresource.size));
   }
-
   set subresource(value: ImageSubresource) {
     if (value[BUFFER].byteLength < ImageSubresource.size) {
       throw new Error("Data buffer too small");
@@ -77,7 +76,6 @@ export class SparseImageMemoryBind implements BaseStruct {
   get offset(): Offset3D {
     return new Offset3D(this.#data.subarray(12, 12 + Offset3D.size));
   }
-
   set offset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -88,7 +86,6 @@ export class SparseImageMemoryBind implements BaseStruct {
   get extent(): Extent3D {
     return new Extent3D(this.#data.subarray(24, 24 + Extent3D.size));
   }
-
   set extent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");
@@ -99,23 +96,24 @@ export class SparseImageMemoryBind implements BaseStruct {
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 
+  /** Specified in bytes */
   get memoryOffset(): bigint {
     return this.#view.getBigUint64(48, LE);
   }
-
-  set memoryOffset(value: DeviceSize) {
+  
+  set memoryOffset(value: number | bigint) {
     this.#view.setBigUint64(48, BigInt(value), LE);
   }
 
-  get flags(): number {
+  get flags(): SparseMemoryBindFlags {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set flags(value: SparseMemoryBindFlags) {
     this.#view.setUint32(56, Number(value), LE);
   }

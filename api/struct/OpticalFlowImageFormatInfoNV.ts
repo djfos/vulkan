@@ -54,26 +54,26 @@ export class OpticalFlowImageFormatInfoNV implements BaseStruct {
     this.sType = StructureType.OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get usage(): number {
+  get usage(): OpticalFlowUsageFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set usage(value: OpticalFlowUsageFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }

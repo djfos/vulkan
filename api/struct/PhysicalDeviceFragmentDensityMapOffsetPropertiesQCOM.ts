@@ -54,18 +54,18 @@ export class PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM implements Bas
     this.sType = StructureType.PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM implements Bas
   get fragmentDensityOffsetGranularity(): Extent2D {
     return new Extent2D(this.#data.subarray(16, 16 + Extent2D.size));
   }
-
   set fragmentDensityOffsetGranularity(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

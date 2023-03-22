@@ -69,18 +69,18 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
     this.sType = StructureType.PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -88,7 +88,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxGraphicsShaderGroupCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxGraphicsShaderGroupCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -96,7 +96,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxIndirectSequenceCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxIndirectSequenceCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -104,7 +104,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxIndirectCommandsTokenCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set maxIndirectCommandsTokenCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -112,7 +112,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxIndirectCommandsStreamCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set maxIndirectCommandsStreamCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -120,7 +120,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxIndirectCommandsTokenOffset(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set maxIndirectCommandsTokenOffset(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -128,7 +128,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get maxIndirectCommandsStreamStride(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set maxIndirectCommandsStreamStride(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -136,7 +136,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get minSequencesCountBufferOffsetAlignment(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set minSequencesCountBufferOffsetAlignment(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -144,7 +144,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get minSequencesIndexBufferOffsetAlignment(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set minSequencesIndexBufferOffsetAlignment(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -152,7 +152,7 @@ export class PhysicalDeviceDeviceGeneratedCommandsPropertiesNV implements BaseSt
   get minIndirectCommandsBufferOffsetAlignment(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set minIndirectCommandsBufferOffsetAlignment(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }

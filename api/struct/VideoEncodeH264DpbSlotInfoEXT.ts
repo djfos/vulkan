@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {StdVideoEncodeH264ReferenceInfo} from "./StdVideoEncodeH264ReferenceInfo.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitVideoEncodeH264DpbSlotInfoEXT {
@@ -56,18 +55,18 @@ export class VideoEncodeH264DpbSlotInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H264_DPB_SLOT_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,7 +74,7 @@ export class VideoEncodeH264DpbSlotInfoEXT implements BaseStruct {
   get slotIndex(): number {
     return this.#view.getInt8(16);
   }
-
+  
   set slotIndex(value: number) {
     this.#view.setInt8(16, Number(value));
   }
@@ -83,7 +82,7 @@ export class VideoEncodeH264DpbSlotInfoEXT implements BaseStruct {
   get pStdReferenceInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pStdReferenceInfo(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

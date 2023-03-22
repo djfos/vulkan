@@ -54,26 +54,29 @@ export class FormatProperties implements BaseStruct {
     }
   }
 
-  get linearTilingFeatures(): number {
+  /** Format features in case of linear tiling */
+  get linearTilingFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set linearTilingFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get optimalTilingFeatures(): number {
+  /** Format features in case of optimal tiling */
+  get optimalTilingFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set optimalTilingFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get bufferFeatures(): number {
+  /** Format features supported by buffers */
+  get bufferFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set bufferFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(8, Number(value), LE);
   }

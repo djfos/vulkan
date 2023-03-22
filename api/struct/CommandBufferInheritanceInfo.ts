@@ -16,9 +16,9 @@ import { RenderPass, Framebuffer, Bool32, QueryControlFlags, QueryPipelineStatis
 
 export interface InitCommandBufferInheritanceInfo {
   pNext?: AnyPointer;
-  renderPass?: RenderPass;
+  renderPass?: AnyPointer;
   subpass?: number;
-  framebuffer?: Framebuffer;
+  framebuffer?: AnyPointer;
   occlusionQueryEnable?: Bool32;
   queryFlags?: QueryControlFlags;
   pipelineStatistics?: QueryPipelineStatisticFlags;
@@ -64,66 +64,71 @@ export class CommandBufferInheritanceInfo implements BaseStruct {
     this.sType = StructureType.COMMAND_BUFFER_INHERITANCE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Render pass for secondary command buffers */
   get renderPass(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set renderPass(value: RenderPass) {
+  
+  set renderPass(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get subpass(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set subpass(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** Framebuffer for secondary command buffers */
   get framebuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set framebuffer(value: Framebuffer) {
+  
+  set framebuffer(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
-  get occlusionQueryEnable(): number {
+  /** Whether this secondary command buffer may be executed during an occlusion query */
+  get occlusionQueryEnable(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set occlusionQueryEnable(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get queryFlags(): number {
+  /** Query flags used by this secondary command buffer, if executed during an occlusion query */
+  get queryFlags(): QueryControlFlags {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set queryFlags(value: QueryControlFlags) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get pipelineStatistics(): number {
+  /** Pipeline statistics that may be counted for this secondary command buffer */
+  get pipelineStatistics(): QueryPipelineStatisticFlags {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set pipelineStatistics(value: QueryPipelineStatisticFlags) {
     this.#view.setUint32(48, Number(value), LE);
   }

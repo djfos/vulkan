@@ -55,10 +55,10 @@ export class SparseImageFormatProperties implements BaseStruct {
     }
   }
 
-  get aspectMask(): number {
+  get aspectMask(): ImageAspectFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set aspectMask(value: ImageAspectFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -66,7 +66,6 @@ export class SparseImageFormatProperties implements BaseStruct {
   get imageGranularity(): Extent3D {
     return new Extent3D(this.#data.subarray(4, 4 + Extent3D.size));
   }
-
   set imageGranularity(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");
@@ -74,10 +73,10 @@ export class SparseImageFormatProperties implements BaseStruct {
     this.#data.set(value[BUFFER], 4);
   }
 
-  get flags(): number {
+  get flags(): SparseImageFormatFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: SparseImageFormatFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }

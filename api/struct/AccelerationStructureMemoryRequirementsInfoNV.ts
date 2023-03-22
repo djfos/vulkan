@@ -17,7 +17,7 @@ import { AccelerationStructureNV } from "../def.ts";
 export interface InitAccelerationStructureMemoryRequirementsInfoNV {
   pNext?: AnyPointer;
   type?: AccelerationStructureMemoryRequirementsTypeNV;
-  accelerationStructure?: AccelerationStructureNV;
+  accelerationStructure?: AnyPointer;
 }
 
 export class AccelerationStructureMemoryRequirementsInfoNV implements BaseStruct {
@@ -56,35 +56,35 @@ export class AccelerationStructureMemoryRequirementsInfoNV implements BaseStruct
     this.sType = StructureType.ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(16, LE);
+  get type(): AccelerationStructureMemoryRequirementsTypeNV {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set type(value: AccelerationStructureMemoryRequirementsTypeNV) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get accelerationStructure(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set accelerationStructure(value: AccelerationStructureNV) {
+  
+  set accelerationStructure(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

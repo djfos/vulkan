@@ -16,16 +16,16 @@ import { Buffer, DeviceSize } from "../def.ts";
 
 export interface InitGeometryTrianglesNV {
   pNext?: AnyPointer;
-  vertexData?: Buffer;
+  vertexData?: AnyPointer;
   vertexOffset?: DeviceSize;
   vertexCount?: number;
   vertexStride?: DeviceSize;
   vertexFormat?: Format;
-  indexData?: Buffer;
+  indexData?: AnyPointer;
   indexOffset?: DeviceSize;
   indexCount?: number;
   indexType?: IndexType;
-  transformData?: Buffer;
+  transformData?: AnyPointer;
   transformOffset?: DeviceSize;
 }
 
@@ -74,18 +74,18 @@ export class GeometryTrianglesNV implements BaseStruct {
     this.sType = StructureType.GEOMETRY_TRIANGLES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -93,23 +93,23 @@ export class GeometryTrianglesNV implements BaseStruct {
   get vertexData(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set vertexData(value: Buffer) {
+  
+  set vertexData(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get vertexOffset(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set vertexOffset(value: DeviceSize) {
+  
+  set vertexOffset(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get vertexCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set vertexCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -117,64 +117,65 @@ export class GeometryTrianglesNV implements BaseStruct {
   get vertexStride(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set vertexStride(value: DeviceSize) {
+  
+  set vertexStride(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
-  get vertexFormat(): number {
-    return this.#view.getUint32(48, LE);
+  get vertexFormat(): Format {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set vertexFormat(value: Format) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
   get indexData(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
-  set indexData(value: Buffer) {
+  
+  set indexData(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
 
   get indexOffset(): bigint {
     return this.#view.getBigUint64(64, LE);
   }
-
-  set indexOffset(value: DeviceSize) {
+  
+  set indexOffset(value: number | bigint) {
     this.#view.setBigUint64(64, BigInt(value), LE);
   }
 
   get indexCount(): number {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set indexCount(value: number) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get indexType(): number {
-    return this.#view.getUint32(76, LE);
+  get indexType(): IndexType {
+    return this.#view.getInt32(76, LE);
   }
-
+  
   set indexType(value: IndexType) {
-    this.#view.setUint32(76, Number(value), LE);
+    this.#view.setInt32(76, Number(value), LE);
   }
 
+  /** Optional reference to array of floats representing a 3x4 row major affine transformation matrix. */
   get transformData(): Deno.PointerValue {
     return pointerFromView(this.#view, 80, LE);
   }
-
-  set transformData(value: Buffer) {
+  
+  set transformData(value: AnyPointer) {
     this.#view.setBigUint64(80, BigInt(anyPointer(value)), LE);
   }
 
   get transformOffset(): bigint {
     return this.#view.getBigUint64(88, LE);
   }
-
-  set transformOffset(value: DeviceSize) {
+  
+  set transformOffset(value: number | bigint) {
     this.#view.setBigUint64(88, BigInt(value), LE);
   }
 }

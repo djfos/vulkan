@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {SpecializationMapEntry} from "./SpecializationMapEntry.ts";
 
 export interface InitSpecializationInfo {
   mapEntryCount?: number;
@@ -56,34 +55,38 @@ export class SpecializationInfo implements BaseStruct {
     }
   }
 
+  /** Number of entries in the map */
   get mapEntryCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set mapEntryCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Array of map entries */
   get pMapEntries(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pMapEntries(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Size in bytes of pData */
   get dataSize(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set dataSize(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
+  /** Pointer to SpecConstant data */
   get pData(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pData(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

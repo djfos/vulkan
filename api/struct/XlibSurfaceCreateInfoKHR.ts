@@ -18,7 +18,7 @@ export interface InitXlibSurfaceCreateInfoKHR {
   pNext?: AnyPointer;
   flags?: XlibSurfaceCreateFlagsKHR;
   dpy?: AnyPointer;
-  window?: Deno.PointerValue;
+  window?: AnyPointer;
 }
 
 export class XlibSurfaceCreateInfoKHR implements BaseStruct {
@@ -58,26 +58,26 @@ export class XlibSurfaceCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.XLIB_SURFACE_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): XlibSurfaceCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: XlibSurfaceCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,7 +85,7 @@ export class XlibSurfaceCreateInfoKHR implements BaseStruct {
   get dpy(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set dpy(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -93,8 +93,8 @@ export class XlibSurfaceCreateInfoKHR implements BaseStruct {
   get window(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set window(value: Deno.PointerValue) {
+  
+  set window(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

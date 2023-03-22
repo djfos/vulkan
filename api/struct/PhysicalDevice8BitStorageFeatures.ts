@@ -58,42 +58,45 @@ export class PhysicalDevice8BitStorageFeatures implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get storageBuffer8BitAccess(): number {
+  /** 8-bit integer variables supported in StorageBuffer */
+  get storageBuffer8BitAccess(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set storageBuffer8BitAccess(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get uniformAndStorageBuffer8BitAccess(): number {
+  /** 8-bit integer variables supported in StorageBuffer and Uniform */
+  get uniformAndStorageBuffer8BitAccess(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set uniformAndStorageBuffer8BitAccess(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get storagePushConstant8(): number {
+  /** 8-bit integer variables supported in PushConstant */
+  get storagePushConstant8(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set storagePushConstant8(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }

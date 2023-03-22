@@ -11,14 +11,13 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {BufferImageCopy2} from "./BufferImageCopy2.ts";
 import { StructureType, ImageLayout } from "../enum.ts";
 import { Buffer, Image } from "../def.ts";
 
 export interface InitCopyBufferToImageInfo2 {
   pNext?: AnyPointer;
-  srcBuffer?: Buffer;
-  dstImage?: Image;
+  srcBuffer?: AnyPointer;
+  dstImage?: AnyPointer;
   dstImageLayout?: ImageLayout;
   regionCount?: number;
   pRegions?: AnyPointer;
@@ -63,18 +62,18 @@ export class CopyBufferToImageInfo2 implements BaseStruct {
     this.sType = StructureType.COPY_BUFFER_TO_IMAGE_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -82,31 +81,31 @@ export class CopyBufferToImageInfo2 implements BaseStruct {
   get srcBuffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set srcBuffer(value: Buffer) {
+  
+  set srcBuffer(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get dstImage(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set dstImage(value: Image) {
+  
+  set dstImage(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
-  get dstImageLayout(): number {
-    return this.#view.getUint32(32, LE);
+  get dstImageLayout(): ImageLayout {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set dstImageLayout(value: ImageLayout) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
   get regionCount(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set regionCount(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -114,7 +113,7 @@ export class CopyBufferToImageInfo2 implements BaseStruct {
   get pRegions(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pRegions(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

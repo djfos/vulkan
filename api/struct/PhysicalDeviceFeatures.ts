@@ -158,442 +158,497 @@ export class PhysicalDeviceFeatures implements BaseStruct {
     }
   }
 
-  get robustBufferAccess(): number {
+  /** out of bounds buffer accesses are well defined */
+  get robustBufferAccess(): Bool32 {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set robustBufferAccess(value: Bool32) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get fullDrawIndexUint32(): number {
+  /** full 32-bit range of indices for indexed draw calls */
+  get fullDrawIndexUint32(): Bool32 {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set fullDrawIndexUint32(value: Bool32) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get imageCubeArray(): number {
+  /** image views which are arrays of cube maps */
+  get imageCubeArray(): Bool32 {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set imageCubeArray(value: Bool32) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get independentBlend(): number {
+  /** blending operations are controlled per-attachment */
+  get independentBlend(): Bool32 {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set independentBlend(value: Bool32) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
-  get geometryShader(): number {
+  /** geometry stage */
+  get geometryShader(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set geometryShader(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get tessellationShader(): number {
+  /** tessellation control and evaluation stage */
+  get tessellationShader(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set tessellationShader(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get sampleRateShading(): number {
+  /** per-sample shading and interpolation */
+  get sampleRateShading(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set sampleRateShading(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get dualSrcBlend(): number {
+  /** blend operations which take two sources */
+  get dualSrcBlend(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set dualSrcBlend(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get logicOp(): number {
+  /** logic operations */
+  get logicOp(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set logicOp(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get multiDrawIndirect(): number {
+  /** multi draw indirect */
+  get multiDrawIndirect(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set multiDrawIndirect(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get drawIndirectFirstInstance(): number {
+  /** indirect drawing can use non-zero firstInstance */
+  get drawIndirectFirstInstance(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set drawIndirectFirstInstance(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get depthClamp(): number {
+  /** depth clamping */
+  get depthClamp(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set depthClamp(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get depthBiasClamp(): number {
+  /** depth bias clamping */
+  get depthBiasClamp(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set depthBiasClamp(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get fillModeNonSolid(): number {
+  /** point and wireframe fill modes */
+  get fillModeNonSolid(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set fillModeNonSolid(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get depthBounds(): number {
+  /** depth bounds test */
+  get depthBounds(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set depthBounds(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get wideLines(): number {
+  /** lines with width greater than 1 */
+  get wideLines(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set wideLines(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get largePoints(): number {
+  /** points with size greater than 1 */
+  get largePoints(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set largePoints(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get alphaToOne(): number {
+  /** the fragment alpha component can be forced to maximum representable alpha value */
+  get alphaToOne(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set alphaToOne(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get multiViewport(): number {
+  /** viewport arrays */
+  get multiViewport(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set multiViewport(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get samplerAnisotropy(): number {
+  /** anisotropic sampler filtering */
+  get samplerAnisotropy(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set samplerAnisotropy(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get textureCompressionETC2(): number {
+  /** ETC texture compression formats */
+  get textureCompressionETC2(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set textureCompressionETC2(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }
 
-  get textureCompressionASTC_LDR(): number {
+  /** ASTC LDR texture compression formats */
+  get textureCompressionASTC_LDR(): Bool32 {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set textureCompressionASTC_LDR(value: Bool32) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
-  get textureCompressionBC(): number {
+  /** BC1-7 texture compressed formats */
+  get textureCompressionBC(): Bool32 {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set textureCompressionBC(value: Bool32) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get occlusionQueryPrecise(): number {
+  /** precise occlusion queries returning actual sample counts */
+  get occlusionQueryPrecise(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set occlusionQueryPrecise(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }
 
-  get pipelineStatisticsQuery(): number {
+  /** pipeline statistics query */
+  get pipelineStatisticsQuery(): Bool32 {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set pipelineStatisticsQuery(value: Bool32) {
     this.#view.setUint32(96, Number(value), LE);
   }
 
-  get vertexPipelineStoresAndAtomics(): number {
+  /** stores and atomic ops on storage buffers and images are supported in vertex, tessellation, and geometry stages */
+  get vertexPipelineStoresAndAtomics(): Bool32 {
     return this.#view.getUint32(100, LE);
   }
-
+  
   set vertexPipelineStoresAndAtomics(value: Bool32) {
     this.#view.setUint32(100, Number(value), LE);
   }
 
-  get fragmentStoresAndAtomics(): number {
+  /** stores and atomic ops on storage buffers and images are supported in the fragment stage */
+  get fragmentStoresAndAtomics(): Bool32 {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set fragmentStoresAndAtomics(value: Bool32) {
     this.#view.setUint32(104, Number(value), LE);
   }
 
-  get shaderTessellationAndGeometryPointSize(): number {
+  /** tessellation and geometry stages can export point size */
+  get shaderTessellationAndGeometryPointSize(): Bool32 {
     return this.#view.getUint32(108, LE);
   }
-
+  
   set shaderTessellationAndGeometryPointSize(value: Bool32) {
     this.#view.setUint32(108, Number(value), LE);
   }
 
-  get shaderImageGatherExtended(): number {
+  /** image gather with run-time values and independent offsets */
+  get shaderImageGatherExtended(): Bool32 {
     return this.#view.getUint32(112, LE);
   }
-
+  
   set shaderImageGatherExtended(value: Bool32) {
     this.#view.setUint32(112, Number(value), LE);
   }
 
-  get shaderStorageImageExtendedFormats(): number {
+  /** the extended set of formats can be used for storage images */
+  get shaderStorageImageExtendedFormats(): Bool32 {
     return this.#view.getUint32(116, LE);
   }
-
+  
   set shaderStorageImageExtendedFormats(value: Bool32) {
     this.#view.setUint32(116, Number(value), LE);
   }
 
-  get shaderStorageImageMultisample(): number {
+  /** multisample images can be used for storage images */
+  get shaderStorageImageMultisample(): Bool32 {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set shaderStorageImageMultisample(value: Bool32) {
     this.#view.setUint32(120, Number(value), LE);
   }
 
-  get shaderStorageImageReadWithoutFormat(): number {
+  /** read from storage image does not require format qualifier */
+  get shaderStorageImageReadWithoutFormat(): Bool32 {
     return this.#view.getUint32(124, LE);
   }
-
+  
   set shaderStorageImageReadWithoutFormat(value: Bool32) {
     this.#view.setUint32(124, Number(value), LE);
   }
 
-  get shaderStorageImageWriteWithoutFormat(): number {
+  /** write to storage image does not require format qualifier */
+  get shaderStorageImageWriteWithoutFormat(): Bool32 {
     return this.#view.getUint32(128, LE);
   }
-
+  
   set shaderStorageImageWriteWithoutFormat(value: Bool32) {
     this.#view.setUint32(128, Number(value), LE);
   }
 
-  get shaderUniformBufferArrayDynamicIndexing(): number {
+  /** arrays of uniform buffers can be accessed with dynamically uniform indices */
+  get shaderUniformBufferArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(132, LE);
   }
-
+  
   set shaderUniformBufferArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(132, Number(value), LE);
   }
 
-  get shaderSampledImageArrayDynamicIndexing(): number {
+  /** arrays of sampled images can be accessed with dynamically uniform indices */
+  get shaderSampledImageArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(136, LE);
   }
-
+  
   set shaderSampledImageArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(136, Number(value), LE);
   }
 
-  get shaderStorageBufferArrayDynamicIndexing(): number {
+  /** arrays of storage buffers can be accessed with dynamically uniform indices */
+  get shaderStorageBufferArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(140, LE);
   }
-
+  
   set shaderStorageBufferArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(140, Number(value), LE);
   }
 
-  get shaderStorageImageArrayDynamicIndexing(): number {
+  /** arrays of storage images can be accessed with dynamically uniform indices */
+  get shaderStorageImageArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(144, LE);
   }
-
+  
   set shaderStorageImageArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(144, Number(value), LE);
   }
 
-  get shaderClipDistance(): number {
+  /** clip distance in shaders */
+  get shaderClipDistance(): Bool32 {
     return this.#view.getUint32(148, LE);
   }
-
+  
   set shaderClipDistance(value: Bool32) {
     this.#view.setUint32(148, Number(value), LE);
   }
 
-  get shaderCullDistance(): number {
+  /** cull distance in shaders */
+  get shaderCullDistance(): Bool32 {
     return this.#view.getUint32(152, LE);
   }
-
+  
   set shaderCullDistance(value: Bool32) {
     this.#view.setUint32(152, Number(value), LE);
   }
 
-  get shaderFloat64(): number {
+  /** 64-bit floats (doubles) in shaders */
+  get shaderFloat64(): Bool32 {
     return this.#view.getUint32(156, LE);
   }
-
+  
   set shaderFloat64(value: Bool32) {
     this.#view.setUint32(156, Number(value), LE);
   }
 
-  get shaderInt64(): number {
+  /** 64-bit integers in shaders */
+  get shaderInt64(): Bool32 {
     return this.#view.getUint32(160, LE);
   }
-
+  
   set shaderInt64(value: Bool32) {
     this.#view.setUint32(160, Number(value), LE);
   }
 
-  get shaderInt16(): number {
+  /** 16-bit integers in shaders */
+  get shaderInt16(): Bool32 {
     return this.#view.getUint32(164, LE);
   }
-
+  
   set shaderInt16(value: Bool32) {
     this.#view.setUint32(164, Number(value), LE);
   }
 
-  get shaderResourceResidency(): number {
+  /** shader can use texture operations that return resource residency information (requires sparseNonResident support) */
+  get shaderResourceResidency(): Bool32 {
     return this.#view.getUint32(168, LE);
   }
-
+  
   set shaderResourceResidency(value: Bool32) {
     this.#view.setUint32(168, Number(value), LE);
   }
 
-  get shaderResourceMinLod(): number {
+  /** shader can use texture operations that specify minimum resource LOD */
+  get shaderResourceMinLod(): Bool32 {
     return this.#view.getUint32(172, LE);
   }
-
+  
   set shaderResourceMinLod(value: Bool32) {
     this.#view.setUint32(172, Number(value), LE);
   }
 
-  get sparseBinding(): number {
+  /** Sparse resources support: Resource memory can be managed at opaque page level rather than object level */
+  get sparseBinding(): Bool32 {
     return this.#view.getUint32(176, LE);
   }
-
+  
   set sparseBinding(value: Bool32) {
     this.#view.setUint32(176, Number(value), LE);
   }
 
-  get sparseResidencyBuffer(): number {
+  /** Sparse resources support: GPU can access partially resident buffers */
+  get sparseResidencyBuffer(): Bool32 {
     return this.#view.getUint32(180, LE);
   }
-
+  
   set sparseResidencyBuffer(value: Bool32) {
     this.#view.setUint32(180, Number(value), LE);
   }
 
-  get sparseResidencyImage2D(): number {
+  /** Sparse resources support: GPU can access partially resident 2D (non-MSAA non-depth/stencil) images */
+  get sparseResidencyImage2D(): Bool32 {
     return this.#view.getUint32(184, LE);
   }
-
+  
   set sparseResidencyImage2D(value: Bool32) {
     this.#view.setUint32(184, Number(value), LE);
   }
 
-  get sparseResidencyImage3D(): number {
+  /** Sparse resources support: GPU can access partially resident 3D images */
+  get sparseResidencyImage3D(): Bool32 {
     return this.#view.getUint32(188, LE);
   }
-
+  
   set sparseResidencyImage3D(value: Bool32) {
     this.#view.setUint32(188, Number(value), LE);
   }
 
-  get sparseResidency2Samples(): number {
+  /** Sparse resources support: GPU can access partially resident MSAA 2D images with 2 samples */
+  get sparseResidency2Samples(): Bool32 {
     return this.#view.getUint32(192, LE);
   }
-
+  
   set sparseResidency2Samples(value: Bool32) {
     this.#view.setUint32(192, Number(value), LE);
   }
 
-  get sparseResidency4Samples(): number {
+  /** Sparse resources support: GPU can access partially resident MSAA 2D images with 4 samples */
+  get sparseResidency4Samples(): Bool32 {
     return this.#view.getUint32(196, LE);
   }
-
+  
   set sparseResidency4Samples(value: Bool32) {
     this.#view.setUint32(196, Number(value), LE);
   }
 
-  get sparseResidency8Samples(): number {
+  /** Sparse resources support: GPU can access partially resident MSAA 2D images with 8 samples */
+  get sparseResidency8Samples(): Bool32 {
     return this.#view.getUint32(200, LE);
   }
-
+  
   set sparseResidency8Samples(value: Bool32) {
     this.#view.setUint32(200, Number(value), LE);
   }
 
-  get sparseResidency16Samples(): number {
+  /** Sparse resources support: GPU can access partially resident MSAA 2D images with 16 samples */
+  get sparseResidency16Samples(): Bool32 {
     return this.#view.getUint32(204, LE);
   }
-
+  
   set sparseResidency16Samples(value: Bool32) {
     this.#view.setUint32(204, Number(value), LE);
   }
 
-  get sparseResidencyAliased(): number {
+  /** Sparse resources support: GPU can correctly access data aliased into multiple locations (opt-in) */
+  get sparseResidencyAliased(): Bool32 {
     return this.#view.getUint32(208, LE);
   }
-
+  
   set sparseResidencyAliased(value: Bool32) {
     this.#view.setUint32(208, Number(value), LE);
   }
 
-  get variableMultisampleRate(): number {
+  /** multisample rate must be the same for all pipelines in a subpass */
+  get variableMultisampleRate(): Bool32 {
     return this.#view.getUint32(212, LE);
   }
-
+  
   set variableMultisampleRate(value: Bool32) {
     this.#view.setUint32(212, Number(value), LE);
   }
 
-  get inheritedQueries(): number {
+  /** Queries may be inherited from primary to secondary command buffers */
+  get inheritedQueries(): Bool32 {
     return this.#view.getUint32(216, LE);
   }
-
+  
   set inheritedQueries(value: Bool32) {
     this.#view.setUint32(216, Number(value), LE);
   }

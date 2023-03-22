@@ -60,7 +60,7 @@ export class ShaderResourceUsageAMD implements BaseStruct {
   get numUsedVgprs(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set numUsedVgprs(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -68,7 +68,7 @@ export class ShaderResourceUsageAMD implements BaseStruct {
   get numUsedSgprs(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set numUsedSgprs(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -76,7 +76,7 @@ export class ShaderResourceUsageAMD implements BaseStruct {
   get ldsSizePerLocalWorkGroup(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set ldsSizePerLocalWorkGroup(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -84,7 +84,7 @@ export class ShaderResourceUsageAMD implements BaseStruct {
   get ldsUsageSizeInBytes(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
+  
   set ldsUsageSizeInBytes(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
@@ -92,7 +92,7 @@ export class ShaderResourceUsageAMD implements BaseStruct {
   get scratchMemUsageInBytes(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set scratchMemUsageInBytes(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }

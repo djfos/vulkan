@@ -54,27 +54,30 @@ export class VertexInputBindingDescription implements BaseStruct {
     }
   }
 
+  /** Vertex buffer binding id */
   get binding(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set binding(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Distance between vertices in bytes (0 = no advancement) */
   get stride(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set stride(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get inputRate(): number {
-    return this.#view.getUint32(8, LE);
+  /** The rate at which the vertex data is consumed */
+  get inputRate(): VertexInputRate {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set inputRate(value: VertexInputRate) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 }

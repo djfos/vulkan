@@ -68,26 +68,26 @@ export class HdrMetadataEXT implements BaseStruct {
     this.sType = StructureType.HDR_METADATA_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Display primary's Red */
   get displayPrimaryRed(): XYColorEXT {
     return new XYColorEXT(this.#data.subarray(16, 16 + XYColorEXT.size));
   }
-
   set displayPrimaryRed(value: XYColorEXT) {
     if (value[BUFFER].byteLength < XYColorEXT.size) {
       throw new Error("Data buffer too small");
@@ -95,10 +95,10 @@ export class HdrMetadataEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
+  /** Display primary's Green */
   get displayPrimaryGreen(): XYColorEXT {
     return new XYColorEXT(this.#data.subarray(24, 24 + XYColorEXT.size));
   }
-
   set displayPrimaryGreen(value: XYColorEXT) {
     if (value[BUFFER].byteLength < XYColorEXT.size) {
       throw new Error("Data buffer too small");
@@ -106,10 +106,10 @@ export class HdrMetadataEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
+  /** Display primary's Blue */
   get displayPrimaryBlue(): XYColorEXT {
     return new XYColorEXT(this.#data.subarray(32, 32 + XYColorEXT.size));
   }
-
   set displayPrimaryBlue(value: XYColorEXT) {
     if (value[BUFFER].byteLength < XYColorEXT.size) {
       throw new Error("Data buffer too small");
@@ -117,10 +117,10 @@ export class HdrMetadataEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 32);
   }
 
+  /** Display primary's Blue */
   get whitePoint(): XYColorEXT {
     return new XYColorEXT(this.#data.subarray(40, 40 + XYColorEXT.size));
   }
-
   set whitePoint(value: XYColorEXT) {
     if (value[BUFFER].byteLength < XYColorEXT.size) {
       throw new Error("Data buffer too small");
@@ -128,26 +128,29 @@ export class HdrMetadataEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 40);
   }
 
+  /** Display maximum luminance */
   get maxLuminance(): number {
     return this.#view.getFloat32(48, LE);
   }
-
+  
   set maxLuminance(value: number) {
     this.#view.setFloat32(48, Number(value), LE);
   }
 
+  /** Display minimum luminance */
   get minLuminance(): number {
     return this.#view.getFloat32(52, LE);
   }
-
+  
   set minLuminance(value: number) {
     this.#view.setFloat32(52, Number(value), LE);
   }
 
+  /** Content maximum luminance */
   get maxContentLightLevel(): number {
     return this.#view.getFloat32(56, LE);
   }
-
+  
   set maxContentLightLevel(value: number) {
     this.#view.setFloat32(56, Number(value), LE);
   }
@@ -155,7 +158,7 @@ export class HdrMetadataEXT implements BaseStruct {
   get maxFrameAverageLightLevel(): number {
     return this.#view.getFloat32(60, LE);
   }
-
+  
   set maxFrameAverageLightLevel(value: number) {
     this.#view.setFloat32(60, Number(value), LE);
   }

@@ -14,7 +14,7 @@ import {
 import { Buffer, DeviceSize } from "../def.ts";
 
 export interface InitIndirectCommandsStreamNV {
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   offset?: DeviceSize;
 }
 
@@ -55,16 +55,16 @@ export class IndirectCommandsStreamNV implements BaseStruct {
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
   get offset(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 }

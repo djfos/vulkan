@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {StdVideoH264SpsVuiFlags} from "./StdVideoH264SpsVuiFlags.ts";
-import {StdVideoH264HrdParameters} from "./StdVideoH264HrdParameters.ts";
 import { StdVideoH264AspectRatioIdc } from "../enum.ts";
 
 export interface InitStdVideoH264SequenceParameterSetVui {
@@ -85,7 +84,6 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get flags(): StdVideoH264SpsVuiFlags {
     return new StdVideoH264SpsVuiFlags(this.#data.subarray(0, 0 + StdVideoH264SpsVuiFlags.size));
   }
-
   set flags(value: StdVideoH264SpsVuiFlags) {
     if (value[BUFFER].byteLength < StdVideoH264SpsVuiFlags.size) {
       throw new Error("Data buffer too small");
@@ -93,18 +91,18 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
-  get aspect_ratio_idc(): number {
-    return this.#view.getUint32(48, LE);
+  get aspect_ratio_idc(): StdVideoH264AspectRatioIdc {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set aspect_ratio_idc(value: StdVideoH264AspectRatioIdc) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
   get sar_width(): number {
     return this.#view.getUint16(52, LE);
   }
-
+  
   set sar_width(value: number) {
     this.#view.setUint16(52, Number(value), LE);
   }
@@ -112,7 +110,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get sar_height(): number {
     return this.#view.getUint16(54, LE);
   }
-
+  
   set sar_height(value: number) {
     this.#view.setUint16(54, Number(value), LE);
   }
@@ -120,7 +118,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get video_format(): number {
     return this.#view.getUint8(56);
   }
-
+  
   set video_format(value: number) {
     this.#view.setUint8(56, Number(value));
   }
@@ -128,7 +126,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get colour_primaries(): number {
     return this.#view.getUint8(57);
   }
-
+  
   set colour_primaries(value: number) {
     this.#view.setUint8(57, Number(value));
   }
@@ -136,7 +134,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get transfer_characteristics(): number {
     return this.#view.getUint8(58);
   }
-
+  
   set transfer_characteristics(value: number) {
     this.#view.setUint8(58, Number(value));
   }
@@ -144,7 +142,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get matrix_coefficients(): number {
     return this.#view.getUint8(59);
   }
-
+  
   set matrix_coefficients(value: number) {
     this.#view.setUint8(59, Number(value));
   }
@@ -152,7 +150,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get num_units_in_tick(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set num_units_in_tick(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
@@ -160,7 +158,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get time_scale(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set time_scale(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
@@ -168,7 +166,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get max_num_reorder_frames(): number {
     return this.#view.getUint8(68);
   }
-
+  
   set max_num_reorder_frames(value: number) {
     this.#view.setUint8(68, Number(value));
   }
@@ -176,7 +174,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get max_dec_frame_buffering(): number {
     return this.#view.getUint8(69);
   }
-
+  
   set max_dec_frame_buffering(value: number) {
     this.#view.setUint8(69, Number(value));
   }
@@ -184,7 +182,7 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get chroma_sample_loc_type_top_field(): number {
     return this.#view.getUint8(70);
   }
-
+  
   set chroma_sample_loc_type_top_field(value: number) {
     this.#view.setUint8(70, Number(value));
   }
@@ -192,23 +190,25 @@ export class StdVideoH264SequenceParameterSetVui implements BaseStruct {
   get chroma_sample_loc_type_bottom_field(): number {
     return this.#view.getUint8(71);
   }
-
+  
   set chroma_sample_loc_type_bottom_field(value: number) {
     this.#view.setUint8(71, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
+  /** must be a valid ptr to hrd_parameters, if nal_hrd_parameters_present_flag or vcl_hrd_parameters_present_flag are set */
   get pHrdParameters(): Deno.PointerValue {
     return pointerFromView(this.#view, 80, LE);
   }
-
+  
   set pHrdParameters(value: AnyPointer) {
     this.#view.setBigUint64(80, BigInt(anyPointer(value)), LE);
   }

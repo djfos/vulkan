@@ -16,7 +16,7 @@ import { CuModuleNVX } from "../def.ts";
 
 export interface InitCuFunctionCreateInfoNVX {
   pNext?: AnyPointer;
-  module?: CuModuleNVX;
+  module?: AnyPointer;
   pName?: AnyPointer;
 }
 
@@ -56,18 +56,18 @@ export class CuFunctionCreateInfoNVX implements BaseStruct {
     this.sType = StructureType.CU_FUNCTION_CREATE_INFO_NVX;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,15 +75,15 @@ export class CuFunctionCreateInfoNVX implements BaseStruct {
   get module(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set module(value: CuModuleNVX) {
+  
+  set module(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get pName(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pName(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

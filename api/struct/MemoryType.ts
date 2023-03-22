@@ -52,18 +52,20 @@ export class MemoryType implements BaseStruct {
     }
   }
 
-  get propertyFlags(): number {
+  /** Memory properties of this memory type */
+  get propertyFlags(): MemoryPropertyFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set propertyFlags(value: MemoryPropertyFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Index of the memory heap allocations of this memory type are taken from */
   get heapIndex(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set heapIndex(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

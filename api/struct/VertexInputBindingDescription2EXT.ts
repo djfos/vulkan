@@ -59,18 +59,18 @@ export class VertexInputBindingDescription2EXT implements BaseStruct {
     this.sType = StructureType.VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -78,7 +78,7 @@ export class VertexInputBindingDescription2EXT implements BaseStruct {
   get binding(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set binding(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -86,23 +86,23 @@ export class VertexInputBindingDescription2EXT implements BaseStruct {
   get stride(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set stride(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get inputRate(): number {
-    return this.#view.getUint32(24, LE);
+  get inputRate(): VertexInputRate {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set inputRate(value: VertexInputRate) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get divisor(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set divisor(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }

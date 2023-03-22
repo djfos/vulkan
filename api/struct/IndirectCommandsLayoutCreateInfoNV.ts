@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {IndirectCommandsLayoutTokenNV} from "./IndirectCommandsLayoutTokenNV.ts";
 import { StructureType, PipelineBindPoint } from "../enum.ts";
 import { IndirectCommandsLayoutUsageFlagsNV } from "../def.ts";
 
@@ -65,42 +64,42 @@ export class IndirectCommandsLayoutCreateInfoNV implements BaseStruct {
     this.sType = StructureType.INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): IndirectCommandsLayoutUsageFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: IndirectCommandsLayoutUsageFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get pipelineBindPoint(): number {
-    return this.#view.getUint32(20, LE);
+  get pipelineBindPoint(): PipelineBindPoint {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set pipelineBindPoint(value: PipelineBindPoint) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
   get tokenCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set tokenCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -108,7 +107,7 @@ export class IndirectCommandsLayoutCreateInfoNV implements BaseStruct {
   get pTokens(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pTokens(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -116,7 +115,7 @@ export class IndirectCommandsLayoutCreateInfoNV implements BaseStruct {
   get streamCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set streamCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -124,7 +123,7 @@ export class IndirectCommandsLayoutCreateInfoNV implements BaseStruct {
   get pStreamStrides(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pStreamStrides(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

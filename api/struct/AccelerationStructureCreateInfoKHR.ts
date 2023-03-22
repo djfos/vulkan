@@ -17,7 +17,7 @@ import { AccelerationStructureCreateFlagsKHR, Buffer, DeviceSize, DeviceAddress 
 export interface InitAccelerationStructureCreateInfoKHR {
   pNext?: AnyPointer;
   createFlags?: AccelerationStructureCreateFlagsKHR;
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   offset?: DeviceSize;
   size?: DeviceSize;
   type?: AccelerationStructureTypeKHR;
@@ -64,26 +64,26 @@ export class AccelerationStructureCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get createFlags(): number {
+  get createFlags(): AccelerationStructureCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set createFlags(value: AccelerationStructureCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -91,40 +91,41 @@ export class AccelerationStructureCreateInfoKHR implements BaseStruct {
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** Specified in bytes */
   get offset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get size(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(48, LE);
+  get type(): AccelerationStructureTypeKHR {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set type(value: AccelerationStructureTypeKHR) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
   get deviceAddress(): bigint {
     return this.#view.getBigUint64(56, LE);
   }
-
-  set deviceAddress(value: DeviceAddress) {
+  
+  set deviceAddress(value: number | bigint) {
     this.#view.setBigUint64(56, BigInt(value), LE);
   }
 }

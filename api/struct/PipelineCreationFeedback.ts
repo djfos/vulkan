@@ -52,10 +52,10 @@ export class PipelineCreationFeedback implements BaseStruct {
     }
   }
 
-  get flags(): number {
+  get flags(): PipelineCreationFeedbackFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set flags(value: PipelineCreationFeedbackFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -63,7 +63,7 @@ export class PipelineCreationFeedback implements BaseStruct {
   get duration(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
+  
   set duration(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }

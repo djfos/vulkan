@@ -62,59 +62,87 @@ export class PhysicalDeviceToolProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_TOOL_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
   get name(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 16, 256);
+    return new Uint8Array(this.#data.buffer, 16, 256);
   }
-
   set name(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
   get version(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 272, 256);
+    return new Uint8Array(this.#data.buffer, 272, 256);
   }
-
   set version(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 272);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 272);
   }
 
-  get purposes(): number {
+  get purposes(): ToolPurposeFlags {
     return this.#view.getUint32(528, LE);
   }
-
+  
   set purposes(value: ToolPurposeFlags) {
     this.#view.setUint32(528, Number(value), LE);
   }
 
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 532, 256);
+    return new Uint8Array(this.#data.buffer, 532, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 532);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 532);
   }
 
   get layer(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 788, 256);
+    return new Uint8Array(this.#data.buffer, 788, 256);
   }
-
   set layer(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 788);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 788);
   }
 }

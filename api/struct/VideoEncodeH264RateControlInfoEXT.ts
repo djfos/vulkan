@@ -61,18 +61,18 @@ export class VideoEncodeH264RateControlInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H264_RATE_CONTROL_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -80,7 +80,7 @@ export class VideoEncodeH264RateControlInfoEXT implements BaseStruct {
   get gopFrameCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set gopFrameCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -88,7 +88,7 @@ export class VideoEncodeH264RateControlInfoEXT implements BaseStruct {
   get idrPeriod(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set idrPeriod(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -96,23 +96,23 @@ export class VideoEncodeH264RateControlInfoEXT implements BaseStruct {
   get consecutiveBFrameCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set consecutiveBFrameCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get rateControlStructure(): number {
-    return this.#view.getUint32(28, LE);
+  get rateControlStructure(): VideoEncodeH264RateControlStructureEXT {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set rateControlStructure(value: VideoEncodeH264RateControlStructureEXT) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
   get temporalLayerCount(): number {
     return this.#view.getUint8(32);
   }
-
+  
   set temporalLayerCount(value: number) {
     this.#view.setUint8(32, Number(value));
   }

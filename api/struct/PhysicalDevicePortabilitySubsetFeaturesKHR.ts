@@ -82,138 +82,138 @@ export class PhysicalDevicePortabilitySubsetFeaturesKHR implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get constantAlphaColorBlendFactors(): number {
+  get constantAlphaColorBlendFactors(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set constantAlphaColorBlendFactors(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get events(): number {
+  get events(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set events(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get imageViewFormatReinterpretation(): number {
+  get imageViewFormatReinterpretation(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set imageViewFormatReinterpretation(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get imageViewFormatSwizzle(): number {
+  get imageViewFormatSwizzle(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set imageViewFormatSwizzle(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get imageView2DOn3DImage(): number {
+  get imageView2DOn3DImage(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set imageView2DOn3DImage(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get multisampleArrayImage(): number {
+  get multisampleArrayImage(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set multisampleArrayImage(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get mutableComparisonSamplers(): number {
+  get mutableComparisonSamplers(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set mutableComparisonSamplers(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get pointPolygons(): number {
+  get pointPolygons(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set pointPolygons(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get samplerMipLodBias(): number {
+  get samplerMipLodBias(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set samplerMipLodBias(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get separateStencilMaskRef(): number {
+  get separateStencilMaskRef(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set separateStencilMaskRef(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get shaderSampleRateInterpolationFunctions(): number {
+  get shaderSampleRateInterpolationFunctions(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set shaderSampleRateInterpolationFunctions(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get tessellationIsolines(): number {
+  get tessellationIsolines(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set tessellationIsolines(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get tessellationPointMode(): number {
+  get tessellationPointMode(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set tessellationPointMode(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get triangleFans(): number {
+  get triangleFans(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set triangleFans(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get vertexAttributeAccessBeyondStride(): number {
+  get vertexAttributeAccessBeyondStride(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set vertexAttributeAccessBeyondStride(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }

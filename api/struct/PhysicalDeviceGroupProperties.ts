@@ -17,7 +17,7 @@ import { PhysicalDevice, Bool32 } from "../def.ts";
 export interface InitPhysicalDeviceGroupProperties {
   pNext?: AnyPointer;
   physicalDeviceCount?: number;
-  physicalDevices?: PhysicalDevice[];
+  physicalDevices?: BigUint64Array;
   subsetAllocation?: Bool32;
 }
 
@@ -58,18 +58,18 @@ export class PhysicalDeviceGroupProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_GROUP_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,31 +77,30 @@ export class PhysicalDeviceGroupProperties implements BaseStruct {
   get physicalDeviceCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set physicalDeviceCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get physicalDevices(): PhysicalDevice[] {
-    const result: PhysicalDevice[] = [];
-    for (let i = 0; i < 32; i++) {
-      result.push((() => {
-        return pointerFromView(this.#view, 24 + i * 8, LE);
-      })());
+  get physicalDevices(): BigUint64Array {
+    return new BigUint64Array(this.#data.buffer, 24, 32);
+  }
+  set physicalDevices(value: BigUint64Array) {
+    if (value.length > 32) {
+      throw Error("buffer is too big");
     }
-    return result;
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 24);
   }
 
-  set physicalDevices(value: PhysicalDevice[]) {
-    for (let i = 0; i < value.length; i++) {
-      this.#view.setBigUint64(24 + i * 8, BigInt(anyPointer(value[i])), LE);
-    }
-  }
-
-  get subsetAllocation(): number {
+  get subsetAllocation(): Bool32 {
     return this.#view.getUint32(280, LE);
   }
-
+  
   set subsetAllocation(value: Bool32) {
     this.#view.setUint32(280, Number(value), LE);
   }

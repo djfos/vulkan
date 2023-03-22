@@ -16,8 +16,8 @@ import { AccelerationStructureNV, DeviceMemory, DeviceSize } from "../def.ts";
 
 export interface InitBindAccelerationStructureMemoryInfoNV {
   pNext?: AnyPointer;
-  accelerationStructure?: AccelerationStructureNV;
-  memory?: DeviceMemory;
+  accelerationStructure?: AnyPointer;
+  memory?: AnyPointer;
   memoryOffset?: DeviceSize;
   deviceIndexCount?: number;
   pDeviceIndices?: AnyPointer;
@@ -62,18 +62,18 @@ export class BindAccelerationStructureMemoryInfoNV implements BaseStruct {
     this.sType = StructureType.BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -81,31 +81,31 @@ export class BindAccelerationStructureMemoryInfoNV implements BaseStruct {
   get accelerationStructure(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set accelerationStructure(value: AccelerationStructureNV) {
+  
+  set accelerationStructure(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get memoryOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set memoryOffset(value: DeviceSize) {
+  
+  set memoryOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get deviceIndexCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set deviceIndexCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -113,7 +113,7 @@ export class BindAccelerationStructureMemoryInfoNV implements BaseStruct {
   get pDeviceIndices(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pDeviceIndices(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

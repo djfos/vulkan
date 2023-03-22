@@ -56,7 +56,6 @@ export class Rect2D implements BaseStruct {
   get offset(): Offset2D {
     return new Offset2D(this.#data.subarray(0, 0 + Offset2D.size));
   }
-
   set offset(value: Offset2D) {
     if (value[BUFFER].byteLength < Offset2D.size) {
       throw new Error("Data buffer too small");
@@ -67,7 +66,6 @@ export class Rect2D implements BaseStruct {
   get extent(): Extent2D {
     return new Extent2D(this.#data.subarray(8, 8 + Extent2D.size));
   }
-
   set extent(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");

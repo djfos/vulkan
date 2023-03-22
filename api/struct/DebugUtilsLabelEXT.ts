@@ -55,18 +55,18 @@ export class DebugUtilsLabelEXT implements BaseStruct {
     this.sType = StructureType.DEBUG_UTILS_LABEL_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -74,16 +74,23 @@ export class DebugUtilsLabelEXT implements BaseStruct {
   get pLabelName(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pLabelName(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get color(): Float32Array {
-    return new Float32Array(this.#data.buffer, this.#data.byteOffset + 24, 4);
+    return new Float32Array(this.#data.buffer, 24, 4);
   }
-
   set color(value: Float32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 24);
+    if (value.length > 4) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 24);
   }
 }

@@ -54,26 +54,26 @@ export class VideoCodingControlInfoKHR implements BaseStruct {
     this.sType = StructureType.VIDEO_CODING_CONTROL_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoCodingControlFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoCodingControlFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }

@@ -23,7 +23,7 @@ export interface InitAccelerationStructureGeometryKHR {
 }
 
 export class AccelerationStructureGeometryKHR implements BaseStruct {
-  static size = 192;
+  static size = 96;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -59,43 +59,42 @@ export class AccelerationStructureGeometryKHR implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_GEOMETRY_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get geometryType(): number {
-    return this.#view.getUint32(16, LE);
+  get geometryType(): GeometryTypeKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set geometryType(value: GeometryTypeKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get geometry(): unknown {
-    throw new Error(`Unknown type: {"union":[{"struct":["u32","buffer","u32",{"union":["u64","buffer"]},"u64","u32","u32",{"union":["u64","buffer"]},{"union":["u64","buffer"]}]},{"struct":["u32","buffer",{"union":["u64","buffer"]},"u64"]},{"struct":["u32","buffer","u32",{"union":["u64","buffer"]}]}]}`);
+  get geometry(): AccelerationStructureGeometryDataKHR {
+    throw new Error(`Unknown type: {"union":[{"struct":["i32","pointer","i32",{"union":["u64","pointer"]},"u64","u32","i32",{"union":["u64","pointer"]},{"union":["u64","pointer"]}]},{"struct":["i32","pointer",{"union":["u64","pointer"]},"u64"]},{"struct":["i32","pointer","u32",{"union":["u64","pointer"]}]}]}`);
   }
-
   set geometry(value: AccelerationStructureGeometryDataKHR) {
-    throw new Error(`Unknown type: {"union":[{"struct":["u32","buffer","u32",{"union":["u64","buffer"]},"u64","u32","u32",{"union":["u64","buffer"]},{"union":["u64","buffer"]}]},{"struct":["u32","buffer",{"union":["u64","buffer"]},"u64"]},{"struct":["u32","buffer","u32",{"union":["u64","buffer"]}]}]}`);
+    throw new Error(`Unknown type: {"union":[{"struct":["i32","pointer","i32",{"union":["u64","pointer"]},"u64","u32","i32",{"union":["u64","pointer"]},{"union":["u64","pointer"]}]},{"struct":["i32","pointer",{"union":["u64","pointer"]},"u64"]},{"struct":["i32","pointer","u32",{"union":["u64","pointer"]}]}]}`);
   }
 
-  get flags(): number {
-    return this.#view.getUint32(128, LE);
+  get flags(): GeometryFlagsKHR {
+    return this.#view.getUint32(88, LE);
   }
-
+  
   set flags(value: GeometryFlagsKHR) {
-    this.#view.setUint32(128, Number(value), LE);
+    this.#view.setUint32(88, Number(value), LE);
   }
 }

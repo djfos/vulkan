@@ -69,23 +69,23 @@ export class DeviceFaultVendorBinaryHeaderVersionOneEXT implements BaseStruct {
   get headerSize(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set headerSize(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get headerVersion(): number {
-    return this.#view.getUint32(4, LE);
+  get headerVersion(): DeviceFaultVendorBinaryHeaderVersionEXT {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set headerVersion(value: DeviceFaultVendorBinaryHeaderVersionEXT) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
   get vendorID(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set vendorID(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -93,7 +93,7 @@ export class DeviceFaultVendorBinaryHeaderVersionOneEXT implements BaseStruct {
   get deviceID(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set deviceID(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -101,23 +101,30 @@ export class DeviceFaultVendorBinaryHeaderVersionOneEXT implements BaseStruct {
   get driverVersion(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set driverVersion(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
   get pipelineCacheUUID(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 20, 16);
+    return new Uint8Array(this.#data.buffer, 20, 16);
   }
-
   set pipelineCacheUUID(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 
   get applicationNameOffset(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set applicationNameOffset(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -125,7 +132,7 @@ export class DeviceFaultVendorBinaryHeaderVersionOneEXT implements BaseStruct {
   get applicationVersion(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set applicationVersion(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -133,7 +140,7 @@ export class DeviceFaultVendorBinaryHeaderVersionOneEXT implements BaseStruct {
   get engineNameOffset(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set engineNameOffset(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }

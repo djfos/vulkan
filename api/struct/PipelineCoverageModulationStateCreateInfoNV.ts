@@ -62,42 +62,42 @@ export class PipelineCoverageModulationStateCreateInfoNV implements BaseStruct {
     this.sType = StructureType.PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineCoverageModulationStateCreateFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCoverageModulationStateCreateFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get coverageModulationMode(): number {
-    return this.#view.getUint32(20, LE);
+  get coverageModulationMode(): CoverageModulationModeNV {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set coverageModulationMode(value: CoverageModulationModeNV) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get coverageModulationTableEnable(): number {
+  get coverageModulationTableEnable(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set coverageModulationTableEnable(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -105,7 +105,7 @@ export class PipelineCoverageModulationStateCreateInfoNV implements BaseStruct {
   get coverageModulationTableCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set coverageModulationTableCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -113,7 +113,7 @@ export class PipelineCoverageModulationStateCreateInfoNV implements BaseStruct {
   get pCoverageModulationTable(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pCoverageModulationTable(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

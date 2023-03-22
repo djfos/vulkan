@@ -17,7 +17,7 @@ export interface InitExportMemoryWin32HandleInfoKHR {
   pNext?: AnyPointer;
   pAttributes?: AnyPointer;
   dwAccess?: number;
-  name?: Deno.PointerValue;
+  name?: AnyPointer;
 }
 
 export class ExportMemoryWin32HandleInfoKHR implements BaseStruct {
@@ -57,18 +57,18 @@ export class ExportMemoryWin32HandleInfoKHR implements BaseStruct {
     this.sType = StructureType.EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -76,7 +76,7 @@ export class ExportMemoryWin32HandleInfoKHR implements BaseStruct {
   get pAttributes(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pAttributes(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
@@ -84,7 +84,7 @@ export class ExportMemoryWin32HandleInfoKHR implements BaseStruct {
   get dwAccess(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set dwAccess(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -92,8 +92,8 @@ export class ExportMemoryWin32HandleInfoKHR implements BaseStruct {
   get name(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set name(value: Deno.PointerValue) {
+  
+  set name(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

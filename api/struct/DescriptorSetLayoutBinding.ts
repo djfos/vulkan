@@ -12,7 +12,7 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { DescriptorType } from "../enum.ts";
-import { ShaderStageFlags, Sampler } from "../def.ts";
+import { ShaderStageFlags } from "../def.ts";
 
 export interface InitDescriptorSetLayoutBinding {
   binding?: number;
@@ -59,42 +59,47 @@ export class DescriptorSetLayoutBinding implements BaseStruct {
     }
   }
 
+  /** Binding number for this entry */
   get binding(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set binding(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get descriptorType(): number {
-    return this.#view.getUint32(4, LE);
+  /** Type of the descriptors in this binding */
+  get descriptorType(): DescriptorType {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set descriptorType(value: DescriptorType) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
+  /** Number of descriptors in this binding */
   get descriptorCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set descriptorCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get stageFlags(): number {
+  /** Shader stages this binding is visible to */
+  get stageFlags(): ShaderStageFlags {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set stageFlags(value: ShaderStageFlags) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
+  /** Immutable samplers (used if descriptor type is SAMPLER or COMBINED_IMAGE_SAMPLER, is either NULL or contains count number of elements) */
   get pImmutableSamplers(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pImmutableSamplers(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }

@@ -54,26 +54,29 @@ export class MemoryRequirements implements BaseStruct {
     }
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get alignment(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set alignment(value: DeviceSize) {
+  
+  set alignment(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
+  /** Bitmask of the allowed memory type indices into memoryTypes[] for this object */
   get memoryTypeBits(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set memoryTypeBits(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }

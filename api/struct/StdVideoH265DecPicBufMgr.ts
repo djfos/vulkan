@@ -18,7 +18,6 @@ export interface InitStdVideoH265DecPicBufMgr {
   max_num_reorder_pics?: Uint8Array;
 }
 
-/** sps_ or vps_ parameters, based on if the StdVideoH265DecPicBufMgr is used within the StdVideoH265SequenceParameterSet or StdVideoH265VideoParameterSet */
 export class StdVideoH265DecPicBufMgr implements BaseStruct {
   static size = 44;
 
@@ -54,27 +53,51 @@ export class StdVideoH265DecPicBufMgr implements BaseStruct {
     }
   }
 
+  /** represents sps_max_latency_increase_plus1 or vps_max_latency_increase_plus1 */
   get max_latency_increase_plus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 0, 7);
+    return new Uint32Array(this.#data.buffer, 0, 7);
   }
-
   set max_latency_increase_plus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 7) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
+  /** represents sps_max_dec_pic_buffering_minus1 or vps_max_dec_pic_buffering_minus1 */
   get max_dec_pic_buffering_minus1(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 28, 7);
+    return new Uint8Array(this.#data.buffer, 28, 7);
   }
-
   set max_dec_pic_buffering_minus1(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 28);
+    if (value.length > 7) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 28);
   }
 
+  /** represents sps_max_num_reorder_pics or vps_max_num_reorder_pics */
   get max_num_reorder_pics(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 35, 7);
+    return new Uint8Array(this.#data.buffer, 35, 7);
   }
-
   set max_num_reorder_pics(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 35);
+    if (value.length > 7) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 35);
   }
 }

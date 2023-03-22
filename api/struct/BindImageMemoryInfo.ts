@@ -16,8 +16,8 @@ import { Image, DeviceMemory, DeviceSize } from "../def.ts";
 
 export interface InitBindImageMemoryInfo {
   pNext?: AnyPointer;
-  image?: Image;
-  memory?: DeviceMemory;
+  image?: AnyPointer;
+  memory?: AnyPointer;
   memoryOffset?: DeviceSize;
 }
 
@@ -58,18 +58,18 @@ export class BindImageMemoryInfo implements BaseStruct {
     this.sType = StructureType.BIND_IMAGE_MEMORY_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,24 +77,24 @@ export class BindImageMemoryInfo implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get memoryOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set memoryOffset(value: DeviceSize) {
+  
+  set memoryOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 }

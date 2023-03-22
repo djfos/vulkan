@@ -54,18 +54,18 @@ export class QueueFamilyCheckpointProperties2NV implements BaseStruct {
     this.sType = StructureType.QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class QueueFamilyCheckpointProperties2NV implements BaseStruct {
   get checkpointExecutionStageMask(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set checkpointExecutionStageMask(value: PipelineStageFlags2) {
+  
+  set checkpointExecutionStageMask(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 }

@@ -56,26 +56,26 @@ export class MemoryAllocateFlagsInfo implements BaseStruct {
     this.sType = StructureType.MEMORY_ALLOCATE_FLAGS_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): MemoryAllocateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: MemoryAllocateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +83,7 @@ export class MemoryAllocateFlagsInfo implements BaseStruct {
   get deviceMask(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set deviceMask(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }

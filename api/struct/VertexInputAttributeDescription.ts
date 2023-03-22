@@ -56,34 +56,38 @@ export class VertexInputAttributeDescription implements BaseStruct {
     }
   }
 
+  /** location of the shader vertex attrib */
   get location(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set location(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Vertex buffer binding id */
   get binding(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set binding(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(8, LE);
+  /** format of source data */
+  get format(): Format {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
+  /** Offset of first element in bytes from base of vertex */
   get offset(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set offset(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }

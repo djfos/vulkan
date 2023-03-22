@@ -60,7 +60,7 @@ export class StdVideoH265ProfileTierLevelFlags implements BaseStruct {
   get general_tier_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set general_tier_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -68,7 +68,7 @@ export class StdVideoH265ProfileTierLevelFlags implements BaseStruct {
   get general_progressive_source_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set general_progressive_source_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -76,7 +76,7 @@ export class StdVideoH265ProfileTierLevelFlags implements BaseStruct {
   get general_interlaced_source_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set general_interlaced_source_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -84,7 +84,7 @@ export class StdVideoH265ProfileTierLevelFlags implements BaseStruct {
   get general_non_packed_constraint_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set general_non_packed_constraint_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -92,7 +92,7 @@ export class StdVideoH265ProfileTierLevelFlags implements BaseStruct {
   get general_frame_only_constraint_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set general_frame_only_constraint_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }

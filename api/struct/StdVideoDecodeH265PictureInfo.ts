@@ -73,7 +73,6 @@ export class StdVideoDecodeH265PictureInfo implements BaseStruct {
   get flags(): StdVideoDecodeH265PictureInfoFlags {
     return new StdVideoDecodeH265PictureInfoFlags(this.#data.subarray(0, 0 + StdVideoDecodeH265PictureInfoFlags.size));
   }
-
   set flags(value: StdVideoDecodeH265PictureInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoDecodeH265PictureInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -81,34 +80,38 @@ export class StdVideoDecodeH265PictureInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Selecting VPS id from the Video Parameters Set */
   get sps_video_parameter_set_id(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set sps_video_parameter_set_id(value: number) {
     this.#view.setUint8(16, Number(value));
   }
 
+  /** Selecting SPS id from the Sequence Parameters Set */
   get pps_seq_parameter_set_id(): number {
     return this.#view.getUint8(17);
   }
-
+  
   set pps_seq_parameter_set_id(value: number) {
     this.#view.setUint8(17, Number(value));
   }
 
+  /** Selecting PPS id from the Picture Parameters Set */
   get pps_pic_parameter_set_id(): number {
     return this.#view.getUint8(18);
   }
-
+  
   set pps_pic_parameter_set_id(value: number) {
     this.#view.setUint8(18, Number(value));
   }
 
+  /** NumDeltaPocs[ RefRpsIdx ] when short_term_ref_pic_set_sps_flag = 1, otherwise 0 */
   get NumDeltaPocsOfRefRpsIdx(): number {
     return this.#view.getUint8(19);
   }
-
+  
   set NumDeltaPocsOfRefRpsIdx(value: number) {
     this.#view.setUint8(19, Number(value));
   }
@@ -116,15 +119,16 @@ export class StdVideoDecodeH265PictureInfo implements BaseStruct {
   get PicOrderCntVal(): number {
     return this.#view.getInt32(20, LE);
   }
-
+  
   set PicOrderCntVal(value: number) {
     this.#view.setInt32(20, Number(value), LE);
   }
 
+  /** number of bits used in st_ref_pic_set() when short_term_ref_pic_set_sps_flag is 0otherwise set to 0. */
   get NumBitsForSTRefPicSetInSlice(): number {
     return this.#view.getUint16(24, LE);
   }
-
+  
   set NumBitsForSTRefPicSetInSlice(value: number) {
     this.#view.setUint16(24, Number(value), LE);
   }
@@ -132,32 +136,56 @@ export class StdVideoDecodeH265PictureInfo implements BaseStruct {
   get reserved(): number {
     return this.#view.getUint16(26, LE);
   }
-
+  
   set reserved(value: number) {
     this.#view.setUint16(26, Number(value), LE);
   }
 
+  /** slotIndex as used in VkVideoReferenceSlotInfoKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
   get RefPicSetStCurrBefore(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 28, 8);
+    return new Uint8Array(this.#data.buffer, 28, 8);
   }
-
   set RefPicSetStCurrBefore(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 28);
+    if (value.length > 8) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 28);
   }
 
+  /** slotIndex as used in VkVideoReferenceSlotInfoKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
   get RefPicSetStCurrAfter(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 36, 8);
+    return new Uint8Array(this.#data.buffer, 36, 8);
   }
-
   set RefPicSetStCurrAfter(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 36);
+    if (value.length > 8) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 36);
   }
 
+  /** slotIndex as used in VkVideoReferenceSlotInfoKHR structures representing pReferenceSlots in VkVideoDecodeInfoKHR, 0xff for invalid slotIndex */
   get RefPicSetLtCurr(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 44, 8);
+    return new Uint8Array(this.#data.buffer, 44, 8);
   }
-
   set RefPicSetLtCurr(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 44);
+    if (value.length > 8) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 44);
   }
 }

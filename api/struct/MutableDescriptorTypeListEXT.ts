@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { DescriptorType } from "../enum.ts";
 
 export interface InitMutableDescriptorTypeListEXT {
   descriptorTypeCount?: number;
@@ -55,7 +54,7 @@ export class MutableDescriptorTypeListEXT implements BaseStruct {
   get descriptorTypeCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set descriptorTypeCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -63,7 +62,7 @@ export class MutableDescriptorTypeListEXT implements BaseStruct {
   get pDescriptorTypes(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pDescriptorTypes(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }

@@ -55,27 +55,27 @@ export class DeviceFaultAddressInfoEXT implements BaseStruct {
     }
   }
 
-  get addressType(): number {
-    return this.#view.getUint32(0, LE);
+  get addressType(): DeviceFaultAddressTypeEXT {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set addressType(value: DeviceFaultAddressTypeEXT) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get reportedAddress(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set reportedAddress(value: DeviceAddress) {
+  
+  set reportedAddress(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
   get addressPrecision(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set addressPrecision(value: DeviceSize) {
+  
+  set addressPrecision(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 }

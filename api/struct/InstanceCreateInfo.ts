@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {ApplicationInfo} from "./ApplicationInfo.ts";
 import { StructureType } from "../enum.ts";
 import { InstanceCreateFlags } from "../def.ts";
 
@@ -65,26 +64,26 @@ export class InstanceCreateInfo implements BaseStruct {
     this.sType = StructureType.INSTANCE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): InstanceCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: InstanceCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -92,7 +91,7 @@ export class InstanceCreateInfo implements BaseStruct {
   get pApplicationInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pApplicationInfo(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -100,15 +99,16 @@ export class InstanceCreateInfo implements BaseStruct {
   get enabledLayerCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set enabledLayerCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
+  /** Ordered list of layer names to be enabled */
   get ppEnabledLayerNames(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set ppEnabledLayerNames(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -116,15 +116,16 @@ export class InstanceCreateInfo implements BaseStruct {
   get enabledExtensionCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set enabledExtensionCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
+  /** Extension names to be enabled */
   get ppEnabledExtensionNames(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set ppEnabledExtensionNames(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

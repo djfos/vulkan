@@ -66,7 +66,6 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get transformT0(): SRTDataNV {
     return new SRTDataNV(this.#data.subarray(0, 0 + SRTDataNV.size));
   }
-
   set transformT0(value: SRTDataNV) {
     if (value[BUFFER].byteLength < SRTDataNV.size) {
       throw new Error("Data buffer too small");
@@ -77,7 +76,6 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get transformT1(): SRTDataNV {
     return new SRTDataNV(this.#data.subarray(64, 64 + SRTDataNV.size));
   }
-
   set transformT1(value: SRTDataNV) {
     if (value[BUFFER].byteLength < SRTDataNV.size) {
       throw new Error("Data buffer too small");
@@ -88,7 +86,7 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get instanceCustomIndex(): number {
     return this.#view.getUint32(128, LE);
   }
-
+  
   set instanceCustomIndex(value: number) {
     this.#view.setUint32(128, Number(value), LE);
   }
@@ -96,7 +94,7 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get mask(): number {
     return this.#view.getUint32(132, LE);
   }
-
+  
   set mask(value: number) {
     this.#view.setUint32(132, Number(value), LE);
   }
@@ -104,15 +102,15 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get instanceShaderBindingTableRecordOffset(): number {
     return this.#view.getUint32(136, LE);
   }
-
+  
   set instanceShaderBindingTableRecordOffset(value: number) {
     this.#view.setUint32(136, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): GeometryInstanceFlagsKHR {
     return this.#view.getUint32(140, LE);
   }
-
+  
   set flags(value: GeometryInstanceFlagsKHR) {
     this.#view.setUint32(140, Number(value), LE);
   }
@@ -120,7 +118,7 @@ export class AccelerationStructureSRTMotionInstanceNV implements BaseStruct {
   get accelerationStructureReference(): bigint {
     return this.#view.getBigUint64(144, LE);
   }
-
+  
   set accelerationStructureReference(value: number | bigint) {
     this.#view.setBigUint64(144, BigInt(value), LE);
   }

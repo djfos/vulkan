@@ -79,50 +79,50 @@ export class ImageCreateInfo implements BaseStruct {
     this.sType = StructureType.IMAGE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Image creation flags */
+  get flags(): ImageCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ImageCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get imageType(): number {
-    return this.#view.getUint32(20, LE);
+  get imageType(): ImageType {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set imageType(value: ImageType) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(24, LE);
+  get format(): Format {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get extent(): Extent3D {
     return new Extent3D(this.#data.subarray(28, 28 + Extent3D.size));
   }
-
   set extent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");
@@ -133,7 +133,7 @@ export class ImageCreateInfo implements BaseStruct {
   get mipLevels(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set mipLevels(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -141,64 +141,69 @@ export class ImageCreateInfo implements BaseStruct {
   get arrayLayers(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set arrayLayers(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get samples(): number {
-    return this.#view.getUint32(48, LE);
+  get samples(): SampleCountFlagBits {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set samples(value: SampleCountFlagBits) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
-  get tiling(): number {
-    return this.#view.getUint32(52, LE);
+  get tiling(): ImageTiling {
+    return this.#view.getInt32(52, LE);
   }
-
+  
   set tiling(value: ImageTiling) {
-    this.#view.setUint32(52, Number(value), LE);
+    this.#view.setInt32(52, Number(value), LE);
   }
 
-  get usage(): number {
+  /** Image usage flags */
+  get usage(): ImageUsageFlags {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set usage(value: ImageUsageFlags) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get sharingMode(): number {
-    return this.#view.getUint32(60, LE);
+  /** Cross-queue-family sharing mode */
+  get sharingMode(): SharingMode {
+    return this.#view.getInt32(60, LE);
   }
-
+  
   set sharingMode(value: SharingMode) {
-    this.#view.setUint32(60, Number(value), LE);
+    this.#view.setInt32(60, Number(value), LE);
   }
 
+  /** Number of queue families to share across */
   get queueFamilyIndexCount(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set queueFamilyIndexCount(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
+  /** Array of queue family indices to share across */
   get pQueueFamilyIndices(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
+  
   set pQueueFamilyIndices(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }
 
-  get initialLayout(): number {
-    return this.#view.getUint32(80, LE);
+  /** Initial image layout for all subresources */
+  get initialLayout(): ImageLayout {
+    return this.#view.getInt32(80, LE);
   }
-
+  
   set initialLayout(value: ImageLayout) {
-    this.#view.setUint32(80, Number(value), LE);
+    this.#view.setInt32(80, Number(value), LE);
   }
 }

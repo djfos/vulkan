@@ -62,42 +62,42 @@ export class DebugUtilsMessengerCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): DebugUtilsMessengerCreateFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DebugUtilsMessengerCreateFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get messageSeverity(): number {
+  get messageSeverity(): DebugUtilsMessageSeverityFlagsEXT {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set messageSeverity(value: DebugUtilsMessageSeverityFlagsEXT) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get messageType(): number {
+  get messageType(): DebugUtilsMessageTypeFlagsEXT {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set messageType(value: DebugUtilsMessageTypeFlagsEXT) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -105,7 +105,7 @@ export class DebugUtilsMessengerCreateInfoEXT implements BaseStruct {
   get pfnUserCallback(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pfnUserCallback(value: Deno.PointerValue) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -113,7 +113,7 @@ export class DebugUtilsMessengerCreateInfoEXT implements BaseStruct {
   get pUserData(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pUserData(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

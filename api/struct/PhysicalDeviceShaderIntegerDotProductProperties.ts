@@ -112,258 +112,258 @@ export class PhysicalDeviceShaderIntegerDotProductProperties implements BaseStru
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get integerDotProduct8BitUnsignedAccelerated(): number {
+  get integerDotProduct8BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set integerDotProduct8BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get integerDotProduct8BitSignedAccelerated(): number {
+  get integerDotProduct8BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set integerDotProduct8BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get integerDotProduct8BitMixedSignednessAccelerated(): number {
+  get integerDotProduct8BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set integerDotProduct8BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get integerDotProduct4x8BitPackedUnsignedAccelerated(): number {
+  get integerDotProduct4x8BitPackedUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set integerDotProduct4x8BitPackedUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get integerDotProduct4x8BitPackedSignedAccelerated(): number {
+  get integerDotProduct4x8BitPackedSignedAccelerated(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set integerDotProduct4x8BitPackedSignedAccelerated(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get integerDotProduct4x8BitPackedMixedSignednessAccelerated(): number {
+  get integerDotProduct4x8BitPackedMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set integerDotProduct4x8BitPackedMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get integerDotProduct16BitUnsignedAccelerated(): number {
+  get integerDotProduct16BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set integerDotProduct16BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get integerDotProduct16BitSignedAccelerated(): number {
+  get integerDotProduct16BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set integerDotProduct16BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get integerDotProduct16BitMixedSignednessAccelerated(): number {
+  get integerDotProduct16BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set integerDotProduct16BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get integerDotProduct32BitUnsignedAccelerated(): number {
+  get integerDotProduct32BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set integerDotProduct32BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get integerDotProduct32BitSignedAccelerated(): number {
+  get integerDotProduct32BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set integerDotProduct32BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get integerDotProduct32BitMixedSignednessAccelerated(): number {
+  get integerDotProduct32BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set integerDotProduct32BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get integerDotProduct64BitUnsignedAccelerated(): number {
+  get integerDotProduct64BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set integerDotProduct64BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get integerDotProduct64BitSignedAccelerated(): number {
+  get integerDotProduct64BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set integerDotProduct64BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get integerDotProduct64BitMixedSignednessAccelerated(): number {
+  get integerDotProduct64BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set integerDotProduct64BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating8BitUnsignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating8BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating8BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating8BitSignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating8BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating8BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(): number {
+  get integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(): number {
+  get integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(96, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating16BitUnsignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating16BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(100, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating16BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(100, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating16BitSignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating16BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating16BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(104, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(): number {
+  get integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(108, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(108, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating32BitUnsignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating32BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(112, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating32BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(112, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating32BitSignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating32BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(116, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating32BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(116, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(): number {
+  get integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(120, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating64BitUnsignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating64BitUnsignedAccelerated(): Bool32 {
     return this.#view.getUint32(124, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating64BitUnsignedAccelerated(value: Bool32) {
     this.#view.setUint32(124, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating64BitSignedAccelerated(): number {
+  get integerDotProductAccumulatingSaturating64BitSignedAccelerated(): Bool32 {
     return this.#view.getUint32(128, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating64BitSignedAccelerated(value: Bool32) {
     this.#view.setUint32(128, Number(value), LE);
   }
 
-  get integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(): number {
+  get integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(): Bool32 {
     return this.#view.getUint32(132, LE);
   }
-
+  
   set integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated(value: Bool32) {
     this.#view.setUint32(132, Number(value), LE);
   }

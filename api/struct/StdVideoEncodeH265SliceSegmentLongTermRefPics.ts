@@ -64,7 +64,7 @@ export class StdVideoEncodeH265SliceSegmentLongTermRefPics implements BaseStruct
   get num_long_term_sps(): number {
     return this.#view.getUint8(0);
   }
-
+  
   set num_long_term_sps(value: number) {
     this.#view.setUint8(0, Number(value));
   }
@@ -72,48 +72,77 @@ export class StdVideoEncodeH265SliceSegmentLongTermRefPics implements BaseStruct
   get num_long_term_pics(): number {
     return this.#view.getUint8(1);
   }
-
+  
   set num_long_term_pics(value: number) {
     this.#view.setUint8(1, Number(value));
   }
 
   get lt_idx_sps(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 2, 32);
+    return new Uint8Array(this.#data.buffer, 2, 32);
   }
-
   set lt_idx_sps(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 2);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 2);
   }
 
   get poc_lsb_lt(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 34, 16);
+    return new Uint8Array(this.#data.buffer, 34, 16);
   }
-
   set poc_lsb_lt(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 34);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 34);
   }
 
+  /** each bit represents a used_by_curr_pic_lt_flag[i] syntax */
   get used_by_curr_pic_lt_flag(): number {
     return this.#view.getUint16(50, LE);
   }
-
+  
   set used_by_curr_pic_lt_flag(value: number) {
     this.#view.setUint16(50, Number(value), LE);
   }
 
   get delta_poc_msb_present_flag(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 52, 48);
+    return new Uint8Array(this.#data.buffer, 52, 48);
   }
-
   set delta_poc_msb_present_flag(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 52);
+    if (value.length > 48) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 52);
   }
 
   get delta_poc_msb_cycle_lt(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 100, 48);
+    return new Uint8Array(this.#data.buffer, 100, 48);
   }
-
   set delta_poc_msb_cycle_lt(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 100);
+    if (value.length > 48) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 100);
   }
 }

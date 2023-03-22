@@ -53,26 +53,29 @@ export class SpecializationMapEntry implements BaseStruct {
     }
   }
 
+  /** The SpecConstant ID specified in the BIL */
   get constantID(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set constantID(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Offset of the value in the data block */
   get offset(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set offset(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** Size in bytes of the SpecConstant */
   get size(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
+  
   set size(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }

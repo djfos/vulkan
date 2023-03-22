@@ -66,15 +66,16 @@ export class CopyMemoryToImageIndirectCommandNV implements BaseStruct {
   get srcAddress(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set srcAddress(value: DeviceAddress) {
+  
+  set srcAddress(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
+  /** Specified in texels */
   get bufferRowLength(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set bufferRowLength(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -82,7 +83,7 @@ export class CopyMemoryToImageIndirectCommandNV implements BaseStruct {
   get bufferImageHeight(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set bufferImageHeight(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -90,7 +91,6 @@ export class CopyMemoryToImageIndirectCommandNV implements BaseStruct {
   get imageSubresource(): ImageSubresourceLayers {
     return new ImageSubresourceLayers(this.#data.subarray(16, 16 + ImageSubresourceLayers.size));
   }
-
   set imageSubresource(value: ImageSubresourceLayers) {
     if (value[BUFFER].byteLength < ImageSubresourceLayers.size) {
       throw new Error("Data buffer too small");
@@ -98,10 +98,10 @@ export class CopyMemoryToImageIndirectCommandNV implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get imageOffset(): Offset3D {
     return new Offset3D(this.#data.subarray(32, 32 + Offset3D.size));
   }
-
   set imageOffset(value: Offset3D) {
     if (value[BUFFER].byteLength < Offset3D.size) {
       throw new Error("Data buffer too small");
@@ -109,10 +109,10 @@ export class CopyMemoryToImageIndirectCommandNV implements BaseStruct {
     this.#data.set(value[BUFFER], 32);
   }
 
+  /** Specified in pixels for both compressed and uncompressed images */
   get imageExtent(): Extent3D {
     return new Extent3D(this.#data.subarray(44, 44 + Extent3D.size));
   }
-
   set imageExtent(value: Extent3D) {
     if (value[BUFFER].byteLength < Extent3D.size) {
       throw new Error("Data buffer too small");

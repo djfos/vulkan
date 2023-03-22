@@ -60,50 +60,63 @@ export class PhysicalDeviceDriverProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DRIVER_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get driverID(): number {
-    return this.#view.getUint32(16, LE);
+  get driverID(): DriverId {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set driverID(value: DriverId) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get driverName(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 20, 256);
+    return new Uint8Array(this.#data.buffer, 20, 256);
   }
-
   set driverName(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 20);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 20);
   }
 
   get driverInfo(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 276, 256);
+    return new Uint8Array(this.#data.buffer, 276, 256);
   }
-
   set driverInfo(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 276);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 276);
   }
 
   get conformanceVersion(): ConformanceVersion {
     return new ConformanceVersion(this.#data.subarray(532, 532 + ConformanceVersion.size));
   }
-
   set conformanceVersion(value: ConformanceVersion) {
     if (value[BUFFER].byteLength < ConformanceVersion.size) {
       throw new Error("Data buffer too small");

@@ -62,58 +62,58 @@ export class PhysicalDeviceAccelerationStructureFeaturesKHR implements BaseStruc
     this.sType = StructureType.PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get accelerationStructure(): number {
+  get accelerationStructure(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set accelerationStructure(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get accelerationStructureCaptureReplay(): number {
+  get accelerationStructureCaptureReplay(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set accelerationStructureCaptureReplay(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get accelerationStructureIndirectBuild(): number {
+  get accelerationStructureIndirectBuild(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set accelerationStructureIndirectBuild(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get accelerationStructureHostCommands(): number {
+  get accelerationStructureHostCommands(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set accelerationStructureHostCommands(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get descriptorBindingAccelerationStructureUpdateAfterBind(): number {
+  get descriptorBindingAccelerationStructureUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set descriptorBindingAccelerationStructureUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }

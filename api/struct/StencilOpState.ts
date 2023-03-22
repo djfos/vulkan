@@ -62,42 +62,42 @@ export class StencilOpState implements BaseStruct {
     }
   }
 
-  get failOp(): number {
-    return this.#view.getUint32(0, LE);
+  get failOp(): StencilOp {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set failOp(value: StencilOp) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get passOp(): number {
-    return this.#view.getUint32(4, LE);
+  get passOp(): StencilOp {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set passOp(value: StencilOp) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
-  get depthFailOp(): number {
-    return this.#view.getUint32(8, LE);
+  get depthFailOp(): StencilOp {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set depthFailOp(value: StencilOp) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
-  get compareOp(): number {
-    return this.#view.getUint32(12, LE);
+  get compareOp(): CompareOp {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set compareOp(value: CompareOp) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 
   get compareMask(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set compareMask(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -105,7 +105,7 @@ export class StencilOpState implements BaseStruct {
   get writeMask(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set writeMask(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -113,7 +113,7 @@ export class StencilOpState implements BaseStruct {
   get reference(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set reference(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

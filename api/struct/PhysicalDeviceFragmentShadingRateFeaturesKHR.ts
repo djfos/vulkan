@@ -58,42 +58,42 @@ export class PhysicalDeviceFragmentShadingRateFeaturesKHR implements BaseStruct 
     this.sType = StructureType.PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get pipelineFragmentShadingRate(): number {
+  get pipelineFragmentShadingRate(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set pipelineFragmentShadingRate(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get primitiveFragmentShadingRate(): number {
+  get primitiveFragmentShadingRate(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set primitiveFragmentShadingRate(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get attachmentFragmentShadingRate(): number {
+  get attachmentFragmentShadingRate(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set attachmentFragmentShadingRate(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }

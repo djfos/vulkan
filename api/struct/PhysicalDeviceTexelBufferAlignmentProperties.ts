@@ -60,18 +60,18 @@ export class PhysicalDeviceTexelBufferAlignmentProperties implements BaseStruct 
     this.sType = StructureType.PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,15 +79,15 @@ export class PhysicalDeviceTexelBufferAlignmentProperties implements BaseStruct 
   get storageTexelBufferOffsetAlignmentBytes(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set storageTexelBufferOffsetAlignmentBytes(value: DeviceSize) {
+  
+  set storageTexelBufferOffsetAlignmentBytes(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
-  get storageTexelBufferOffsetSingleTexelAlignment(): number {
+  get storageTexelBufferOffsetSingleTexelAlignment(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set storageTexelBufferOffsetSingleTexelAlignment(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -95,15 +95,15 @@ export class PhysicalDeviceTexelBufferAlignmentProperties implements BaseStruct 
   get uniformTexelBufferOffsetAlignmentBytes(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set uniformTexelBufferOffsetAlignmentBytes(value: DeviceSize) {
+  
+  set uniformTexelBufferOffsetAlignmentBytes(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
-  get uniformTexelBufferOffsetSingleTexelAlignment(): number {
+  get uniformTexelBufferOffsetSingleTexelAlignment(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set uniformTexelBufferOffsetSingleTexelAlignment(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }

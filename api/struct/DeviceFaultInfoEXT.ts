@@ -11,8 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {DeviceFaultAddressInfoEXT} from "./DeviceFaultAddressInfoEXT.ts";
-import {DeviceFaultVendorInfoEXT} from "./DeviceFaultVendorInfoEXT.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitDeviceFaultInfoEXT {
@@ -61,34 +59,42 @@ export class DeviceFaultInfoEXT implements BaseStruct {
     this.sType = StructureType.DEVICE_FAULT_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Free-form description of the fault */
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 16, 256);
+    return new Uint8Array(this.#data.buffer, 16, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 16);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 16);
   }
 
   get pAddressInfos(): Deno.PointerValue {
     return pointerFromView(this.#view, 272, LE);
   }
-
+  
   set pAddressInfos(value: AnyPointer) {
     this.#view.setBigUint64(272, BigInt(anyPointer(value)), LE);
   }
@@ -96,7 +102,7 @@ export class DeviceFaultInfoEXT implements BaseStruct {
   get pVendorInfos(): Deno.PointerValue {
     return pointerFromView(this.#view, 280, LE);
   }
-
+  
   set pVendorInfos(value: AnyPointer) {
     this.#view.setBigUint64(280, BigInt(anyPointer(value)), LE);
   }
@@ -104,7 +110,7 @@ export class DeviceFaultInfoEXT implements BaseStruct {
   get pVendorBinaryData(): Deno.PointerValue {
     return pointerFromView(this.#view, 288, LE);
   }
-
+  
   set pVendorBinaryData(value: AnyPointer) {
     this.#view.setBigUint64(288, BigInt(anyPointer(value)), LE);
   }

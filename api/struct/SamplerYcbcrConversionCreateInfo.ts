@@ -69,50 +69,49 @@ export class SamplerYcbcrConversionCreateInfo implements BaseStruct {
     this.sType = StructureType.SAMPLER_YCBCR_CONVERSION_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(16, LE);
+  get format(): Format {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get ycbcrModel(): number {
-    return this.#view.getUint32(20, LE);
+  get ycbcrModel(): SamplerYcbcrModelConversion {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set ycbcrModel(value: SamplerYcbcrModelConversion) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get ycbcrRange(): number {
-    return this.#view.getUint32(24, LE);
+  get ycbcrRange(): SamplerYcbcrRange {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set ycbcrRange(value: SamplerYcbcrRange) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get components(): ComponentMapping {
     return new ComponentMapping(this.#data.subarray(28, 28 + ComponentMapping.size));
   }
-
   set components(value: ComponentMapping) {
     if (value[BUFFER].byteLength < ComponentMapping.size) {
       throw new Error("Data buffer too small");
@@ -120,34 +119,34 @@ export class SamplerYcbcrConversionCreateInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 28);
   }
 
-  get xChromaOffset(): number {
-    return this.#view.getUint32(44, LE);
+  get xChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set xChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
-  get yChromaOffset(): number {
-    return this.#view.getUint32(48, LE);
+  get yChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set yChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 
-  get chromaFilter(): number {
-    return this.#view.getUint32(52, LE);
+  get chromaFilter(): Filter {
+    return this.#view.getInt32(52, LE);
   }
-
+  
   set chromaFilter(value: Filter) {
-    this.#view.setUint32(52, Number(value), LE);
+    this.#view.setInt32(52, Number(value), LE);
   }
 
-  get forceExplicitReconstruction(): number {
+  get forceExplicitReconstruction(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set forceExplicitReconstruction(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }

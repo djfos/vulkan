@@ -52,7 +52,7 @@ export class BindShaderGroupIndirectCommandNV implements BaseStruct {
   get groupIndex(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set groupIndex(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }

@@ -60,26 +60,26 @@ export class DeviceAddressBindingCallbackDataEXT implements BaseStruct {
     this.sType = StructureType.DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): DeviceAddressBindingFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DeviceAddressBindingFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -87,24 +87,24 @@ export class DeviceAddressBindingCallbackDataEXT implements BaseStruct {
   get baseAddress(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set baseAddress(value: DeviceAddress) {
+  
+  set baseAddress(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get size(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
-  get bindingType(): number {
-    return this.#view.getUint32(40, LE);
+  get bindingType(): DeviceAddressBindingTypeEXT {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set bindingType(value: DeviceAddressBindingTypeEXT) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 }

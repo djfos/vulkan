@@ -119,14 +119,15 @@ import {
   MicromapEXT,
   OpticalFlowSessionNV,
 } from "./def.ts";
-const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os === "darwin" ? "libvulkan.dylib.1" : "libvulkan.so.1", {
+const libFile = Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os === "darwin" ? "libvulkan.dylib.1" : "libvulkan.so.1";
+const _lib = Deno.dlopen(libFile, {
   "vkCreateInstance": {
     "parameters": [
       "buffer",
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyInstance": {
     "parameters": [
@@ -141,7 +142,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetDeviceProcAddr": {
     "parameters": [
@@ -189,7 +190,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkGetPhysicalDeviceFormatProperties": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "buffer"
     ],
     "result": "void"
@@ -197,14 +198,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkGetPhysicalDeviceImageFormatProperties": {
     "parameters": [
       "pointer",
-      "u32",
-      "u32",
-      "u32",
+      "i32",
+      "i32",
+      "i32",
       "u32",
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateDevice": {
     "parameters": [
@@ -213,7 +214,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyDevice": {
     "parameters": [
@@ -226,14 +227,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkEnumerateInstanceLayerProperties": {
     "parameters": [
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkEnumerateInstanceExtensionProperties": {
     "parameters": [
@@ -241,7 +242,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkEnumerateDeviceLayerProperties": {
     "parameters": [
@@ -249,7 +250,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkEnumerateDeviceExtensionProperties": {
     "parameters": [
@@ -258,7 +259,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetDeviceQueue": {
     "parameters": [
@@ -276,19 +277,19 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkQueueWaitIdle": {
     "parameters": [
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDeviceWaitIdle": {
     "parameters": [
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkAllocateMemory": {
     "parameters": [
@@ -297,7 +298,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkFreeMemory": {
     "parameters": [
@@ -316,7 +317,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkUnmapMemory": {
     "parameters": [
@@ -331,7 +332,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkInvalidateMappedMemoryRanges": {
     "parameters": [
@@ -339,7 +340,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetDeviceMemoryCommitment": {
     "parameters": [
@@ -364,7 +365,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "u64"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetImageMemoryRequirements": {
     "parameters": [
@@ -381,7 +382,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "u64"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetImageSparseMemoryRequirements": {
     "parameters": [
@@ -395,11 +396,11 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkGetPhysicalDeviceSparseImageFormatProperties": {
     "parameters": [
       "pointer",
+      "i32",
+      "i32",
+      "i32",
       "u32",
-      "u32",
-      "u32",
-      "u32",
-      "u32",
+      "i32",
       "buffer",
       "buffer"
     ],
@@ -412,7 +413,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateFence": {
     "parameters": [
@@ -421,7 +422,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyFence": {
     "parameters": [
@@ -437,14 +438,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetFenceStatus": {
     "parameters": [
       "pointer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkWaitForFences": {
     "parameters": [
@@ -454,7 +455,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "u64"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateSemaphore": {
     "parameters": [
@@ -463,7 +464,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroySemaphore": {
     "parameters": [
@@ -480,7 +481,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyEvent": {
     "parameters": [
@@ -495,21 +496,21 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkSetEvent": {
     "parameters": [
       "pointer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkResetEvent": {
     "parameters": [
       "pointer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateQueryPool": {
     "parameters": [
@@ -518,7 +519,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyQueryPool": {
     "parameters": [
@@ -539,7 +540,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u64",
       "u32"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkResetQueryPool": {
     "parameters": [
@@ -557,7 +558,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyBuffer": {
     "parameters": [
@@ -574,7 +575,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyBufferView": {
     "parameters": [
@@ -591,7 +592,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyImage": {
     "parameters": [
@@ -617,7 +618,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyImageView": {
     "parameters": [
@@ -634,7 +635,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyShaderModule": {
     "parameters": [
@@ -651,7 +652,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyPipelineCache": {
     "parameters": [
@@ -668,7 +669,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkMergePipelineCaches": {
     "parameters": [
@@ -677,7 +678,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateGraphicsPipelines": {
     "parameters": [
@@ -688,7 +689,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateComputePipelines": {
     "parameters": [
@@ -699,7 +700,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyPipeline": {
     "parameters": [
@@ -716,7 +717,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyPipelineLayout": {
     "parameters": [
@@ -733,7 +734,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroySampler": {
     "parameters": [
@@ -750,7 +751,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyDescriptorSetLayout": {
     "parameters": [
@@ -767,7 +768,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyDescriptorPool": {
     "parameters": [
@@ -783,7 +784,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "u32"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkAllocateDescriptorSets": {
     "parameters": [
@@ -791,7 +792,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkFreeDescriptorSets": {
     "parameters": [
@@ -800,7 +801,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkUpdateDescriptorSets": {
     "parameters": [
@@ -819,7 +820,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyFramebuffer": {
     "parameters": [
@@ -836,7 +837,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyRenderPass": {
     "parameters": [
@@ -861,7 +862,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyCommandPool": {
     "parameters": [
@@ -877,7 +878,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "u32"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkAllocateCommandBuffers": {
     "parameters": [
@@ -885,7 +886,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkFreeCommandBuffers": {
     "parameters": [
@@ -901,25 +902,25 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkEndCommandBuffer": {
     "parameters": [
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkResetCommandBuffer": {
     "parameters": [
       "pointer",
       "u32"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdBindPipeline": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "pointer"
     ],
     "result": "void"
@@ -1000,7 +1001,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkCmdBindDescriptorSets": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "pointer",
       "u32",
       "u32",
@@ -1015,7 +1016,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "pointer",
       "u64",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
@@ -1101,9 +1102,9 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "pointer",
-      "u32",
+      "i32",
       "u32",
       "buffer"
     ],
@@ -1113,12 +1114,12 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "pointer",
-      "u32",
+      "i32",
       "u32",
       "buffer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
@@ -1127,7 +1128,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "u32",
       "buffer"
     ],
@@ -1137,7 +1138,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "pointer",
       "u32",
       "buffer"
@@ -1168,7 +1169,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "buffer",
       "u32",
       "buffer"
@@ -1179,7 +1180,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "buffer",
       "u32",
       "buffer"
@@ -1200,9 +1201,9 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "pointer",
-      "u32",
+      "i32",
       "pointer",
-      "u32",
+      "i32",
       "u32",
       "buffer"
     ],
@@ -1284,7 +1285,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkCmdWriteTimestamp": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "pointer",
       "u32"
     ],
@@ -1318,14 +1319,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "buffer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
   "vkCmdNextSubpass": {
     "parameters": [
       "pointer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
@@ -1358,7 +1359,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPhysicalDeviceSurfaceCapabilitiesKHR": {
     "parameters": [
@@ -1366,7 +1367,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPhysicalDeviceSurfaceFormatsKHR": {
     "parameters": [
@@ -1375,7 +1376,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPhysicalDeviceSurfacePresentModesKHR": {
     "parameters": [
@@ -1384,7 +1385,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCreateSwapchainKHR": {
     "parameters": [
@@ -1393,7 +1394,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroySwapchainKHR": {
     "parameters": [
@@ -1410,7 +1411,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkAcquireNextImageKHR": {
     "parameters": [
@@ -1421,14 +1422,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkQueuePresentKHR": {
     "parameters": [
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPhysicalDeviceFeatures2": {
     "parameters": [
@@ -1447,7 +1448,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkGetPhysicalDeviceFormatProperties2": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "buffer"
     ],
     "result": "void"
@@ -1458,7 +1459,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPhysicalDeviceQueueFamilyProperties2": {
     "parameters": [
@@ -1522,7 +1523,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetDeviceGroupPeerMemoryFeatures": {
     "parameters": [
@@ -1540,7 +1541,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkBindImageMemory2": {
     "parameters": [
@@ -1548,7 +1549,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "u32",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdSetDeviceMask": {
     "parameters": [
@@ -1576,7 +1577,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyDescriptorUpdateTemplate": {
     "parameters": [
@@ -1652,7 +1653,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroySamplerYcbcrConversion": {
     "parameters": [
@@ -1685,7 +1686,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdBeginRenderPass2": {
     "parameters": [
@@ -1716,7 +1717,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkWaitSemaphores": {
     "parameters": [
@@ -1724,14 +1725,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "u64"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkSignalSemaphore": {
     "parameters": [
       "pointer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdDrawIndirectCount": {
     "parameters": [
@@ -1784,7 +1785,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdSetCullMode": {
     "parameters": [
@@ -1796,14 +1797,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkCmdSetFrontFace": {
     "parameters": [
       "pointer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
   "vkCmdSetPrimitiveTopology": {
     "parameters": [
       "pointer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
@@ -1852,7 +1853,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkCmdSetDepthCompareOp": {
     "parameters": [
       "pointer",
-      "u32"
+      "i32"
     ],
     "result": "void"
   },
@@ -1874,10 +1875,10 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     "parameters": [
       "pointer",
       "u32",
-      "u32",
-      "u32",
-      "u32",
-      "u32"
+      "i32",
+      "i32",
+      "i32",
+      "i32"
     ],
     "result": "void"
   },
@@ -1909,7 +1910,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "buffer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkDestroyPrivateDataSlot": {
     "parameters": [
@@ -1922,17 +1923,17 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
   "vkSetPrivateData": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "u64",
       "pointer",
       "u64"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkGetPrivateData": {
     "parameters": [
       "pointer",
-      "u32",
+      "i32",
       "u64",
       "pointer",
       "buffer"
@@ -2020,7 +2021,7 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
       "buffer",
       "pointer"
     ],
-    "result": "u32"
+    "result": "i32"
   },
   "vkCmdWriteTimestamp2": {
     "parameters": [
@@ -2044,13 +2045,14 @@ const lib = Deno.dlopen(Deno.build.os === "windows" ? "vulkan-1" : Deno.build.os
     ],
     "result": "void"
   },
-} as const).symbols;
+});
+const lib = _lib.symbols;
 
-export class VulkanError extends Error {
-  constructor(public code: Result) {
-    super(`Vulkan error: ${code} (${Result[code]})`);
+  export class VulkanError extends Error {
+    constructor(public code: Result) {
+      super(`Vulkan error: ${code} (${Result[code]})`);
+    }
   }
-}
 
 /// Commands
 

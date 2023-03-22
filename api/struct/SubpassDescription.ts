@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {AttachmentReference} from "./AttachmentReference.ts";
 import { PipelineBindPoint } from "../enum.ts";
 import { SubpassDescriptionFlags } from "../def.ts";
 
@@ -70,26 +69,27 @@ export class SubpassDescription implements BaseStruct {
     }
   }
 
-  get flags(): number {
+  get flags(): SubpassDescriptionFlags {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set flags(value: SubpassDescriptionFlags) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get pipelineBindPoint(): number {
-    return this.#view.getUint32(4, LE);
+  /** Must be VK_PIPELINE_BIND_POINT_GRAPHICS for now */
+  get pipelineBindPoint(): PipelineBindPoint {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set pipelineBindPoint(value: PipelineBindPoint) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
   get inputAttachmentCount(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set inputAttachmentCount(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -97,7 +97,7 @@ export class SubpassDescription implements BaseStruct {
   get pInputAttachments(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pInputAttachments(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
@@ -105,7 +105,7 @@ export class SubpassDescription implements BaseStruct {
   get colorAttachmentCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set colorAttachmentCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -113,7 +113,7 @@ export class SubpassDescription implements BaseStruct {
   get pColorAttachments(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pColorAttachments(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
@@ -121,7 +121,7 @@ export class SubpassDescription implements BaseStruct {
   get pResolveAttachments(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pResolveAttachments(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -129,7 +129,7 @@ export class SubpassDescription implements BaseStruct {
   get pDepthStencilAttachment(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pDepthStencilAttachment(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }
@@ -137,7 +137,7 @@ export class SubpassDescription implements BaseStruct {
   get preserveAttachmentCount(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set preserveAttachmentCount(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -145,7 +145,7 @@ export class SubpassDescription implements BaseStruct {
   get pPreserveAttachments(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
+  
   set pPreserveAttachments(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }

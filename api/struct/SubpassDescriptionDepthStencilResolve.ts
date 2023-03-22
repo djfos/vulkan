@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {AttachmentReference2} from "./AttachmentReference2.ts";
 import { StructureType, ResolveModeFlagBits } from "../enum.ts";
 
 export interface InitSubpassDescriptionDepthStencilResolve {
@@ -58,42 +57,45 @@ export class SubpassDescriptionDepthStencilResolve implements BaseStruct {
     this.sType = StructureType.SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get depthResolveMode(): number {
-    return this.#view.getUint32(16, LE);
+  /** depth resolve mode */
+  get depthResolveMode(): ResolveModeFlagBits {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set depthResolveMode(value: ResolveModeFlagBits) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get stencilResolveMode(): number {
-    return this.#view.getUint32(20, LE);
+  /** stencil resolve mode */
+  get stencilResolveMode(): ResolveModeFlagBits {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set stencilResolveMode(value: ResolveModeFlagBits) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
+  /** depth/stencil resolve attachment */
   get pDepthStencilResolveAttachment(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pDepthStencilResolveAttachment(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

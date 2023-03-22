@@ -65,7 +65,7 @@ export class SubpassDependency implements BaseStruct {
   get srcSubpass(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set srcSubpass(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -73,47 +73,49 @@ export class SubpassDependency implements BaseStruct {
   get dstSubpass(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set dstSubpass(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get srcStageMask(): number {
+  get srcStageMask(): PipelineStageFlags {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set srcStageMask(value: PipelineStageFlags) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get dstStageMask(): number {
+  get dstStageMask(): PipelineStageFlags {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set dstStageMask(value: PipelineStageFlags) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
-  get srcAccessMask(): number {
+  /** Memory accesses from the source of the dependency to synchronize */
+  get srcAccessMask(): AccessFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set srcAccessMask(value: AccessFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get dstAccessMask(): number {
+  /** Memory accesses from the destination of the dependency to synchronize */
+  get dstAccessMask(): AccessFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set dstAccessMask(value: AccessFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get dependencyFlags(): number {
+  get dependencyFlags(): DependencyFlags {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set dependencyFlags(value: DependencyFlags) {
     this.#view.setUint32(24, Number(value), LE);
   }

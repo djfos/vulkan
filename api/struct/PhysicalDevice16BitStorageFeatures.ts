@@ -60,50 +60,54 @@ export class PhysicalDevice16BitStorageFeatures implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get storageBuffer16BitAccess(): number {
+  /** 16-bit integer/floating-point variables supported in BufferBlock */
+  get storageBuffer16BitAccess(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set storageBuffer16BitAccess(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get uniformAndStorageBuffer16BitAccess(): number {
+  /** 16-bit integer/floating-point variables supported in BufferBlock and Block */
+  get uniformAndStorageBuffer16BitAccess(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set uniformAndStorageBuffer16BitAccess(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get storagePushConstant16(): number {
+  /** 16-bit integer/floating-point variables supported in PushConstant */
+  get storagePushConstant16(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set storagePushConstant16(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get storageInputOutput16(): number {
+  /** 16-bit integer/floating-point variables supported in shader inputs and outputs */
+  get storageInputOutput16(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set storageInputOutput16(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }

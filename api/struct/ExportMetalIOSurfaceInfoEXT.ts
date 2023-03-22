@@ -16,8 +16,8 @@ import { Image, IOSurfaceRef } from "../def.ts";
 
 export interface InitExportMetalIOSurfaceInfoEXT {
   pNext?: AnyPointer;
-  image?: Image;
-  ioSurface?: IOSurfaceRef;
+  image?: AnyPointer;
+  ioSurface?: AnyPointer;
 }
 
 export class ExportMetalIOSurfaceInfoEXT implements BaseStruct {
@@ -56,18 +56,18 @@ export class ExportMetalIOSurfaceInfoEXT implements BaseStruct {
     this.sType = StructureType.EXPORT_METAL_IO_SURFACE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,16 +75,16 @@ export class ExportMetalIOSurfaceInfoEXT implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get ioSurface(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set ioSurface(value: IOSurfaceRef) {
+  
+  set ioSurface(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

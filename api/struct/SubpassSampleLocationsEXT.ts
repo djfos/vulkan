@@ -55,7 +55,7 @@ export class SubpassSampleLocationsEXT implements BaseStruct {
   get subpassIndex(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set subpassIndex(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -63,7 +63,6 @@ export class SubpassSampleLocationsEXT implements BaseStruct {
   get sampleLocationsInfo(): SampleLocationsInfoEXT {
     return new SampleLocationsInfoEXT(this.#data.subarray(8, 8 + SampleLocationsInfoEXT.size));
   }
-
   set sampleLocationsInfo(value: SampleLocationsInfoEXT) {
     if (value[BUFFER].byteLength < SampleLocationsInfoEXT.size) {
       throw new Error("Data buffer too small");

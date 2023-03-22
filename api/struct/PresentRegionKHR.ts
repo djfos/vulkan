@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {RectLayerKHR} from "./RectLayerKHR.ts";
 
 export interface InitPresentRegionKHR {
   rectangleCount?: number;
@@ -52,18 +51,20 @@ export class PresentRegionKHR implements BaseStruct {
     }
   }
 
+  /** Number of rectangles in pRectangles */
   get rectangleCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set rectangleCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Array of rectangles that have changed in a swapchain's image(s) */
   get pRectangles(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pRectangles(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }

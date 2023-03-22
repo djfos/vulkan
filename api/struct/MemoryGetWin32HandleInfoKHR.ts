@@ -16,7 +16,7 @@ import { DeviceMemory } from "../def.ts";
 
 export interface InitMemoryGetWin32HandleInfoKHR {
   pNext?: AnyPointer;
-  memory?: DeviceMemory;
+  memory?: AnyPointer;
   handleType?: ExternalMemoryHandleTypeFlagBits;
 }
 
@@ -56,18 +56,18 @@ export class MemoryGetWin32HandleInfoKHR implements BaseStruct {
     this.sType = StructureType.MEMORY_GET_WIN32_HANDLE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,16 +75,16 @@ export class MemoryGetWin32HandleInfoKHR implements BaseStruct {
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get handleType(): number {
-    return this.#view.getUint32(24, LE);
+  get handleType(): ExternalMemoryHandleTypeFlagBits {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set handleType(value: ExternalMemoryHandleTypeFlagBits) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 }

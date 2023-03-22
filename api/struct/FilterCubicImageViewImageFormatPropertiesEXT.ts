@@ -56,34 +56,36 @@ export class FilterCubicImageViewImageFormatPropertiesEXT implements BaseStruct 
     this.sType = StructureType.FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get filterCubic(): number {
+  /** The combinations of format, image type (and image view type if provided) can be filtered with VK_FILTER_CUBIC_EXT */
+  get filterCubic(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set filterCubic(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get filterCubicMinmax(): number {
+  /** The combination of format, image type (and image view type if provided) can be filtered with VK_FILTER_CUBIC_EXT and ReductionMode of Min or Max */
+  get filterCubicMinmax(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set filterCubicMinmax(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }

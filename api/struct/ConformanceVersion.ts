@@ -58,7 +58,7 @@ export class ConformanceVersion implements BaseStruct {
   get major(): number {
     return this.#view.getUint8(0);
   }
-
+  
   set major(value: number) {
     this.#view.setUint8(0, Number(value));
   }
@@ -66,7 +66,7 @@ export class ConformanceVersion implements BaseStruct {
   get minor(): number {
     return this.#view.getUint8(1);
   }
-
+  
   set minor(value: number) {
     this.#view.setUint8(1, Number(value));
   }
@@ -74,7 +74,7 @@ export class ConformanceVersion implements BaseStruct {
   get subminor(): number {
     return this.#view.getUint8(2);
   }
-
+  
   set subminor(value: number) {
     this.#view.setUint8(2, Number(value));
   }
@@ -82,7 +82,7 @@ export class ConformanceVersion implements BaseStruct {
   get patch(): number {
     return this.#view.getUint8(3);
   }
-
+  
   set patch(value: number) {
     this.#view.setUint8(3, Number(value));
   }

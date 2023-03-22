@@ -58,43 +58,48 @@ export class SubresourceLayout implements BaseStruct {
     }
   }
 
+  /** Specified in bytes */
   get offset(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get rowPitch(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set rowPitch(value: DeviceSize) {
+  
+  set rowPitch(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get arrayPitch(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set arrayPitch(value: DeviceSize) {
+  
+  set arrayPitch(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get depthPitch(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set depthPitch(value: DeviceSize) {
+  
+  set depthPitch(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 }

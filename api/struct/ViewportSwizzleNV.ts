@@ -56,35 +56,35 @@ export class ViewportSwizzleNV implements BaseStruct {
     }
   }
 
-  get x(): number {
-    return this.#view.getUint32(0, LE);
+  get x(): ViewportCoordinateSwizzleNV {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set x(value: ViewportCoordinateSwizzleNV) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get y(): number {
-    return this.#view.getUint32(4, LE);
+  get y(): ViewportCoordinateSwizzleNV {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set y(value: ViewportCoordinateSwizzleNV) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
-  get z(): number {
-    return this.#view.getUint32(8, LE);
+  get z(): ViewportCoordinateSwizzleNV {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set z(value: ViewportCoordinateSwizzleNV) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
-  get w(): number {
-    return this.#view.getUint32(12, LE);
+  get w(): ViewportCoordinateSwizzleNV {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set w(value: ViewportCoordinateSwizzleNV) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 }

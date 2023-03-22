@@ -66,7 +66,6 @@ export class StdVideoEncodeH265PictureInfo implements BaseStruct {
   get flags(): StdVideoEncodeH265PictureInfoFlags {
     return new StdVideoEncodeH265PictureInfoFlags(this.#data.subarray(0, 0 + StdVideoEncodeH265PictureInfoFlags.size));
   }
-
   set flags(value: StdVideoEncodeH265PictureInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoEncodeH265PictureInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -74,34 +73,37 @@ export class StdVideoEncodeH265PictureInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
-  get PictureType(): number {
-    return this.#view.getUint32(20, LE);
+  get PictureType(): StdVideoH265PictureType {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set PictureType(value: StdVideoH265PictureType) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
+  /** Selecting VPS id from the Video Parameters Set */
   get sps_video_parameter_set_id(): number {
     return this.#view.getUint8(24);
   }
-
+  
   set sps_video_parameter_set_id(value: number) {
     this.#view.setUint8(24, Number(value));
   }
 
+  /** Selecting SPS id from the Sequence Parameters Set */
   get pps_seq_parameter_set_id(): number {
     return this.#view.getUint8(25);
   }
-
+  
   set pps_seq_parameter_set_id(value: number) {
     this.#view.setUint8(25, Number(value));
   }
 
+  /** Selecting PPS id from the Picture Parameters Set */
   get pps_pic_parameter_set_id(): number {
     return this.#view.getUint8(26);
   }
-
+  
   set pps_pic_parameter_set_id(value: number) {
     this.#view.setUint8(26, Number(value));
   }
@@ -109,7 +111,7 @@ export class StdVideoEncodeH265PictureInfo implements BaseStruct {
   get PicOrderCntVal(): number {
     return this.#view.getInt32(28, LE);
   }
-
+  
   set PicOrderCntVal(value: number) {
     this.#view.setInt32(28, Number(value), LE);
   }
@@ -117,7 +119,7 @@ export class StdVideoEncodeH265PictureInfo implements BaseStruct {
   get TemporalId(): number {
     return this.#view.getUint8(32);
   }
-
+  
   set TemporalId(value: number) {
     this.#view.setUint8(32, Number(value));
   }

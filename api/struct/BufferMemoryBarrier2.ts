@@ -22,7 +22,7 @@ export interface InitBufferMemoryBarrier2 {
   dstAccessMask?: AccessFlags2;
   srcQueueFamilyIndex?: number;
   dstQueueFamilyIndex?: number;
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   offset?: DeviceSize;
   size?: DeviceSize;
 }
@@ -70,18 +70,18 @@ export class BufferMemoryBarrier2 implements BaseStruct {
     this.sType = StructureType.BUFFER_MEMORY_BARRIER_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -89,39 +89,39 @@ export class BufferMemoryBarrier2 implements BaseStruct {
   get srcStageMask(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set srcStageMask(value: PipelineStageFlags2) {
+  
+  set srcStageMask(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get srcAccessMask(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set srcAccessMask(value: AccessFlags2) {
+  
+  set srcAccessMask(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get dstStageMask(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set dstStageMask(value: PipelineStageFlags2) {
+  
+  set dstStageMask(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get dstAccessMask(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set dstAccessMask(value: AccessFlags2) {
+  
+  set dstAccessMask(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
   get srcQueueFamilyIndex(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set srcQueueFamilyIndex(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -129,7 +129,7 @@ export class BufferMemoryBarrier2 implements BaseStruct {
   get dstQueueFamilyIndex(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set dstQueueFamilyIndex(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -137,24 +137,24 @@ export class BufferMemoryBarrier2 implements BaseStruct {
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
 
   get offset(): bigint {
     return this.#view.getBigUint64(64, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(64, BigInt(value), LE);
   }
 
   get size(): bigint {
     return this.#view.getBigUint64(72, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(72, BigInt(value), LE);
   }
 }

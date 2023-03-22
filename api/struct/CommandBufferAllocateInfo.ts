@@ -16,7 +16,7 @@ import { CommandPool } from "../def.ts";
 
 export interface InitCommandBufferAllocateInfo {
   pNext?: AnyPointer;
-  commandPool?: CommandPool;
+  commandPool?: AnyPointer;
   level?: CommandBufferLevel;
   commandBufferCount?: number;
 }
@@ -58,18 +58,18 @@ export class CommandBufferAllocateInfo implements BaseStruct {
     this.sType = StructureType.COMMAND_BUFFER_ALLOCATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -77,23 +77,23 @@ export class CommandBufferAllocateInfo implements BaseStruct {
   get commandPool(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set commandPool(value: CommandPool) {
+  
+  set commandPool(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get level(): number {
-    return this.#view.getUint32(24, LE);
+  get level(): CommandBufferLevel {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set level(value: CommandBufferLevel) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get commandBufferCount(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set commandBufferCount(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }

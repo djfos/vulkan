@@ -20,7 +20,7 @@ export interface InitBufferMemoryBarrier {
   dstAccessMask?: AccessFlags;
   srcQueueFamilyIndex?: number;
   dstQueueFamilyIndex?: number;
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   offset?: DeviceSize;
   size?: DeviceSize;
 }
@@ -66,75 +66,82 @@ export class BufferMemoryBarrier implements BaseStruct {
     this.sType = StructureType.BUFFER_MEMORY_BARRIER;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get srcAccessMask(): number {
+  /** Memory accesses from the source of the dependency to synchronize */
+  get srcAccessMask(): AccessFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set srcAccessMask(value: AccessFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get dstAccessMask(): number {
+  /** Memory accesses from the destination of the dependency to synchronize */
+  get dstAccessMask(): AccessFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set dstAccessMask(value: AccessFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** Queue family to transition ownership from */
   get srcQueueFamilyIndex(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set srcQueueFamilyIndex(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** Queue family to transition ownership to */
   get dstQueueFamilyIndex(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set dstQueueFamilyIndex(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
+  /** Buffer to sync */
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
+  /** Offset within the buffer to sync */
   get offset(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
+  /** Amount of bytes to sync */
   get size(): bigint {
     return this.#view.getBigUint64(48, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(48, BigInt(value), LE);
   }
 }

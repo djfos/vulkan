@@ -11,15 +11,14 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {ImageCopy2} from "./ImageCopy2.ts";
 import { StructureType, ImageLayout } from "../enum.ts";
 import { Image } from "../def.ts";
 
 export interface InitCopyImageInfo2 {
   pNext?: AnyPointer;
-  srcImage?: Image;
+  srcImage?: AnyPointer;
   srcImageLayout?: ImageLayout;
-  dstImage?: Image;
+  dstImage?: AnyPointer;
   dstImageLayout?: ImageLayout;
   regionCount?: number;
   pRegions?: AnyPointer;
@@ -65,18 +64,18 @@ export class CopyImageInfo2 implements BaseStruct {
     this.sType = StructureType.COPY_IMAGE_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -84,39 +83,39 @@ export class CopyImageInfo2 implements BaseStruct {
   get srcImage(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set srcImage(value: Image) {
+  
+  set srcImage(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get srcImageLayout(): number {
-    return this.#view.getUint32(24, LE);
+  get srcImageLayout(): ImageLayout {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set srcImageLayout(value: ImageLayout) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get dstImage(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set dstImage(value: Image) {
+  
+  set dstImage(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
-  get dstImageLayout(): number {
-    return this.#view.getUint32(40, LE);
+  get dstImageLayout(): ImageLayout {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set dstImageLayout(value: ImageLayout) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
   get regionCount(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set regionCount(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -124,7 +123,7 @@ export class CopyImageInfo2 implements BaseStruct {
   get pRegions(): Deno.PointerValue {
     return pointerFromView(this.#view, 48, LE);
   }
-
+  
   set pRegions(value: AnyPointer) {
     this.#view.setBigUint64(48, BigInt(anyPointer(value)), LE);
   }

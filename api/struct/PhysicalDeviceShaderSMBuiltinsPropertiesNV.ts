@@ -55,18 +55,18 @@ export class PhysicalDeviceShaderSMBuiltinsPropertiesNV implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -74,7 +74,7 @@ export class PhysicalDeviceShaderSMBuiltinsPropertiesNV implements BaseStruct {
   get shaderSMCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderSMCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -82,7 +82,7 @@ export class PhysicalDeviceShaderSMBuiltinsPropertiesNV implements BaseStruct {
   get shaderWarpsPerSM(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderWarpsPerSM(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }

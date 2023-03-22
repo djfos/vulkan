@@ -17,7 +17,7 @@ import { DeviceMemory, DeviceSize } from "../def.ts";
 export interface InitBindVideoSessionMemoryInfoKHR {
   pNext?: AnyPointer;
   memoryBindIndex?: number;
-  memory?: DeviceMemory;
+  memory?: AnyPointer;
   memoryOffset?: DeviceSize;
   memorySize?: DeviceSize;
 }
@@ -60,18 +60,18 @@ export class BindVideoSessionMemoryInfoKHR implements BaseStruct {
     this.sType = StructureType.BIND_VIDEO_SESSION_MEMORY_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -79,7 +79,7 @@ export class BindVideoSessionMemoryInfoKHR implements BaseStruct {
   get memoryBindIndex(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set memoryBindIndex(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -87,24 +87,24 @@ export class BindVideoSessionMemoryInfoKHR implements BaseStruct {
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get memoryOffset(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set memoryOffset(value: DeviceSize) {
+  
+  set memoryOffset(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get memorySize(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set memorySize(value: DeviceSize) {
+  
+  set memorySize(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 }

@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {StdVideoH265HrdFlags} from "./StdVideoH265HrdFlags.ts";
-import {StdVideoH265SubLayerHrdParameters} from "./StdVideoH265SubLayerHrdParameters.ts";
 
 export interface InitStdVideoH265HrdParameters {
   flags?: StdVideoH265HrdFlags;
@@ -82,7 +81,6 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get flags(): StdVideoH265HrdFlags {
     return new StdVideoH265HrdFlags(this.#data.subarray(0, 0 + StdVideoH265HrdFlags.size));
   }
-
   set flags(value: StdVideoH265HrdFlags) {
     if (value[BUFFER].byteLength < StdVideoH265HrdFlags.size) {
       throw new Error("Data buffer too small");
@@ -93,7 +91,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get tick_divisor_minus2(): number {
     return this.#view.getUint8(28);
   }
-
+  
   set tick_divisor_minus2(value: number) {
     this.#view.setUint8(28, Number(value));
   }
@@ -101,7 +99,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get du_cpb_removal_delay_increment_length_minus1(): number {
     return this.#view.getUint8(29);
   }
-
+  
   set du_cpb_removal_delay_increment_length_minus1(value: number) {
     this.#view.setUint8(29, Number(value));
   }
@@ -109,7 +107,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get dpb_output_delay_du_length_minus1(): number {
     return this.#view.getUint8(30);
   }
-
+  
   set dpb_output_delay_du_length_minus1(value: number) {
     this.#view.setUint8(30, Number(value));
   }
@@ -117,7 +115,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get bit_rate_scale(): number {
     return this.#view.getUint8(31);
   }
-
+  
   set bit_rate_scale(value: number) {
     this.#view.setUint8(31, Number(value));
   }
@@ -125,7 +123,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get cpb_size_scale(): number {
     return this.#view.getUint8(32);
   }
-
+  
   set cpb_size_scale(value: number) {
     this.#view.setUint8(32, Number(value));
   }
@@ -133,7 +131,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get cpb_size_du_scale(): number {
     return this.#view.getUint8(33);
   }
-
+  
   set cpb_size_du_scale(value: number) {
     this.#view.setUint8(33, Number(value));
   }
@@ -141,7 +139,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get initial_cpb_removal_delay_length_minus1(): number {
     return this.#view.getUint8(34);
   }
-
+  
   set initial_cpb_removal_delay_length_minus1(value: number) {
     this.#view.setUint8(34, Number(value));
   }
@@ -149,7 +147,7 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get au_cpb_removal_delay_length_minus1(): number {
     return this.#view.getUint8(35);
   }
-
+  
   set au_cpb_removal_delay_length_minus1(value: number) {
     this.#view.setUint8(35, Number(value));
   }
@@ -157,47 +155,71 @@ export class StdVideoH265HrdParameters implements BaseStruct {
   get dpb_output_delay_length_minus1(): number {
     return this.#view.getUint8(36);
   }
-
+  
   set dpb_output_delay_length_minus1(value: number) {
     this.#view.setUint8(36, Number(value));
   }
 
   get cpb_cnt_minus1(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 37, 7);
+    return new Uint8Array(this.#data.buffer, 37, 7);
   }
-
   set cpb_cnt_minus1(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 37);
+    if (value.length > 7) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 37);
   }
 
   get elemental_duration_in_tc_minus1(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 44, 7);
+    return new Uint16Array(this.#data.buffer, 44, 7);
   }
-
   set elemental_duration_in_tc_minus1(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 44);
+    if (value.length > 7) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 44);
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 58, 3);
+    return new Uint16Array(this.#data.buffer, 58, 3);
   }
-
   set reserved(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 58);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 58);
   }
 
+  /** if flags.nal_hrd_parameters_present_flag is set, then this must be a ptr to an array of StdVideoH265SubLayerHrdParameters with a size specified by sps_max_sub_layers_minus1 + 1 or vps_max_sub_layers_minus1 + 1, depending on whether the HRD parameters are part of the SPS or VPS, respectively. */
   get pSubLayerHrdParametersNal(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
+  
   set pSubLayerHrdParametersNal(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
 
+  /** if flags.vcl_hrd_parameters_present_flag is set, then this must be a ptr to an array of StdVideoH265SubLayerHrdParameters with a size specified by sps_max_sub_layers_minus1 + 1 or vps_max_sub_layers_minus1 + 1, depending on whether the HRD parameters are part of the SPS or VPS, respectively. */
   get pSubLayerHrdParametersVcl(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
+  
   set pSubLayerHrdParametersVcl(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }

@@ -62,59 +62,59 @@ export class PhysicalDeviceSparseImageFormatInfo2 implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(16, LE);
+  get format(): Format {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(20, LE);
+  get type(): ImageType {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set type(value: ImageType) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get samples(): number {
-    return this.#view.getUint32(24, LE);
+  get samples(): SampleCountFlagBits {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set samples(value: SampleCountFlagBits) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get usage(): number {
+  get usage(): ImageUsageFlags {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set usage(value: ImageUsageFlags) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get tiling(): number {
-    return this.#view.getUint32(32, LE);
+  get tiling(): ImageTiling {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set tiling(value: ImageTiling) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 }

@@ -64,7 +64,6 @@ export class StdVideoEncodeH264PictureInfo implements BaseStruct {
   get flags(): StdVideoEncodeH264PictureInfoFlags {
     return new StdVideoEncodeH264PictureInfoFlags(this.#data.subarray(0, 0 + StdVideoEncodeH264PictureInfoFlags.size));
   }
-
   set flags(value: StdVideoEncodeH264PictureInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoEncodeH264PictureInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -72,34 +71,36 @@ export class StdVideoEncodeH264PictureInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Selecting SPS id from the Sequence Parameters Set */
   get seq_parameter_set_id(): number {
     return this.#view.getUint8(12);
   }
-
+  
   set seq_parameter_set_id(value: number) {
     this.#view.setUint8(12, Number(value));
   }
 
+  /** Selecting PPS from the Picture Parameters for all StdVideoEncodeH264SliceHeader(s) */
   get pic_parameter_set_id(): number {
     return this.#view.getUint8(13);
   }
-
+  
   set pic_parameter_set_id(value: number) {
     this.#view.setUint8(13, Number(value));
   }
 
-  get pictureType(): number {
-    return this.#view.getUint32(16, LE);
+  get pictureType(): StdVideoH264PictureType {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set pictureType(value: StdVideoH264PictureType) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get frame_num(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set frame_num(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -107,7 +108,7 @@ export class StdVideoEncodeH264PictureInfo implements BaseStruct {
   get PicOrderCnt(): number {
     return this.#view.getInt32(24, LE);
   }
-
+  
   set PicOrderCnt(value: number) {
     this.#view.setInt32(24, Number(value), LE);
   }

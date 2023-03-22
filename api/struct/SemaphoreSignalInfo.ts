@@ -16,7 +16,7 @@ import { Semaphore } from "../def.ts";
 
 export interface InitSemaphoreSignalInfo {
   pNext?: AnyPointer;
-  semaphore?: Semaphore;
+  semaphore?: AnyPointer;
   value?: number | bigint;
 }
 
@@ -56,18 +56,18 @@ export class SemaphoreSignalInfo implements BaseStruct {
     this.sType = StructureType.SEMAPHORE_SIGNAL_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,15 +75,15 @@ export class SemaphoreSignalInfo implements BaseStruct {
   get semaphore(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set semaphore(value: Semaphore) {
+  
+  set semaphore(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get value(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set value(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }

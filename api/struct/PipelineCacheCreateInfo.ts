@@ -58,42 +58,44 @@ export class PipelineCacheCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_CACHE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineCacheCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCacheCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** Size of initial data to populate cache, in bytes */
   get initialDataSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set initialDataSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Initial data to populate cache */
   get pInitialData(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pInitialData(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

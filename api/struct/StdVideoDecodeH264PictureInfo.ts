@@ -24,7 +24,6 @@ export interface InitStdVideoDecodeH264PictureInfo {
   PicOrderCnt?: Int32Array;
 }
 
-/** requires tag is for PicOrderCnt, which needs the enum type */
 export class StdVideoDecodeH264PictureInfo implements BaseStruct {
   static size = 40;
 
@@ -68,7 +67,6 @@ export class StdVideoDecodeH264PictureInfo implements BaseStruct {
   get flags(): StdVideoDecodeH264PictureInfoFlags {
     return new StdVideoDecodeH264PictureInfoFlags(this.#data.subarray(0, 0 + StdVideoDecodeH264PictureInfoFlags.size));
   }
-
   set flags(value: StdVideoDecodeH264PictureInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoDecodeH264PictureInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -76,59 +74,73 @@ export class StdVideoDecodeH264PictureInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Selecting SPS id from the Sequence Parameters Set */
   get seq_parameter_set_id(): number {
     return this.#view.getUint8(24);
   }
-
+  
   set seq_parameter_set_id(value: number) {
     this.#view.setUint8(24, Number(value));
   }
 
+  /** Selecting PPS id from the Picture Parameters Set */
   get pic_parameter_set_id(): number {
     return this.#view.getUint8(25);
   }
-
+  
   set pic_parameter_set_id(value: number) {
     this.#view.setUint8(25, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint8(26);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint8(26, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved2(): number {
     return this.#view.getUint8(27);
   }
-
+  
   set reserved2(value: number) {
     this.#view.setUint8(27, Number(value));
   }
 
+  /** 7.4.3 Slice header semantics */
   get frame_num(): number {
     return this.#view.getUint16(28, LE);
   }
-
+  
   set frame_num(value: number) {
     this.#view.setUint16(28, Number(value), LE);
   }
 
+  /** 7.4.3 Slice header semantics */
   get idr_pic_id(): number {
     return this.#view.getUint16(30, LE);
   }
-
+  
   set idr_pic_id(value: number) {
     this.#view.setUint16(30, Number(value), LE);
   }
 
+  /** TopFieldOrderCnt and BottomFieldOrderCnt fields. */
   get PicOrderCnt(): Int32Array {
-    return new Int32Array(this.#data.buffer, this.#data.byteOffset + 32, 2);
+    return new Int32Array(this.#data.buffer, 32, 2);
   }
-
   set PicOrderCnt(value: Int32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 32);
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 32);
   }
 }

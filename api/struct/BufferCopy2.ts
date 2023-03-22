@@ -58,43 +58,46 @@ export class BufferCopy2 implements BaseStruct {
     this.sType = StructureType.BUFFER_COPY_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Specified in bytes */
   get srcOffset(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set srcOffset(value: DeviceSize) {
+  
+  set srcOffset(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get dstOffset(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set dstOffset(value: DeviceSize) {
+  
+  set dstOffset(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 }

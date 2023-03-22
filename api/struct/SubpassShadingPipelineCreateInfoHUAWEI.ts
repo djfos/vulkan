@@ -16,7 +16,7 @@ import { RenderPass } from "../def.ts";
 
 export interface InitSubpassShadingPipelineCreateInfoHUAWEI {
   pNext?: AnyPointer;
-  renderPass?: RenderPass;
+  renderPass?: AnyPointer;
   subpass?: number;
 }
 
@@ -56,18 +56,18 @@ export class SubpassShadingPipelineCreateInfoHUAWEI implements BaseStruct {
     this.sType = StructureType.SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,15 +75,15 @@ export class SubpassShadingPipelineCreateInfoHUAWEI implements BaseStruct {
   get renderPass(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set renderPass(value: RenderPass) {
+  
+  set renderPass(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
   get subpass(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set subpass(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

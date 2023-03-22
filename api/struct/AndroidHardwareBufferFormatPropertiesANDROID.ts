@@ -69,42 +69,42 @@ export class AndroidHardwareBufferFormatPropertiesANDROID implements BaseStruct 
     this.sType = StructureType.ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(16, LE);
+  get format(): Format {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get externalFormat(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
+  
   set externalFormat(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
-  get formatFeatures(): number {
+  get formatFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set formatFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -112,7 +112,6 @@ export class AndroidHardwareBufferFormatPropertiesANDROID implements BaseStruct 
   get samplerYcbcrConversionComponents(): ComponentMapping {
     return new ComponentMapping(this.#data.subarray(36, 36 + ComponentMapping.size));
   }
-
   set samplerYcbcrConversionComponents(value: ComponentMapping) {
     if (value[BUFFER].byteLength < ComponentMapping.size) {
       throw new Error("Data buffer too small");
@@ -120,35 +119,35 @@ export class AndroidHardwareBufferFormatPropertiesANDROID implements BaseStruct 
     this.#data.set(value[BUFFER], 36);
   }
 
-  get suggestedYcbcrModel(): number {
-    return this.#view.getUint32(52, LE);
+  get suggestedYcbcrModel(): SamplerYcbcrModelConversion {
+    return this.#view.getInt32(52, LE);
   }
-
+  
   set suggestedYcbcrModel(value: SamplerYcbcrModelConversion) {
-    this.#view.setUint32(52, Number(value), LE);
+    this.#view.setInt32(52, Number(value), LE);
   }
 
-  get suggestedYcbcrRange(): number {
-    return this.#view.getUint32(56, LE);
+  get suggestedYcbcrRange(): SamplerYcbcrRange {
+    return this.#view.getInt32(56, LE);
   }
-
+  
   set suggestedYcbcrRange(value: SamplerYcbcrRange) {
-    this.#view.setUint32(56, Number(value), LE);
+    this.#view.setInt32(56, Number(value), LE);
   }
 
-  get suggestedXChromaOffset(): number {
-    return this.#view.getUint32(60, LE);
+  get suggestedXChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(60, LE);
   }
-
+  
   set suggestedXChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(60, Number(value), LE);
+    this.#view.setInt32(60, Number(value), LE);
   }
 
-  get suggestedYChromaOffset(): number {
-    return this.#view.getUint32(64, LE);
+  get suggestedYChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(64, LE);
   }
-
+  
   set suggestedYChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(64, Number(value), LE);
+    this.#view.setInt32(64, Number(value), LE);
   }
 }

@@ -54,7 +54,7 @@ export class StdVideoH265ShortTermRefPicSetFlags implements BaseStruct {
   get inter_ref_pic_set_prediction_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set inter_ref_pic_set_prediction_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class StdVideoH265ShortTermRefPicSetFlags implements BaseStruct {
   get delta_rps_sign(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set delta_rps_sign(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

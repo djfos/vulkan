@@ -17,7 +17,7 @@ import { ExternalMemoryHandleTypeFlagsNV } from "../def.ts";
 export interface InitImportMemoryWin32HandleInfoNV {
   pNext?: AnyPointer;
   handleType?: ExternalMemoryHandleTypeFlagsNV;
-  handle?: Deno.PointerValue;
+  handle?: AnyPointer;
 }
 
 export class ImportMemoryWin32HandleInfoNV implements BaseStruct {
@@ -56,26 +56,26 @@ export class ImportMemoryWin32HandleInfoNV implements BaseStruct {
     this.sType = StructureType.IMPORT_MEMORY_WIN32_HANDLE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get handleType(): number {
+  get handleType(): ExternalMemoryHandleTypeFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set handleType(value: ExternalMemoryHandleTypeFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,8 +83,8 @@ export class ImportMemoryWin32HandleInfoNV implements BaseStruct {
   get handle(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set handle(value: Deno.PointerValue) {
+  
+  set handle(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

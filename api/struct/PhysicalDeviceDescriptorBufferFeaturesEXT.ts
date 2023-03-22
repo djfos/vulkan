@@ -60,50 +60,50 @@ export class PhysicalDeviceDescriptorBufferFeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get descriptorBuffer(): number {
+  get descriptorBuffer(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set descriptorBuffer(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get descriptorBufferCaptureReplay(): number {
+  get descriptorBufferCaptureReplay(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set descriptorBufferCaptureReplay(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get descriptorBufferImageLayoutIgnored(): number {
+  get descriptorBufferImageLayoutIgnored(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set descriptorBufferImageLayoutIgnored(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get descriptorBufferPushDescriptors(): number {
+  get descriptorBufferPushDescriptors(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set descriptorBufferPushDescriptors(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }

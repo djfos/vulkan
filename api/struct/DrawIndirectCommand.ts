@@ -58,7 +58,7 @@ export class DrawIndirectCommand implements BaseStruct {
   get vertexCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set vertexCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -66,7 +66,7 @@ export class DrawIndirectCommand implements BaseStruct {
   get instanceCount(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set instanceCount(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -74,7 +74,7 @@ export class DrawIndirectCommand implements BaseStruct {
   get firstVertex(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set firstVertex(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -82,7 +82,7 @@ export class DrawIndirectCommand implements BaseStruct {
   get firstInstance(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set firstInstance(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }

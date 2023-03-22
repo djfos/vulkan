@@ -60,50 +60,54 @@ export class PhysicalDeviceSubgroupProperties implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SUBGROUP_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** The size of a subgroup for this queue. */
   get subgroupSize(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set subgroupSize(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get supportedStages(): number {
+  /** Bitfield of what shader stages support subgroup operations */
+  get supportedStages(): ShaderStageFlags {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set supportedStages(value: ShaderStageFlags) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get supportedOperations(): number {
+  /** Bitfield of what subgroup operations are supported. */
+  get supportedOperations(): SubgroupFeatureFlags {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set supportedOperations(value: SubgroupFeatureFlags) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get quadOperationsInAllStages(): number {
+  /** Flag to specify whether quad operations are available in all stages. */
+  get quadOperationsInAllStages(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set quadOperationsInAllStages(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }

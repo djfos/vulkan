@@ -79,95 +79,95 @@ export class TraceRaysIndirectCommand2KHR implements BaseStruct {
   get raygenShaderRecordAddress(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set raygenShaderRecordAddress(value: DeviceAddress) {
+  
+  set raygenShaderRecordAddress(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
   get raygenShaderRecordSize(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set raygenShaderRecordSize(value: DeviceSize) {
+  
+  set raygenShaderRecordSize(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
   get missShaderBindingTableAddress(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set missShaderBindingTableAddress(value: DeviceAddress) {
+  
+  set missShaderBindingTableAddress(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get missShaderBindingTableSize(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set missShaderBindingTableSize(value: DeviceSize) {
+  
+  set missShaderBindingTableSize(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
   get missShaderBindingTableStride(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set missShaderBindingTableStride(value: DeviceSize) {
+  
+  set missShaderBindingTableStride(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get hitShaderBindingTableAddress(): bigint {
     return this.#view.getBigUint64(40, LE);
   }
-
-  set hitShaderBindingTableAddress(value: DeviceAddress) {
+  
+  set hitShaderBindingTableAddress(value: number | bigint) {
     this.#view.setBigUint64(40, BigInt(value), LE);
   }
 
   get hitShaderBindingTableSize(): bigint {
     return this.#view.getBigUint64(48, LE);
   }
-
-  set hitShaderBindingTableSize(value: DeviceSize) {
+  
+  set hitShaderBindingTableSize(value: number | bigint) {
     this.#view.setBigUint64(48, BigInt(value), LE);
   }
 
   get hitShaderBindingTableStride(): bigint {
     return this.#view.getBigUint64(56, LE);
   }
-
-  set hitShaderBindingTableStride(value: DeviceSize) {
+  
+  set hitShaderBindingTableStride(value: number | bigint) {
     this.#view.setBigUint64(56, BigInt(value), LE);
   }
 
   get callableShaderBindingTableAddress(): bigint {
     return this.#view.getBigUint64(64, LE);
   }
-
-  set callableShaderBindingTableAddress(value: DeviceAddress) {
+  
+  set callableShaderBindingTableAddress(value: number | bigint) {
     this.#view.setBigUint64(64, BigInt(value), LE);
   }
 
   get callableShaderBindingTableSize(): bigint {
     return this.#view.getBigUint64(72, LE);
   }
-
-  set callableShaderBindingTableSize(value: DeviceSize) {
+  
+  set callableShaderBindingTableSize(value: number | bigint) {
     this.#view.setBigUint64(72, BigInt(value), LE);
   }
 
   get callableShaderBindingTableStride(): bigint {
     return this.#view.getBigUint64(80, LE);
   }
-
-  set callableShaderBindingTableStride(value: DeviceSize) {
+  
+  set callableShaderBindingTableStride(value: number | bigint) {
     this.#view.setBigUint64(80, BigInt(value), LE);
   }
 
   get width(): number {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set width(value: number) {
     this.#view.setUint32(88, Number(value), LE);
   }
@@ -175,7 +175,7 @@ export class TraceRaysIndirectCommand2KHR implements BaseStruct {
   get height(): number {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set height(value: number) {
     this.#view.setUint32(92, Number(value), LE);
   }
@@ -183,7 +183,7 @@ export class TraceRaysIndirectCommand2KHR implements BaseStruct {
   get depth(): number {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set depth(value: number) {
     this.#view.setUint32(96, Number(value), LE);
   }

@@ -54,18 +54,18 @@ export class RenderPassFragmentDensityMapCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class RenderPassFragmentDensityMapCreateInfoEXT implements BaseStruct {
   get fragmentDensityMapAttachment(): AttachmentReference {
     return new AttachmentReference(this.#data.subarray(16, 16 + AttachmentReference.size));
   }
-
   set fragmentDensityMapAttachment(value: AttachmentReference) {
     if (value[BUFFER].byteLength < AttachmentReference.size) {
       throw new Error("Data buffer too small");

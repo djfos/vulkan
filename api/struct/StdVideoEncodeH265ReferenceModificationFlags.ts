@@ -54,7 +54,7 @@ export class StdVideoEncodeH265ReferenceModificationFlags implements BaseStruct 
   get ref_pic_list_modification_flag_l0(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set ref_pic_list_modification_flag_l0(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class StdVideoEncodeH265ReferenceModificationFlags implements BaseStruct 
   get ref_pic_list_modification_flag_l1(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set ref_pic_list_modification_flag_l1(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }

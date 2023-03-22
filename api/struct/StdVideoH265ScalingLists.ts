@@ -59,51 +59,99 @@ export class StdVideoH265ScalingLists implements BaseStruct {
     }
   }
 
+  /** ScalingList[ 0 ][ MatrixID ][ i ] (sizeID = 0) */
   get ScalingList4x4(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 0, 96);
+    return new Uint8Array(this.#data.buffer, 0, 96);
   }
-
   set ScalingList4x4(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 96) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
+  /** ScalingList[ 1 ][ MatrixID ][ i ] (sizeID = 1) */
   get ScalingList8x8(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 96, 384);
+    return new Uint8Array(this.#data.buffer, 96, 384);
   }
-
   set ScalingList8x8(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 96);
+    if (value.length > 384) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 96);
   }
 
+  /** ScalingList[ 2 ][ Matri]xID ][ i ] (sizeID = 2) */
   get ScalingList16x16(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 480, 384);
+    return new Uint8Array(this.#data.buffer, 480, 384);
   }
-
   set ScalingList16x16(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 480);
+    if (value.length > 384) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 480);
   }
 
+  /** ScalingList[ 3 ][ MatrixID ][ i ] (sizeID = 3) */
   get ScalingList32x32(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 864, 128);
+    return new Uint8Array(this.#data.buffer, 864, 128);
   }
-
   set ScalingList32x32(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 864);
+    if (value.length > 128) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 864);
   }
 
+  /** scaling_list_dc_coef_minus8[ sizeID - 2 ][ matrixID ] + 8, sizeID = 2 */
   get ScalingListDCCoef16x16(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 992, 6);
+    return new Uint8Array(this.#data.buffer, 992, 6);
   }
-
   set ScalingListDCCoef16x16(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 992);
+    if (value.length > 6) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 992);
   }
 
+  /** scaling_list_dc_coef_minus8[ sizeID - 2 ][ matrixID ] + 8. sizeID = 3 */
   get ScalingListDCCoef32x32(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 998, 2);
+    return new Uint8Array(this.#data.buffer, 998, 2);
   }
-
   set ScalingListDCCoef32x32(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 998);
+    if (value.length > 2) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 998);
   }
 }

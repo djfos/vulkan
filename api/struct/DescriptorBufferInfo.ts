@@ -14,7 +14,7 @@ import {
 import { Buffer, DeviceSize } from "../def.ts";
 
 export interface InitDescriptorBufferInfo {
-  buffer?: Buffer;
+  buffer?: AnyPointer;
   offset?: DeviceSize;
   range?: DeviceSize;
 }
@@ -54,27 +54,30 @@ export class DescriptorBufferInfo implements BaseStruct {
     }
   }
 
+  /** Buffer used for this descriptor slot. */
   get buffer(): Deno.PointerValue {
     return pointerFromView(this.#view, 0, LE);
   }
-
-  set buffer(value: Buffer) {
+  
+  set buffer(value: AnyPointer) {
     this.#view.setBigUint64(0, BigInt(anyPointer(value)), LE);
   }
 
+  /** Base offset from buffer start in bytes to update in the descriptor set. */
   get offset(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
+  /** Size in bytes of the buffer resource for this descriptor update. */
   get range(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set range(value: DeviceSize) {
+  
+  set range(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 }

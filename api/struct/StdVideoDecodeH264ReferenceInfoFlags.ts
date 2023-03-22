@@ -55,34 +55,38 @@ export class StdVideoDecodeH264ReferenceInfoFlags implements BaseStruct {
     }
   }
 
+  /** Reference is used for top field reference. */
   get top_field_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set top_field_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Reference is used for bottom field reference. */
   get bottom_field_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set bottom_field_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
+  /** : A picture that is marked as "used for long-term reference", derived binary value from clause 8.2.5.1 Sequence of operations for decoded reference picture marking process */
   get used_for_long_term_reference(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set used_for_long_term_reference(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
+  /** Must be handled in accordance with 8.2.5.2: Decoding process for gaps in frame_num */
   get is_non_existing(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set is_non_existing(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }

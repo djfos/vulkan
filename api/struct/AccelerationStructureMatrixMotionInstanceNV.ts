@@ -25,7 +25,7 @@ export interface InitAccelerationStructureMatrixMotionInstanceNV {
 }
 
 export class AccelerationStructureMatrixMotionInstanceNV implements BaseStruct {
-  static size = 32;
+  static size = 48;
 
   #data!: Uint8Array;
   #view!: DataView;
@@ -66,7 +66,6 @@ export class AccelerationStructureMatrixMotionInstanceNV implements BaseStruct {
   get transformT0(): TransformMatrixKHR {
     return new TransformMatrixKHR(this.#data.subarray(0, 0 + TransformMatrixKHR.size));
   }
-
   set transformT0(value: TransformMatrixKHR) {
     if (value[BUFFER].byteLength < TransformMatrixKHR.size) {
       throw new Error("Data buffer too small");
@@ -75,53 +74,52 @@ export class AccelerationStructureMatrixMotionInstanceNV implements BaseStruct {
   }
 
   get transformT1(): TransformMatrixKHR {
-    return new TransformMatrixKHR(this.#data.subarray(4, 4 + TransformMatrixKHR.size));
+    return new TransformMatrixKHR(this.#data.subarray(12, 12 + TransformMatrixKHR.size));
   }
-
   set transformT1(value: TransformMatrixKHR) {
     if (value[BUFFER].byteLength < TransformMatrixKHR.size) {
       throw new Error("Data buffer too small");
     }
-    this.#data.set(value[BUFFER], 4);
+    this.#data.set(value[BUFFER], 12);
   }
 
   get instanceCustomIndex(): number {
-    return this.#view.getUint32(8, LE);
+    return this.#view.getUint32(24, LE);
   }
-
+  
   set instanceCustomIndex(value: number) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setUint32(24, Number(value), LE);
   }
 
   get mask(): number {
-    return this.#view.getUint32(12, LE);
+    return this.#view.getUint32(28, LE);
   }
-
+  
   set mask(value: number) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setUint32(28, Number(value), LE);
   }
 
   get instanceShaderBindingTableRecordOffset(): number {
-    return this.#view.getUint32(16, LE);
+    return this.#view.getUint32(32, LE);
   }
-
+  
   set instanceShaderBindingTableRecordOffset(value: number) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setUint32(32, Number(value), LE);
   }
 
-  get flags(): number {
-    return this.#view.getUint32(20, LE);
+  get flags(): GeometryInstanceFlagsKHR {
+    return this.#view.getUint32(36, LE);
   }
-
+  
   set flags(value: GeometryInstanceFlagsKHR) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setUint32(36, Number(value), LE);
   }
 
   get accelerationStructureReference(): bigint {
-    return this.#view.getBigUint64(24, LE);
+    return this.#view.getBigUint64(40, LE);
   }
-
+  
   set accelerationStructureReference(value: number | bigint) {
-    this.#view.setBigUint64(24, BigInt(value), LE);
+    this.#view.setBigUint64(40, BigInt(value), LE);
   }
 }

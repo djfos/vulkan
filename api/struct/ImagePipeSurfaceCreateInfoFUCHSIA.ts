@@ -17,7 +17,7 @@ import { ImagePipeSurfaceCreateFlagsFUCHSIA } from "../def.ts";
 export interface InitImagePipeSurfaceCreateInfoFUCHSIA {
   pNext?: AnyPointer;
   flags?: ImagePipeSurfaceCreateFlagsFUCHSIA;
-  imagePipeHandle?: Deno.PointerValue;
+  imagePipeHandle?: AnyPointer;
 }
 
 export class ImagePipeSurfaceCreateInfoFUCHSIA implements BaseStruct {
@@ -56,26 +56,26 @@ export class ImagePipeSurfaceCreateInfoFUCHSIA implements BaseStruct {
     this.sType = StructureType.IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): ImagePipeSurfaceCreateFlagsFUCHSIA {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: ImagePipeSurfaceCreateFlagsFUCHSIA) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,8 +83,8 @@ export class ImagePipeSurfaceCreateInfoFUCHSIA implements BaseStruct {
   get imagePipeHandle(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set imagePipeHandle(value: Deno.PointerValue) {
+  
+  set imagePipeHandle(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 }

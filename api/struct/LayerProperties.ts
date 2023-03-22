@@ -55,35 +55,53 @@ export class LayerProperties implements BaseStruct {
     }
   }
 
+  /** layer name */
   get layerName(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 0, 256);
+    return new Uint8Array(this.#data.buffer, 0, 256);
   }
-
   set layerName(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 0);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 0);
   }
 
+  /** version of the layer specification implemented */
   get specVersion(): number {
     return this.#view.getUint32(256, LE);
   }
-
+  
   set specVersion(value: number) {
     this.#view.setUint32(256, Number(value), LE);
   }
 
+  /** build or release version of the layer's library */
   get implementationVersion(): number {
     return this.#view.getUint32(260, LE);
   }
-
+  
   set implementationVersion(value: number) {
     this.#view.setUint32(260, Number(value), LE);
   }
 
+  /** Free-form description of the layer */
   get description(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 264, 256);
+    return new Uint8Array(this.#data.buffer, 264, 256);
   }
-
   set description(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 264);
+    if (value.length > 256) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 264);
   }
 }

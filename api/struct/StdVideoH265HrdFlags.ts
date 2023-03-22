@@ -64,7 +64,7 @@ export class StdVideoH265HrdFlags implements BaseStruct {
   get nal_hrd_parameters_present_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set nal_hrd_parameters_present_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -72,7 +72,7 @@ export class StdVideoH265HrdFlags implements BaseStruct {
   get vcl_hrd_parameters_present_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set vcl_hrd_parameters_present_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -80,7 +80,7 @@ export class StdVideoH265HrdFlags implements BaseStruct {
   get sub_pic_hrd_params_present_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set sub_pic_hrd_params_present_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -88,31 +88,34 @@ export class StdVideoH265HrdFlags implements BaseStruct {
   get sub_pic_cpb_params_in_pic_timing_sei_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set sub_pic_cpb_params_in_pic_timing_sei_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
+  /** each bit represents a sublayer, bit 0 - vps_max_sub_layers_minus1 */
   get fixed_pic_rate_general_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set fixed_pic_rate_general_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** each bit represents a sublayer, bit 0 - vps_max_sub_layers_minus1 */
   get fixed_pic_rate_within_cvs_flag(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set fixed_pic_rate_within_cvs_flag(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
+  /** each bit represents a sublayer, bit 0 - vps_max_sub_layers_minus1 */
   get low_delay_hrd_flag(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set low_delay_hrd_flag(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

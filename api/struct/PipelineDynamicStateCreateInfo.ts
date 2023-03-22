@@ -11,7 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { StructureType, DynamicState } from "../enum.ts";
+import { StructureType } from "../enum.ts";
 import { PipelineDynamicStateCreateFlags } from "../def.ts";
 
 export interface InitPipelineDynamicStateCreateInfo {
@@ -58,26 +58,26 @@ export class PipelineDynamicStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_DYNAMIC_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineDynamicStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineDynamicStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,7 +85,7 @@ export class PipelineDynamicStateCreateInfo implements BaseStruct {
   get dynamicStateCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set dynamicStateCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -93,7 +93,7 @@ export class PipelineDynamicStateCreateInfo implements BaseStruct {
   get pDynamicStates(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pDynamicStates(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }

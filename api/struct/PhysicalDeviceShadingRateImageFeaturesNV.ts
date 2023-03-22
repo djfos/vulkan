@@ -56,34 +56,34 @@ export class PhysicalDeviceShadingRateImageFeaturesNV implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shadingRateImage(): number {
+  get shadingRateImage(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shadingRateImage(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get shadingRateCoarseSampleOrder(): number {
+  get shadingRateCoarseSampleOrder(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shadingRateCoarseSampleOrder(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }

@@ -114,266 +114,266 @@ export class PhysicalDeviceExtendedDynamicState3FeaturesEXT implements BaseStruc
     this.sType = StructureType.PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get extendedDynamicState3TessellationDomainOrigin(): number {
+  get extendedDynamicState3TessellationDomainOrigin(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set extendedDynamicState3TessellationDomainOrigin(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get extendedDynamicState3DepthClampEnable(): number {
+  get extendedDynamicState3DepthClampEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set extendedDynamicState3DepthClampEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get extendedDynamicState3PolygonMode(): number {
+  get extendedDynamicState3PolygonMode(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set extendedDynamicState3PolygonMode(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get extendedDynamicState3RasterizationSamples(): number {
+  get extendedDynamicState3RasterizationSamples(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set extendedDynamicState3RasterizationSamples(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get extendedDynamicState3SampleMask(): number {
+  get extendedDynamicState3SampleMask(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set extendedDynamicState3SampleMask(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get extendedDynamicState3AlphaToCoverageEnable(): number {
+  get extendedDynamicState3AlphaToCoverageEnable(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set extendedDynamicState3AlphaToCoverageEnable(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get extendedDynamicState3AlphaToOneEnable(): number {
+  get extendedDynamicState3AlphaToOneEnable(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set extendedDynamicState3AlphaToOneEnable(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get extendedDynamicState3LogicOpEnable(): number {
+  get extendedDynamicState3LogicOpEnable(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set extendedDynamicState3LogicOpEnable(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get extendedDynamicState3ColorBlendEnable(): number {
+  get extendedDynamicState3ColorBlendEnable(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set extendedDynamicState3ColorBlendEnable(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get extendedDynamicState3ColorBlendEquation(): number {
+  get extendedDynamicState3ColorBlendEquation(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set extendedDynamicState3ColorBlendEquation(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get extendedDynamicState3ColorWriteMask(): number {
+  get extendedDynamicState3ColorWriteMask(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set extendedDynamicState3ColorWriteMask(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get extendedDynamicState3RasterizationStream(): number {
+  get extendedDynamicState3RasterizationStream(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set extendedDynamicState3RasterizationStream(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get extendedDynamicState3ConservativeRasterizationMode(): number {
+  get extendedDynamicState3ConservativeRasterizationMode(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set extendedDynamicState3ConservativeRasterizationMode(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get extendedDynamicState3ExtraPrimitiveOverestimationSize(): number {
+  get extendedDynamicState3ExtraPrimitiveOverestimationSize(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set extendedDynamicState3ExtraPrimitiveOverestimationSize(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get extendedDynamicState3DepthClipEnable(): number {
+  get extendedDynamicState3DepthClipEnable(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set extendedDynamicState3DepthClipEnable(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get extendedDynamicState3SampleLocationsEnable(): number {
+  get extendedDynamicState3SampleLocationsEnable(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set extendedDynamicState3SampleLocationsEnable(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get extendedDynamicState3ColorBlendAdvanced(): number {
+  get extendedDynamicState3ColorBlendAdvanced(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set extendedDynamicState3ColorBlendAdvanced(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }
 
-  get extendedDynamicState3ProvokingVertexMode(): number {
+  get extendedDynamicState3ProvokingVertexMode(): Bool32 {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set extendedDynamicState3ProvokingVertexMode(value: Bool32) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
-  get extendedDynamicState3LineRasterizationMode(): number {
+  get extendedDynamicState3LineRasterizationMode(): Bool32 {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set extendedDynamicState3LineRasterizationMode(value: Bool32) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get extendedDynamicState3LineStippleEnable(): number {
+  get extendedDynamicState3LineStippleEnable(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set extendedDynamicState3LineStippleEnable(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }
 
-  get extendedDynamicState3DepthClipNegativeOneToOne(): number {
+  get extendedDynamicState3DepthClipNegativeOneToOne(): Bool32 {
     return this.#view.getUint32(96, LE);
   }
-
+  
   set extendedDynamicState3DepthClipNegativeOneToOne(value: Bool32) {
     this.#view.setUint32(96, Number(value), LE);
   }
 
-  get extendedDynamicState3ViewportWScalingEnable(): number {
+  get extendedDynamicState3ViewportWScalingEnable(): Bool32 {
     return this.#view.getUint32(100, LE);
   }
-
+  
   set extendedDynamicState3ViewportWScalingEnable(value: Bool32) {
     this.#view.setUint32(100, Number(value), LE);
   }
 
-  get extendedDynamicState3ViewportSwizzle(): number {
+  get extendedDynamicState3ViewportSwizzle(): Bool32 {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set extendedDynamicState3ViewportSwizzle(value: Bool32) {
     this.#view.setUint32(104, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageToColorEnable(): number {
+  get extendedDynamicState3CoverageToColorEnable(): Bool32 {
     return this.#view.getUint32(108, LE);
   }
-
+  
   set extendedDynamicState3CoverageToColorEnable(value: Bool32) {
     this.#view.setUint32(108, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageToColorLocation(): number {
+  get extendedDynamicState3CoverageToColorLocation(): Bool32 {
     return this.#view.getUint32(112, LE);
   }
-
+  
   set extendedDynamicState3CoverageToColorLocation(value: Bool32) {
     this.#view.setUint32(112, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageModulationMode(): number {
+  get extendedDynamicState3CoverageModulationMode(): Bool32 {
     return this.#view.getUint32(116, LE);
   }
-
+  
   set extendedDynamicState3CoverageModulationMode(value: Bool32) {
     this.#view.setUint32(116, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageModulationTableEnable(): number {
+  get extendedDynamicState3CoverageModulationTableEnable(): Bool32 {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set extendedDynamicState3CoverageModulationTableEnable(value: Bool32) {
     this.#view.setUint32(120, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageModulationTable(): number {
+  get extendedDynamicState3CoverageModulationTable(): Bool32 {
     return this.#view.getUint32(124, LE);
   }
-
+  
   set extendedDynamicState3CoverageModulationTable(value: Bool32) {
     this.#view.setUint32(124, Number(value), LE);
   }
 
-  get extendedDynamicState3CoverageReductionMode(): number {
+  get extendedDynamicState3CoverageReductionMode(): Bool32 {
     return this.#view.getUint32(128, LE);
   }
-
+  
   set extendedDynamicState3CoverageReductionMode(value: Bool32) {
     this.#view.setUint32(128, Number(value), LE);
   }
 
-  get extendedDynamicState3RepresentativeFragmentTestEnable(): number {
+  get extendedDynamicState3RepresentativeFragmentTestEnable(): Bool32 {
     return this.#view.getUint32(132, LE);
   }
-
+  
   set extendedDynamicState3RepresentativeFragmentTestEnable(value: Bool32) {
     this.#view.setUint32(132, Number(value), LE);
   }
 
-  get extendedDynamicState3ShadingRateImageEnable(): number {
+  get extendedDynamicState3ShadingRateImageEnable(): Bool32 {
     return this.#view.getUint32(136, LE);
   }
-
+  
   set extendedDynamicState3ShadingRateImageEnable(value: Bool32) {
     this.#view.setUint32(136, Number(value), LE);
   }

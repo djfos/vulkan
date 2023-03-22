@@ -52,10 +52,10 @@ export class DisplayModeParametersKHR implements BaseStruct {
     }
   }
 
+  /** Visible scanout region. */
   get visibleRegion(): Extent2D {
     return new Extent2D(this.#data.subarray(0, 0 + Extent2D.size));
   }
-
   set visibleRegion(value: Extent2D) {
     if (value[BUFFER].byteLength < Extent2D.size) {
       throw new Error("Data buffer too small");
@@ -63,10 +63,11 @@ export class DisplayModeParametersKHR implements BaseStruct {
     this.#data.set(value[BUFFER], 0);
   }
 
+  /** Number of times per second the display is updated. */
   get refreshRate(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set refreshRate(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }

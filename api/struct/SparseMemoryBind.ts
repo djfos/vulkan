@@ -16,7 +16,7 @@ import { DeviceSize, DeviceMemory, SparseMemoryBindFlags } from "../def.ts";
 export interface InitSparseMemoryBind {
   resourceOffset?: DeviceSize;
   size?: DeviceSize;
-  memory?: DeviceMemory;
+  memory?: AnyPointer;
   memoryOffset?: DeviceSize;
   flags?: SparseMemoryBindFlags;
 }
@@ -58,42 +58,45 @@ export class SparseMemoryBind implements BaseStruct {
     }
   }
 
+  /** Specified in bytes */
   get resourceOffset(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set resourceOffset(value: DeviceSize) {
+  
+  set resourceOffset(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
+  /** Specified in bytes */
   get size(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
+  /** Specified in bytes */
   get memoryOffset(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set memoryOffset(value: DeviceSize) {
+  
+  set memoryOffset(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
-  get flags(): number {
+  get flags(): SparseMemoryBindFlags {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set flags(value: SparseMemoryBindFlags) {
     this.#view.setUint32(32, Number(value), LE);
   }

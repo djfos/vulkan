@@ -26,7 +26,6 @@ export interface InitStdVideoH264HrdParameters {
   time_offset_length?: number;
 }
 
-/** hrd_parameters */
 export class StdVideoH264HrdParameters implements BaseStruct {
   static size = 308;
 
@@ -73,7 +72,7 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get cpb_cnt_minus1(): number {
     return this.#view.getUint8(0);
   }
-
+  
   set cpb_cnt_minus1(value: number) {
     this.#view.setUint8(0, Number(value));
   }
@@ -81,7 +80,7 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get bit_rate_scale(): number {
     return this.#view.getUint8(1);
   }
-
+  
   set bit_rate_scale(value: number) {
     this.#view.setUint8(1, Number(value));
   }
@@ -89,47 +88,72 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get cpb_size_scale(): number {
     return this.#view.getUint8(2);
   }
-
+  
   set cpb_size_scale(value: number) {
     this.#view.setUint8(2, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint8(3);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint8(3, Number(value));
   }
 
+  /** cpb_cnt_minus1 number of valid elements */
   get bit_rate_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 4, 32);
+    return new Uint32Array(this.#data.buffer, 4, 32);
   }
-
   set bit_rate_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 4);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 4);
   }
 
+  /** cpb_cnt_minus1 number of valid elements */
   get cpb_size_value_minus1(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 132, 32);
+    return new Uint32Array(this.#data.buffer, 132, 32);
   }
-
   set cpb_size_value_minus1(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 132);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 132);
   }
 
+  /** cpb_cnt_minus1 number of valid elements */
   get cbr_flag(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 260, 32);
+    return new Uint8Array(this.#data.buffer, 260, 32);
   }
-
   set cbr_flag(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 260);
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 260);
   }
 
   get initial_cpb_removal_delay_length_minus1(): number {
     return this.#view.getUint32(292, LE);
   }
-
+  
   set initial_cpb_removal_delay_length_minus1(value: number) {
     this.#view.setUint32(292, Number(value), LE);
   }
@@ -137,7 +161,7 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get cpb_removal_delay_length_minus1(): number {
     return this.#view.getUint32(296, LE);
   }
-
+  
   set cpb_removal_delay_length_minus1(value: number) {
     this.#view.setUint32(296, Number(value), LE);
   }
@@ -145,7 +169,7 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get dpb_output_delay_length_minus1(): number {
     return this.#view.getUint32(300, LE);
   }
-
+  
   set dpb_output_delay_length_minus1(value: number) {
     this.#view.setUint32(300, Number(value), LE);
   }
@@ -153,7 +177,7 @@ export class StdVideoH264HrdParameters implements BaseStruct {
   get time_offset_length(): number {
     return this.#view.getUint32(304, LE);
   }
-
+  
   set time_offset_length(value: number) {
     this.#view.setUint32(304, Number(value), LE);
   }

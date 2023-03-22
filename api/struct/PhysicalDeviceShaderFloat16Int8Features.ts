@@ -56,34 +56,36 @@ export class PhysicalDeviceShaderFloat16Int8Features implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shaderFloat16(): number {
+  /** 16-bit floats (halfs) in shaders */
+  get shaderFloat16(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderFloat16(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get shaderInt8(): number {
+  /** 8-bit integers in shaders */
+  get shaderInt8(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderInt8(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }

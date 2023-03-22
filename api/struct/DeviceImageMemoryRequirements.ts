@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {ImageCreateInfo} from "./ImageCreateInfo.ts";
 import { StructureType, ImageAspectFlagBits } from "../enum.ts";
 
 export interface InitDeviceImageMemoryRequirements {
@@ -56,18 +55,18 @@ export class DeviceImageMemoryRequirements implements BaseStruct {
     this.sType = StructureType.DEVICE_IMAGE_MEMORY_REQUIREMENTS;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -75,16 +74,16 @@ export class DeviceImageMemoryRequirements implements BaseStruct {
   get pCreateInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pCreateInfo(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get planeAspect(): number {
-    return this.#view.getUint32(24, LE);
+  get planeAspect(): ImageAspectFlagBits {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set planeAspect(value: ImageAspectFlagBits) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 }

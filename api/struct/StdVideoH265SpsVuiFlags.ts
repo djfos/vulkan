@@ -86,7 +86,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get aspect_ratio_info_present_flag(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set aspect_ratio_info_present_flag(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -94,7 +94,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get overscan_info_present_flag(): number {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set overscan_info_present_flag(value: number) {
     this.#view.setUint32(4, Number(value), LE);
   }
@@ -102,7 +102,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get overscan_appropriate_flag(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set overscan_appropriate_flag(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
@@ -110,7 +110,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get video_signal_type_present_flag(): number {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set video_signal_type_present_flag(value: number) {
     this.#view.setUint32(12, Number(value), LE);
   }
@@ -118,7 +118,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get video_full_range_flag(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set video_full_range_flag(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -126,7 +126,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get colour_description_present_flag(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set colour_description_present_flag(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -134,7 +134,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get chroma_loc_info_present_flag(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set chroma_loc_info_present_flag(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -142,7 +142,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get neutral_chroma_indication_flag(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set neutral_chroma_indication_flag(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -150,7 +150,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get field_seq_flag(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set field_seq_flag(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -158,7 +158,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get frame_field_info_present_flag(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set frame_field_info_present_flag(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -166,7 +166,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get default_display_window_flag(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set default_display_window_flag(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -174,7 +174,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get vui_timing_info_present_flag(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set vui_timing_info_present_flag(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -182,7 +182,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get vui_poc_proportional_to_timing_flag(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set vui_poc_proportional_to_timing_flag(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -190,7 +190,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get vui_hrd_parameters_present_flag(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set vui_hrd_parameters_present_flag(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -198,7 +198,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get bitstream_restriction_flag(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set bitstream_restriction_flag(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -206,7 +206,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get tiles_fixed_structure_flag(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set tiles_fixed_structure_flag(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
@@ -214,7 +214,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get motion_vectors_over_pic_boundaries_flag(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set motion_vectors_over_pic_boundaries_flag(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
@@ -222,7 +222,7 @@ export class StdVideoH265SpsVuiFlags implements BaseStruct {
   get restricted_ref_pic_lists_flag(): number {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set restricted_ref_pic_lists_flag(value: number) {
     this.#view.setUint32(68, Number(value), LE);
   }

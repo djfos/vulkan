@@ -12,7 +12,7 @@ import {
   notPointerObject,
 } from "../util.ts";
 import { StructureType, SampleCountFlagBits } from "../enum.ts";
-import { PipelineMultisampleStateCreateFlags, Bool32, SampleMask } from "../def.ts";
+import { PipelineMultisampleStateCreateFlags, Bool32 } from "../def.ts";
 
 export interface InitPipelineMultisampleStateCreateInfo {
   pNext?: AnyPointer;
@@ -66,74 +66,78 @@ export class PipelineMultisampleStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineMultisampleStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineMultisampleStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get rasterizationSamples(): number {
-    return this.#view.getUint32(20, LE);
+  /** Number of samples used for rasterization */
+  get rasterizationSamples(): SampleCountFlagBits {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set rasterizationSamples(value: SampleCountFlagBits) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get sampleShadingEnable(): number {
+  /** optional (GL45) */
+  get sampleShadingEnable(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set sampleShadingEnable(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
+  /** optional (GL45) */
   get minSampleShading(): number {
     return this.#view.getFloat32(28, LE);
   }
-
+  
   set minSampleShading(value: number) {
     this.#view.setFloat32(28, Number(value), LE);
   }
 
+  /** Array of sampleMask words */
   get pSampleMask(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pSampleMask(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
-  get alphaToCoverageEnable(): number {
+  get alphaToCoverageEnable(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set alphaToCoverageEnable(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get alphaToOneEnable(): number {
+  get alphaToOneEnable(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set alphaToOneEnable(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }

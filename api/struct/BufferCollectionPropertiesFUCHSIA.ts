@@ -76,18 +76,18 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
     this.sType = StructureType.BUFFER_COLLECTION_PROPERTIES_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -95,7 +95,7 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get memoryTypeBits(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set memoryTypeBits(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -103,7 +103,7 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get bufferCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set bufferCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -111,7 +111,7 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get createInfoIndex(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set createInfoIndex(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -119,15 +119,15 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get sysmemPixelFormat(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
+  
   set sysmemPixelFormat(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
-  get formatFeatures(): number {
+  get formatFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set formatFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -135,7 +135,6 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get sysmemColorSpaceIndex(): SysmemColorSpaceFUCHSIA {
     return new SysmemColorSpaceFUCHSIA(this.#data.subarray(48, 48 + SysmemColorSpaceFUCHSIA.size));
   }
-
   set sysmemColorSpaceIndex(value: SysmemColorSpaceFUCHSIA) {
     if (value[BUFFER].byteLength < SysmemColorSpaceFUCHSIA.size) {
       throw new Error("Data buffer too small");
@@ -146,7 +145,6 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
   get samplerYcbcrConversionComponents(): ComponentMapping {
     return new ComponentMapping(this.#data.subarray(72, 72 + ComponentMapping.size));
   }
-
   set samplerYcbcrConversionComponents(value: ComponentMapping) {
     if (value[BUFFER].byteLength < ComponentMapping.size) {
       throw new Error("Data buffer too small");
@@ -154,35 +152,35 @@ export class BufferCollectionPropertiesFUCHSIA implements BaseStruct {
     this.#data.set(value[BUFFER], 72);
   }
 
-  get suggestedYcbcrModel(): number {
-    return this.#view.getUint32(88, LE);
+  get suggestedYcbcrModel(): SamplerYcbcrModelConversion {
+    return this.#view.getInt32(88, LE);
   }
-
+  
   set suggestedYcbcrModel(value: SamplerYcbcrModelConversion) {
-    this.#view.setUint32(88, Number(value), LE);
+    this.#view.setInt32(88, Number(value), LE);
   }
 
-  get suggestedYcbcrRange(): number {
-    return this.#view.getUint32(92, LE);
+  get suggestedYcbcrRange(): SamplerYcbcrRange {
+    return this.#view.getInt32(92, LE);
   }
-
+  
   set suggestedYcbcrRange(value: SamplerYcbcrRange) {
-    this.#view.setUint32(92, Number(value), LE);
+    this.#view.setInt32(92, Number(value), LE);
   }
 
-  get suggestedXChromaOffset(): number {
-    return this.#view.getUint32(96, LE);
+  get suggestedXChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(96, LE);
   }
-
+  
   set suggestedXChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(96, Number(value), LE);
+    this.#view.setInt32(96, Number(value), LE);
   }
 
-  get suggestedYChromaOffset(): number {
-    return this.#view.getUint32(100, LE);
+  get suggestedYChromaOffset(): ChromaLocation {
+    return this.#view.getInt32(100, LE);
   }
-
+  
   set suggestedYChromaOffset(value: ChromaLocation) {
-    this.#view.setUint32(100, Number(value), LE);
+    this.#view.setInt32(100, Number(value), LE);
   }
 }

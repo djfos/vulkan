@@ -19,8 +19,8 @@ export interface InitComputePipelineCreateInfo {
   pNext?: AnyPointer;
   flags?: PipelineCreateFlags;
   stage?: PipelineShaderStageCreateInfo;
-  layout?: PipelineLayout;
-  basePipelineHandle?: Pipeline;
+  layout?: AnyPointer;
+  basePipelineHandle?: AnyPointer;
   basePipelineIndex?: number;
 }
 
@@ -63,26 +63,27 @@ export class ComputePipelineCreateInfo implements BaseStruct {
     this.sType = StructureType.COMPUTE_PIPELINE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  /** Pipeline creation flags */
+  get flags(): PipelineCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -90,7 +91,6 @@ export class ComputePipelineCreateInfo implements BaseStruct {
   get stage(): PipelineShaderStageCreateInfo {
     return new PipelineShaderStageCreateInfo(this.#data.subarray(24, 24 + PipelineShaderStageCreateInfo.size));
   }
-
   set stage(value: PipelineShaderStageCreateInfo) {
     if (value[BUFFER].byteLength < PipelineShaderStageCreateInfo.size) {
       throw new Error("Data buffer too small");
@@ -98,26 +98,29 @@ export class ComputePipelineCreateInfo implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
+  /** Interface layout of the pipeline */
   get layout(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
-  set layout(value: PipelineLayout) {
+  
+  set layout(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }
 
+  /** If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is nonzero, it specifies the handle of the base pipeline this is a derivative of */
   get basePipelineHandle(): Deno.PointerValue {
     return pointerFromView(this.#view, 80, LE);
   }
-
-  set basePipelineHandle(value: Pipeline) {
+  
+  set basePipelineHandle(value: AnyPointer) {
     this.#view.setBigUint64(80, BigInt(anyPointer(value)), LE);
   }
 
+  /** If VK_PIPELINE_CREATE_DERIVATIVE_BIT is set and this value is not -1, it specifies an index into pCreateInfos of the base pipeline this is a derivative of */
   get basePipelineIndex(): number {
     return this.#view.getInt32(88, LE);
   }
-
+  
   set basePipelineIndex(value: number) {
     this.#view.setInt32(88, Number(value), LE);
   }

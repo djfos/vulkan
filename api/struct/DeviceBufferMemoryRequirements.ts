@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {BufferCreateInfo} from "./BufferCreateInfo.ts";
 import { StructureType } from "../enum.ts";
 
 export interface InitDeviceBufferMemoryRequirements {
@@ -54,18 +53,18 @@ export class DeviceBufferMemoryRequirements implements BaseStruct {
     this.sType = StructureType.DEVICE_BUFFER_MEMORY_REQUIREMENTS;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +72,7 @@ export class DeviceBufferMemoryRequirements implements BaseStruct {
   get pCreateInfo(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
+  
   set pCreateInfo(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }

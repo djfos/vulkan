@@ -12,8 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {StdVideoH265PpsFlags} from "./StdVideoH265PpsFlags.ts";
-import {StdVideoH265ScalingLists} from "./StdVideoH265ScalingLists.ts";
-import {StdVideoH265PredictorPaletteEntries} from "./StdVideoH265PredictorPaletteEntries.ts";
 
 export interface InitStdVideoH265PictureParameterSet {
   flags?: StdVideoH265PpsFlags;
@@ -125,7 +123,6 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get flags(): StdVideoH265PpsFlags {
     return new StdVideoH265PpsFlags(this.#data.subarray(0, 0 + StdVideoH265PpsFlags.size));
   }
-
   set flags(value: StdVideoH265PpsFlags) {
     if (value[BUFFER].byteLength < StdVideoH265PpsFlags.size) {
       throw new Error("Data buffer too small");
@@ -136,7 +133,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_pic_parameter_set_id(): number {
     return this.#view.getUint8(124);
   }
-
+  
   set pps_pic_parameter_set_id(value: number) {
     this.#view.setUint8(124, Number(value));
   }
@@ -144,7 +141,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_seq_parameter_set_id(): number {
     return this.#view.getUint8(125);
   }
-
+  
   set pps_seq_parameter_set_id(value: number) {
     this.#view.setUint8(125, Number(value));
   }
@@ -152,7 +149,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get sps_video_parameter_set_id(): number {
     return this.#view.getUint8(126);
   }
-
+  
   set sps_video_parameter_set_id(value: number) {
     this.#view.setUint8(126, Number(value));
   }
@@ -160,7 +157,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get num_extra_slice_header_bits(): number {
     return this.#view.getUint8(127);
   }
-
+  
   set num_extra_slice_header_bits(value: number) {
     this.#view.setUint8(127, Number(value));
   }
@@ -168,7 +165,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get num_ref_idx_l0_default_active_minus1(): number {
     return this.#view.getUint8(128);
   }
-
+  
   set num_ref_idx_l0_default_active_minus1(value: number) {
     this.#view.setUint8(128, Number(value));
   }
@@ -176,7 +173,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get num_ref_idx_l1_default_active_minus1(): number {
     return this.#view.getUint8(129);
   }
-
+  
   set num_ref_idx_l1_default_active_minus1(value: number) {
     this.#view.setUint8(129, Number(value));
   }
@@ -184,7 +181,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get init_qp_minus26(): number {
     return this.#view.getInt8(130);
   }
-
+  
   set init_qp_minus26(value: number) {
     this.#view.setInt8(130, Number(value));
   }
@@ -192,7 +189,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get diff_cu_qp_delta_depth(): number {
     return this.#view.getUint8(131);
   }
-
+  
   set diff_cu_qp_delta_depth(value: number) {
     this.#view.setUint8(131, Number(value));
   }
@@ -200,7 +197,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_cb_qp_offset(): number {
     return this.#view.getInt8(132);
   }
-
+  
   set pps_cb_qp_offset(value: number) {
     this.#view.setInt8(132, Number(value));
   }
@@ -208,7 +205,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_cr_qp_offset(): number {
     return this.#view.getInt8(133);
   }
-
+  
   set pps_cr_qp_offset(value: number) {
     this.#view.setInt8(133, Number(value));
   }
@@ -216,7 +213,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_beta_offset_div2(): number {
     return this.#view.getInt8(134);
   }
-
+  
   set pps_beta_offset_div2(value: number) {
     this.#view.setInt8(134, Number(value));
   }
@@ -224,7 +221,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_tc_offset_div2(): number {
     return this.#view.getInt8(135);
   }
-
+  
   set pps_tc_offset_div2(value: number) {
     this.#view.setInt8(135, Number(value));
   }
@@ -232,7 +229,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get log2_parallel_merge_level_minus2(): number {
     return this.#view.getUint8(136);
   }
-
+  
   set log2_parallel_merge_level_minus2(value: number) {
     this.#view.setUint8(136, Number(value));
   }
@@ -240,7 +237,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get log2_max_transform_skip_block_size_minus2(): number {
     return this.#view.getUint8(137);
   }
-
+  
   set log2_max_transform_skip_block_size_minus2(value: number) {
     this.#view.setUint8(137, Number(value));
   }
@@ -248,7 +245,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get diff_cu_chroma_qp_offset_depth(): number {
     return this.#view.getUint8(138);
   }
-
+  
   set diff_cu_chroma_qp_offset_depth(value: number) {
     this.#view.setUint8(138, Number(value));
   }
@@ -256,31 +253,45 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get chroma_qp_offset_list_len_minus1(): number {
     return this.#view.getUint8(139);
   }
-
+  
   set chroma_qp_offset_list_len_minus1(value: number) {
     this.#view.setUint8(139, Number(value));
   }
 
   get cb_qp_offset_list(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 140, 6);
+    return new Int8Array(this.#data.buffer, 140, 6);
   }
-
   set cb_qp_offset_list(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 140);
+    if (value.length > 6) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 140);
   }
 
   get cr_qp_offset_list(): Int8Array {
-    return new Int8Array(this.#data.buffer, this.#data.byteOffset + 146, 6);
+    return new Int8Array(this.#data.buffer, 146, 6);
   }
-
   set cr_qp_offset_list(value: Int8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 146);
+    if (value.length > 6) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 146);
   }
 
   get log2_sao_offset_scale_luma(): number {
     return this.#view.getUint8(152);
   }
-
+  
   set log2_sao_offset_scale_luma(value: number) {
     this.#view.setUint8(152, Number(value));
   }
@@ -288,7 +299,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get log2_sao_offset_scale_chroma(): number {
     return this.#view.getUint8(153);
   }
-
+  
   set log2_sao_offset_scale_chroma(value: number) {
     this.#view.setUint8(153, Number(value));
   }
@@ -296,7 +307,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_act_y_qp_offset_plus5(): number {
     return this.#view.getInt8(154);
   }
-
+  
   set pps_act_y_qp_offset_plus5(value: number) {
     this.#view.setInt8(154, Number(value));
   }
@@ -304,7 +315,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_act_cb_qp_offset_plus5(): number {
     return this.#view.getInt8(155);
   }
-
+  
   set pps_act_cb_qp_offset_plus5(value: number) {
     this.#view.setInt8(155, Number(value));
   }
@@ -312,7 +323,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_act_cr_qp_offset_plus3(): number {
     return this.#view.getInt8(156);
   }
-
+  
   set pps_act_cr_qp_offset_plus3(value: number) {
     this.#view.setInt8(156, Number(value));
   }
@@ -320,7 +331,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get pps_num_palette_predictor_initializers(): number {
     return this.#view.getUint8(157);
   }
-
+  
   set pps_num_palette_predictor_initializers(value: number) {
     this.#view.setUint8(157, Number(value));
   }
@@ -328,7 +339,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get luma_bit_depth_entry_minus8(): number {
     return this.#view.getUint8(158);
   }
-
+  
   set luma_bit_depth_entry_minus8(value: number) {
     this.#view.setUint8(158, Number(value));
   }
@@ -336,7 +347,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get chroma_bit_depth_entry_minus8(): number {
     return this.#view.getUint8(159);
   }
-
+  
   set chroma_bit_depth_entry_minus8(value: number) {
     this.#view.setUint8(159, Number(value));
   }
@@ -344,7 +355,7 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get num_tile_columns_minus1(): number {
     return this.#view.getUint8(160);
   }
-
+  
   set num_tile_columns_minus1(value: number) {
     this.#view.setUint8(160, Number(value));
   }
@@ -352,63 +363,82 @@ export class StdVideoH265PictureParameterSet implements BaseStruct {
   get num_tile_rows_minus1(): number {
     return this.#view.getUint8(161);
   }
-
+  
   set num_tile_rows_minus1(value: number) {
     this.#view.setUint8(161, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint8(162);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint8(162, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved2(): number {
     return this.#view.getUint8(163);
   }
-
+  
   set reserved2(value: number) {
     this.#view.setUint8(163, Number(value));
   }
 
   get column_width_minus1(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 164, 19);
+    return new Uint16Array(this.#data.buffer, 164, 19);
   }
-
   set column_width_minus1(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 164);
+    if (value.length > 19) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 164);
   }
 
   get row_height_minus1(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 202, 21);
+    return new Uint16Array(this.#data.buffer, 202, 21);
   }
-
   set row_height_minus1(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 202);
+    if (value.length > 21) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 202);
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved3(): number {
     return this.#view.getUint32(244, LE);
   }
-
+  
   set reserved3(value: number) {
     this.#view.setUint32(244, Number(value), LE);
   }
 
+  /** Must be a valid pointer if pps_scaling_list_data_present_flag is set */
   get pScalingLists(): Deno.PointerValue {
     return pointerFromView(this.#view, 248, LE);
   }
-
+  
   set pScalingLists(value: AnyPointer) {
     this.#view.setBigUint64(248, BigInt(anyPointer(value)), LE);
   }
 
+  /** Must be a valid pointer if pps_palette_predictor_initializer_present_flag is set */
   get pPredictorPaletteEntries(): Deno.PointerValue {
     return pointerFromView(this.#view, 256, LE);
   }
-
+  
   set pPredictorPaletteEntries(value: AnyPointer) {
     this.#view.setBigUint64(256, BigInt(anyPointer(value)), LE);
   }

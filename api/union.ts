@@ -3,7 +3,7 @@
 
 /** // Union allowing specification of floating point, integer, or unsigned integer color data. Actual value selected is based on image/attachment being cleared. */
 export class ClearColorValue {
-  static size = 4;
+  static size = 16;
 
   #data: Uint8Array;
   #view: DataView;
@@ -19,7 +19,7 @@ export class ClearColorValue {
 
 /** // Union allowing specification of color or depth and stencil values. Actual value selected is based on attachment being cleared. */
 export class ClearValue {
-  static size = 8;
+  static size = 16;
 
   #data: Uint8Array;
   #view: DataView;

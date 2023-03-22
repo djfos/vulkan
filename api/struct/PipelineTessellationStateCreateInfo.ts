@@ -56,26 +56,26 @@ export class PipelineTessellationStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_TESSELLATION_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineTessellationStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineTessellationStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -83,7 +83,7 @@ export class PipelineTessellationStateCreateInfo implements BaseStruct {
   get patchControlPoints(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set patchControlPoints(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }

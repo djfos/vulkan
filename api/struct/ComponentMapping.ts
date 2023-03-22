@@ -56,35 +56,35 @@ export class ComponentMapping implements BaseStruct {
     }
   }
 
-  get r(): number {
-    return this.#view.getUint32(0, LE);
+  get r(): ComponentSwizzle {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set r(value: ComponentSwizzle) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get g(): number {
-    return this.#view.getUint32(4, LE);
+  get g(): ComponentSwizzle {
+    return this.#view.getInt32(4, LE);
   }
-
+  
   set g(value: ComponentSwizzle) {
-    this.#view.setUint32(4, Number(value), LE);
+    this.#view.setInt32(4, Number(value), LE);
   }
 
-  get b(): number {
-    return this.#view.getUint32(8, LE);
+  get b(): ComponentSwizzle {
+    return this.#view.getInt32(8, LE);
   }
-
+  
   set b(value: ComponentSwizzle) {
-    this.#view.setUint32(8, Number(value), LE);
+    this.#view.setInt32(8, Number(value), LE);
   }
 
-  get a(): number {
-    return this.#view.getUint32(12, LE);
+  get a(): ComponentSwizzle {
+    return this.#view.getInt32(12, LE);
   }
-
+  
   set a(value: ComponentSwizzle) {
-    this.#view.setUint32(12, Number(value), LE);
+    this.#view.setInt32(12, Number(value), LE);
   }
 }

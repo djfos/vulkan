@@ -18,7 +18,7 @@ import { DeviceOrHostAddressConstKHR } from "../union.ts";
 export interface InitCopyMemoryToMicromapInfoEXT {
   pNext?: AnyPointer;
   src?: DeviceOrHostAddressConstKHR;
-  dst?: MicromapEXT;
+  dst?: AnyPointer;
   mode?: CopyMicromapModeEXT;
 }
 
@@ -59,43 +59,42 @@ export class CopyMemoryToMicromapInfoEXT implements BaseStruct {
     this.sType = StructureType.COPY_MEMORY_TO_MICROMAP_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get src(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get src(): DeviceOrHostAddressConstKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set src(value: DeviceOrHostAddressConstKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
   get dst(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set dst(value: MicromapEXT) {
+  
+  set dst(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
-  get mode(): number {
-    return this.#view.getUint32(32, LE);
+  get mode(): CopyMicromapModeEXT {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set mode(value: CopyMicromapModeEXT) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 }

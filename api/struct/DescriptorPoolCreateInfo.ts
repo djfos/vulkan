@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {DescriptorPoolSize} from "./DescriptorPoolSize.ts";
 import { StructureType } from "../enum.ts";
 import { DescriptorPoolCreateFlags } from "../def.ts";
 
@@ -61,26 +60,26 @@ export class DescriptorPoolCreateInfo implements BaseStruct {
     this.sType = StructureType.DESCRIPTOR_POOL_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): DescriptorPoolCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: DescriptorPoolCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -88,7 +87,7 @@ export class DescriptorPoolCreateInfo implements BaseStruct {
   get maxSets(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxSets(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -96,7 +95,7 @@ export class DescriptorPoolCreateInfo implements BaseStruct {
   get poolSizeCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set poolSizeCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -104,7 +103,7 @@ export class DescriptorPoolCreateInfo implements BaseStruct {
   get pPoolSizes(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set pPoolSizes(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

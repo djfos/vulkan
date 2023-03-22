@@ -60,7 +60,7 @@ export class PhysicalDeviceMemoryProperties implements BaseStruct {
   get memoryTypeCount(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set memoryTypeCount(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -68,18 +68,17 @@ export class PhysicalDeviceMemoryProperties implements BaseStruct {
   get memoryTypes(): MemoryType[] {
     const result: MemoryType[] = [];
     for (let i = 0; i < 32; i++) {
-      result.push((() => {
-        return new MemoryType(this.#data.subarray(4 + i * 8, 4 + i * 8 + MemoryType.size));
-      })());
+      const start = 4 + i * MemoryType.size;
+      const element = new MemoryType(this.#data.subarray(start, start + MemoryType.size));
+      result.push(element);
     }
     return result;
   }
-
   set memoryTypes(value: MemoryType[]) {
+    if (value.length > 32) {
+      throw Error("buffer is too big");
+    }
     for (let i = 0; i < value.length; i++) {
-      if (value[i][BUFFER].byteLength < MemoryType.size) {
-        throw new Error("Data buffer too small");
-      }
       this.#data.set(value[i][BUFFER], 4 + i * 8);
     }
   }
@@ -87,7 +86,7 @@ export class PhysicalDeviceMemoryProperties implements BaseStruct {
   get memoryHeapCount(): number {
     return this.#view.getUint32(260, LE);
   }
-
+  
   set memoryHeapCount(value: number) {
     this.#view.setUint32(260, Number(value), LE);
   }
@@ -95,18 +94,17 @@ export class PhysicalDeviceMemoryProperties implements BaseStruct {
   get memoryHeaps(): MemoryHeap[] {
     const result: MemoryHeap[] = [];
     for (let i = 0; i < 16; i++) {
-      result.push((() => {
-        return new MemoryHeap(this.#data.subarray(264 + i * 16, 264 + i * 16 + MemoryHeap.size));
-      })());
+      const start = 264 + i * MemoryHeap.size;
+      const element = new MemoryHeap(this.#data.subarray(start, start + MemoryHeap.size));
+      result.push(element);
     }
     return result;
   }
-
   set memoryHeaps(value: MemoryHeap[]) {
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
     for (let i = 0; i < value.length; i++) {
-      if (value[i][BUFFER].byteLength < MemoryHeap.size) {
-        throw new Error("Data buffer too small");
-      }
       this.#data.set(value[i][BUFFER], 264 + i * 16);
     }
   }

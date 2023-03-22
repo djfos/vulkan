@@ -63,34 +63,34 @@ export class RayTracingShaderGroupCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(16, LE);
+  get type(): RayTracingShaderGroupTypeKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set type(value: RayTracingShaderGroupTypeKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get generalShader(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set generalShader(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -98,7 +98,7 @@ export class RayTracingShaderGroupCreateInfoKHR implements BaseStruct {
   get closestHitShader(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set closestHitShader(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -106,7 +106,7 @@ export class RayTracingShaderGroupCreateInfoKHR implements BaseStruct {
   get anyHitShader(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set anyHitShader(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
@@ -114,7 +114,7 @@ export class RayTracingShaderGroupCreateInfoKHR implements BaseStruct {
   get intersectionShader(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set intersectionShader(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -122,7 +122,7 @@ export class RayTracingShaderGroupCreateInfoKHR implements BaseStruct {
   get pShaderGroupCaptureReplayHandle(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pShaderGroupCaptureReplayHandle(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

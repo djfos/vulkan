@@ -92,178 +92,178 @@ export class PhysicalDeviceDescriptorIndexingFeatures implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get shaderInputAttachmentArrayDynamicIndexing(): number {
+  get shaderInputAttachmentArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set shaderInputAttachmentArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get shaderUniformTexelBufferArrayDynamicIndexing(): number {
+  get shaderUniformTexelBufferArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set shaderUniformTexelBufferArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get shaderStorageTexelBufferArrayDynamicIndexing(): number {
+  get shaderStorageTexelBufferArrayDynamicIndexing(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set shaderStorageTexelBufferArrayDynamicIndexing(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get shaderUniformBufferArrayNonUniformIndexing(): number {
+  get shaderUniformBufferArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set shaderUniformBufferArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get shaderSampledImageArrayNonUniformIndexing(): number {
+  get shaderSampledImageArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set shaderSampledImageArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
 
-  get shaderStorageBufferArrayNonUniformIndexing(): number {
+  get shaderStorageBufferArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set shaderStorageBufferArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
 
-  get shaderStorageImageArrayNonUniformIndexing(): number {
+  get shaderStorageImageArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set shaderStorageImageArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(40, Number(value), LE);
   }
 
-  get shaderInputAttachmentArrayNonUniformIndexing(): number {
+  get shaderInputAttachmentArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set shaderInputAttachmentArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
-  get shaderUniformTexelBufferArrayNonUniformIndexing(): number {
+  get shaderUniformTexelBufferArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set shaderUniformTexelBufferArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(48, Number(value), LE);
   }
 
-  get shaderStorageTexelBufferArrayNonUniformIndexing(): number {
+  get shaderStorageTexelBufferArrayNonUniformIndexing(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set shaderStorageTexelBufferArrayNonUniformIndexing(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
 
-  get descriptorBindingUniformBufferUpdateAfterBind(): number {
+  get descriptorBindingUniformBufferUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set descriptorBindingUniformBufferUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get descriptorBindingSampledImageUpdateAfterBind(): number {
+  get descriptorBindingSampledImageUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set descriptorBindingSampledImageUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(60, Number(value), LE);
   }
 
-  get descriptorBindingStorageImageUpdateAfterBind(): number {
+  get descriptorBindingStorageImageUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set descriptorBindingStorageImageUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(64, Number(value), LE);
   }
 
-  get descriptorBindingStorageBufferUpdateAfterBind(): number {
+  get descriptorBindingStorageBufferUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set descriptorBindingStorageBufferUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
 
-  get descriptorBindingUniformTexelBufferUpdateAfterBind(): number {
+  get descriptorBindingUniformTexelBufferUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set descriptorBindingUniformTexelBufferUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(72, Number(value), LE);
   }
 
-  get descriptorBindingStorageTexelBufferUpdateAfterBind(): number {
+  get descriptorBindingStorageTexelBufferUpdateAfterBind(): Bool32 {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set descriptorBindingStorageTexelBufferUpdateAfterBind(value: Bool32) {
     this.#view.setUint32(76, Number(value), LE);
   }
 
-  get descriptorBindingUpdateUnusedWhilePending(): number {
+  get descriptorBindingUpdateUnusedWhilePending(): Bool32 {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set descriptorBindingUpdateUnusedWhilePending(value: Bool32) {
     this.#view.setUint32(80, Number(value), LE);
   }
 
-  get descriptorBindingPartiallyBound(): number {
+  get descriptorBindingPartiallyBound(): Bool32 {
     return this.#view.getUint32(84, LE);
   }
-
+  
   set descriptorBindingPartiallyBound(value: Bool32) {
     this.#view.setUint32(84, Number(value), LE);
   }
 
-  get descriptorBindingVariableDescriptorCount(): number {
+  get descriptorBindingVariableDescriptorCount(): Bool32 {
     return this.#view.getUint32(88, LE);
   }
-
+  
   set descriptorBindingVariableDescriptorCount(value: Bool32) {
     this.#view.setUint32(88, Number(value), LE);
   }
 
-  get runtimeDescriptorArray(): number {
+  get runtimeDescriptorArray(): Bool32 {
     return this.#view.getUint32(92, LE);
   }
-
+  
   set runtimeDescriptorArray(value: Bool32) {
     this.#view.setUint32(92, Number(value), LE);
   }

@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {ImageFormatConstraintsInfoFUCHSIA} from "./ImageFormatConstraintsInfoFUCHSIA.ts";
 import {BufferCollectionConstraintsInfoFUCHSIA} from "./BufferCollectionConstraintsInfoFUCHSIA.ts";
 import { StructureType } from "../enum.ts";
 import { ImageConstraintsInfoFlagsFUCHSIA } from "../def.ts";
@@ -62,18 +61,18 @@ export class ImageConstraintsInfoFUCHSIA implements BaseStruct {
     this.sType = StructureType.IMAGE_CONSTRAINTS_INFO_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -81,7 +80,7 @@ export class ImageConstraintsInfoFUCHSIA implements BaseStruct {
   get formatConstraintsCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set formatConstraintsCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -89,7 +88,7 @@ export class ImageConstraintsInfoFUCHSIA implements BaseStruct {
   get pFormatConstraints(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pFormatConstraints(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -97,7 +96,6 @@ export class ImageConstraintsInfoFUCHSIA implements BaseStruct {
   get bufferCollectionConstraints(): BufferCollectionConstraintsInfoFUCHSIA {
     return new BufferCollectionConstraintsInfoFUCHSIA(this.#data.subarray(32, 32 + BufferCollectionConstraintsInfoFUCHSIA.size));
   }
-
   set bufferCollectionConstraints(value: BufferCollectionConstraintsInfoFUCHSIA) {
     if (value[BUFFER].byteLength < BufferCollectionConstraintsInfoFUCHSIA.size) {
       throw new Error("Data buffer too small");
@@ -105,10 +103,10 @@ export class ImageConstraintsInfoFUCHSIA implements BaseStruct {
     this.#data.set(value[BUFFER], 32);
   }
 
-  get flags(): number {
+  get flags(): ImageConstraintsInfoFlagsFUCHSIA {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set flags(value: ImageConstraintsInfoFlagsFUCHSIA) {
     this.#view.setUint32(72, Number(value), LE);
   }

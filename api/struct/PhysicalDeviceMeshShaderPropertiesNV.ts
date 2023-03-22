@@ -77,18 +77,18 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -96,7 +96,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxDrawMeshTasksCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set maxDrawMeshTasksCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -104,23 +104,30 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxTaskWorkGroupInvocations(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set maxTaskWorkGroupInvocations(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
   get maxTaskWorkGroupSize(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 24, 3);
+    return new Uint32Array(this.#data.buffer, 24, 3);
   }
-
   set maxTaskWorkGroupSize(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 24);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 24);
   }
 
   get maxTaskTotalMemorySize(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set maxTaskTotalMemorySize(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -128,7 +135,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxTaskOutputCount(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxTaskOutputCount(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -136,23 +143,30 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxMeshWorkGroupInvocations(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set maxMeshWorkGroupInvocations(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
 
   get maxMeshWorkGroupSize(): Uint32Array {
-    return new Uint32Array(this.#data.buffer, this.#data.byteOffset + 48, 3);
+    return new Uint32Array(this.#data.buffer, 48, 3);
   }
-
   set maxMeshWorkGroupSize(value: Uint32Array) {
-    this.#data.set(new Uint8Array(value.buffer), 48);
+    if (value.length > 3) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 48);
   }
 
   get maxMeshTotalMemorySize(): number {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set maxMeshTotalMemorySize(value: number) {
     this.#view.setUint32(60, Number(value), LE);
   }
@@ -160,7 +174,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxMeshOutputVertices(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set maxMeshOutputVertices(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
@@ -168,7 +182,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxMeshOutputPrimitives(): number {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set maxMeshOutputPrimitives(value: number) {
     this.#view.setUint32(68, Number(value), LE);
   }
@@ -176,7 +190,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get maxMeshMultiviewViewCount(): number {
     return this.#view.getUint32(72, LE);
   }
-
+  
   set maxMeshMultiviewViewCount(value: number) {
     this.#view.setUint32(72, Number(value), LE);
   }
@@ -184,7 +198,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get meshOutputPerVertexGranularity(): number {
     return this.#view.getUint32(76, LE);
   }
-
+  
   set meshOutputPerVertexGranularity(value: number) {
     this.#view.setUint32(76, Number(value), LE);
   }
@@ -192,7 +206,7 @@ export class PhysicalDeviceMeshShaderPropertiesNV implements BaseStruct {
   get meshOutputPerPrimitiveGranularity(): number {
     return this.#view.getUint32(80, LE);
   }
-
+  
   set meshOutputPerPrimitiveGranularity(value: number) {
     this.#view.setUint32(80, Number(value), LE);
   }

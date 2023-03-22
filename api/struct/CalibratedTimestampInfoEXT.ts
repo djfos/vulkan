@@ -53,27 +53,27 @@ export class CalibratedTimestampInfoEXT implements BaseStruct {
     this.sType = StructureType.CALIBRATED_TIMESTAMP_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get timeDomain(): number {
-    return this.#view.getUint32(16, LE);
+  get timeDomain(): TimeDomainEXT {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set timeDomain(value: TimeDomainEXT) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 }

@@ -59,51 +59,51 @@ export class PipelineRobustnessCreateInfoEXT implements BaseStruct {
     this.sType = StructureType.PIPELINE_ROBUSTNESS_CREATE_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get storageBuffers(): number {
-    return this.#view.getUint32(16, LE);
+  get storageBuffers(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set storageBuffers(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get uniformBuffers(): number {
-    return this.#view.getUint32(20, LE);
+  get uniformBuffers(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set uniformBuffers(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get vertexInputs(): number {
-    return this.#view.getUint32(24, LE);
+  get vertexInputs(): PipelineRobustnessBufferBehaviorEXT {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set vertexInputs(value: PipelineRobustnessBufferBehaviorEXT) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get images(): number {
-    return this.#view.getUint32(28, LE);
+  get images(): PipelineRobustnessImageBehaviorEXT {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set images(value: PipelineRobustnessImageBehaviorEXT) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 }

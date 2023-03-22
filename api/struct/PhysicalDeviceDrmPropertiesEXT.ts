@@ -64,66 +64,66 @@ export class PhysicalDeviceDrmPropertiesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DRM_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get hasPrimary(): number {
+  get hasPrimary(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set hasPrimary(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get hasRender(): number {
+  get hasRender(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set hasRender(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
   get primaryMajor(): bigint {
-    return this.#view.getBigInt64(24, LE);
+    return this.#view.getBigInt64(24);
   }
-
+  
   set primaryMajor(value: number | bigint) {
     this.#view.setBigInt64(24, BigInt(value), LE);
   }
 
   get primaryMinor(): bigint {
-    return this.#view.getBigInt64(32, LE);
+    return this.#view.getBigInt64(32);
   }
-
+  
   set primaryMinor(value: number | bigint) {
     this.#view.setBigInt64(32, BigInt(value), LE);
   }
 
   get renderMajor(): bigint {
-    return this.#view.getBigInt64(40, LE);
+    return this.#view.getBigInt64(40);
   }
-
+  
   set renderMajor(value: number | bigint) {
     this.#view.setBigInt64(40, BigInt(value), LE);
   }
 
   get renderMinor(): bigint {
-    return this.#view.getBigInt64(48, LE);
+    return this.#view.getBigInt64(48);
   }
-
+  
   set renderMinor(value: number | bigint) {
     this.#view.setBigInt64(48, BigInt(value), LE);
   }

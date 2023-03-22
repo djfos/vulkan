@@ -72,18 +72,18 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -91,15 +91,15 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
   get temporalId(): number {
     return this.#view.getUint8(16);
   }
-
+  
   set temporalId(value: number) {
     this.#view.setUint8(16, Number(value));
   }
 
-  get useInitialRcQp(): number {
+  get useInitialRcQp(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set useInitialRcQp(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -107,7 +107,6 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
   get initialRcQp(): VideoEncodeH265QpEXT {
     return new VideoEncodeH265QpEXT(this.#data.subarray(24, 24 + VideoEncodeH265QpEXT.size));
   }
-
   set initialRcQp(value: VideoEncodeH265QpEXT) {
     if (value[BUFFER].byteLength < VideoEncodeH265QpEXT.size) {
       throw new Error("Data buffer too small");
@@ -115,10 +114,10 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 24);
   }
 
-  get useMinQp(): number {
+  get useMinQp(): Bool32 {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set useMinQp(value: Bool32) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -126,7 +125,6 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
   get minQp(): VideoEncodeH265QpEXT {
     return new VideoEncodeH265QpEXT(this.#data.subarray(40, 40 + VideoEncodeH265QpEXT.size));
   }
-
   set minQp(value: VideoEncodeH265QpEXT) {
     if (value[BUFFER].byteLength < VideoEncodeH265QpEXT.size) {
       throw new Error("Data buffer too small");
@@ -134,10 +132,10 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 40);
   }
 
-  get useMaxQp(): number {
+  get useMaxQp(): Bool32 {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set useMaxQp(value: Bool32) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -145,7 +143,6 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
   get maxQp(): VideoEncodeH265QpEXT {
     return new VideoEncodeH265QpEXT(this.#data.subarray(56, 56 + VideoEncodeH265QpEXT.size));
   }
-
   set maxQp(value: VideoEncodeH265QpEXT) {
     if (value[BUFFER].byteLength < VideoEncodeH265QpEXT.size) {
       throw new Error("Data buffer too small");
@@ -153,10 +150,10 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
     this.#data.set(value[BUFFER], 56);
   }
 
-  get useMaxFrameSize(): number {
+  get useMaxFrameSize(): Bool32 {
     return this.#view.getUint32(68, LE);
   }
-
+  
   set useMaxFrameSize(value: Bool32) {
     this.#view.setUint32(68, Number(value), LE);
   }
@@ -164,7 +161,6 @@ export class VideoEncodeH265RateControlLayerInfoEXT implements BaseStruct {
   get maxFrameSize(): VideoEncodeH265FrameSizeEXT {
     return new VideoEncodeH265FrameSizeEXT(this.#data.subarray(72, 72 + VideoEncodeH265FrameSizeEXT.size));
   }
-
   set maxFrameSize(value: VideoEncodeH265FrameSizeEXT) {
     if (value[BUFFER].byteLength < VideoEncodeH265FrameSizeEXT.size) {
       throw new Error("Data buffer too small");

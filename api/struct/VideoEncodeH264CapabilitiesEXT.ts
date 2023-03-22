@@ -74,42 +74,42 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
     this.sType = StructureType.VIDEO_ENCODE_H264_CAPABILITIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): VideoEncodeH264CapabilityFlagsEXT {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: VideoEncodeH264CapabilityFlagsEXT) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get inputModeFlags(): number {
+  get inputModeFlags(): VideoEncodeH264InputModeFlagsEXT {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set inputModeFlags(value: VideoEncodeH264InputModeFlagsEXT) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get outputModeFlags(): number {
+  get outputModeFlags(): VideoEncodeH264OutputModeFlagsEXT {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set outputModeFlags(value: VideoEncodeH264OutputModeFlagsEXT) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -117,7 +117,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get maxPPictureL0ReferenceCount(): number {
     return this.#view.getUint8(28);
   }
-
+  
   set maxPPictureL0ReferenceCount(value: number) {
     this.#view.setUint8(28, Number(value));
   }
@@ -125,7 +125,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get maxBPictureL0ReferenceCount(): number {
     return this.#view.getUint8(29);
   }
-
+  
   set maxBPictureL0ReferenceCount(value: number) {
     this.#view.setUint8(29, Number(value));
   }
@@ -133,15 +133,15 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get maxL1ReferenceCount(): number {
     return this.#view.getUint8(30);
   }
-
+  
   set maxL1ReferenceCount(value: number) {
     this.#view.setUint8(30, Number(value));
   }
 
-  get motionVectorsOverPicBoundariesFlag(): number {
+  get motionVectorsOverPicBoundariesFlag(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set motionVectorsOverPicBoundariesFlag(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -149,7 +149,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get maxBytesPerPicDenom(): number {
     return this.#view.getUint32(36, LE);
   }
-
+  
   set maxBytesPerPicDenom(value: number) {
     this.#view.setUint32(36, Number(value), LE);
   }
@@ -157,7 +157,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get maxBitsPerMbDenom(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxBitsPerMbDenom(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -165,7 +165,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get log2MaxMvLengthHorizontal(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set log2MaxMvLengthHorizontal(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -173,7 +173,7 @@ export class VideoEncodeH264CapabilitiesEXT implements BaseStruct {
   get log2MaxMvLengthVertical(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set log2MaxMvLengthVertical(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }

@@ -16,7 +16,7 @@ import { Image } from "../def.ts";
 
 export interface InitImageSparseMemoryRequirementsInfo2 {
   pNext?: AnyPointer;
-  image?: Image;
+  image?: AnyPointer;
 }
 
 export class ImageSparseMemoryRequirementsInfo2 implements BaseStruct {
@@ -54,18 +54,18 @@ export class ImageSparseMemoryRequirementsInfo2 implements BaseStruct {
     this.sType = StructureType.IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class ImageSparseMemoryRequirementsInfo2 implements BaseStruct {
   get image(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set image(value: Image) {
+  
+  set image(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 }

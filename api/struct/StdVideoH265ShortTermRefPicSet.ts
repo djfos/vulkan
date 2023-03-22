@@ -79,7 +79,6 @@ export class StdVideoH265ShortTermRefPicSet implements BaseStruct {
   get flags(): StdVideoH265ShortTermRefPicSetFlags {
     return new StdVideoH265ShortTermRefPicSetFlags(this.#data.subarray(0, 0 + StdVideoH265ShortTermRefPicSetFlags.size));
   }
-
   set flags(value: StdVideoH265ShortTermRefPicSetFlags) {
     if (value[BUFFER].byteLength < StdVideoH265ShortTermRefPicSetFlags.size) {
       throw new Error("Data buffer too small");
@@ -90,15 +89,16 @@ export class StdVideoH265ShortTermRefPicSet implements BaseStruct {
   get delta_idx_minus1(): number {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set delta_idx_minus1(value: number) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
+  /** each bit represents a use_delta_flag[j] syntax */
   get use_delta_flag(): number {
     return this.#view.getUint16(12, LE);
   }
-
+  
   set use_delta_flag(value: number) {
     this.#view.setUint16(12, Number(value), LE);
   }
@@ -106,55 +106,61 @@ export class StdVideoH265ShortTermRefPicSet implements BaseStruct {
   get abs_delta_rps_minus1(): number {
     return this.#view.getUint16(14, LE);
   }
-
+  
   set abs_delta_rps_minus1(value: number) {
     this.#view.setUint16(14, Number(value), LE);
   }
 
+  /** each bit represents a used_by_curr_pic_flag[j] syntax */
   get used_by_curr_pic_flag(): number {
     return this.#view.getUint16(16, LE);
   }
-
+  
   set used_by_curr_pic_flag(value: number) {
     this.#view.setUint16(16, Number(value), LE);
   }
 
+  /** each bit represents a used_by_curr_pic_s0_flag[i] syntax */
   get used_by_curr_pic_s0_flag(): number {
     return this.#view.getUint16(18, LE);
   }
-
+  
   set used_by_curr_pic_s0_flag(value: number) {
     this.#view.setUint16(18, Number(value), LE);
   }
 
+  /** each bit represents a used_by_curr_pic_s1_flag[i] syntax */
   get used_by_curr_pic_s1_flag(): number {
     return this.#view.getUint16(20, LE);
   }
-
+  
   set used_by_curr_pic_s1_flag(value: number) {
     this.#view.setUint16(20, Number(value), LE);
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved1(): number {
     return this.#view.getUint16(22, LE);
   }
-
+  
   set reserved1(value: number) {
     this.#view.setUint16(22, Number(value), LE);
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved2(): number {
     return this.#view.getUint8(24);
   }
-
+  
   set reserved2(value: number) {
     this.#view.setUint8(24, Number(value));
   }
 
+  /** Reserved for future use and must be initialized with 0. */
   get reserved3(): number {
     return this.#view.getUint8(25);
   }
-
+  
   set reserved3(value: number) {
     this.#view.setUint8(25, Number(value));
   }
@@ -162,7 +168,7 @@ export class StdVideoH265ShortTermRefPicSet implements BaseStruct {
   get num_negative_pics(): number {
     return this.#view.getUint8(26);
   }
-
+  
   set num_negative_pics(value: number) {
     this.#view.setUint8(26, Number(value));
   }
@@ -170,24 +176,38 @@ export class StdVideoH265ShortTermRefPicSet implements BaseStruct {
   get num_positive_pics(): number {
     return this.#view.getUint8(27);
   }
-
+  
   set num_positive_pics(value: number) {
     this.#view.setUint8(27, Number(value));
   }
 
   get delta_poc_s0_minus1(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 28, 16);
+    return new Uint16Array(this.#data.buffer, 28, 16);
   }
-
   set delta_poc_s0_minus1(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 28);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 28);
   }
 
   get delta_poc_s1_minus1(): Uint16Array {
-    return new Uint16Array(this.#data.buffer, this.#data.byteOffset + 60, 16);
+    return new Uint16Array(this.#data.buffer, 60, 16);
   }
-
   set delta_poc_s1_minus1(value: Uint16Array) {
-    this.#data.set(new Uint8Array(value.buffer), 60);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 60);
   }
 }

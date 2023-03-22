@@ -54,18 +54,18 @@ export class ExternalImageFormatProperties implements BaseStruct {
     this.sType = StructureType.EXTERNAL_IMAGE_FORMAT_PROPERTIES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,7 +73,6 @@ export class ExternalImageFormatProperties implements BaseStruct {
   get externalMemoryProperties(): ExternalMemoryProperties {
     return new ExternalMemoryProperties(this.#data.subarray(16, 16 + ExternalMemoryProperties.size));
   }
-
   set externalMemoryProperties(value: ExternalMemoryProperties) {
     if (value[BUFFER].byteLength < ExternalMemoryProperties.size) {
       throw new Error("Data buffer too small");

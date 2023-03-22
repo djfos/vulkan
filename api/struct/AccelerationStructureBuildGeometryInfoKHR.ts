@@ -11,7 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {AccelerationStructureGeometryKHR} from "./AccelerationStructureGeometryKHR.ts";
 import { StructureType, AccelerationStructureTypeKHR, BuildAccelerationStructureModeKHR } from "../enum.ts";
 import { BuildAccelerationStructureFlagsKHR, AccelerationStructureKHR } from "../def.ts";
 import { DeviceOrHostAddressKHR } from "../union.ts";
@@ -21,8 +20,8 @@ export interface InitAccelerationStructureBuildGeometryInfoKHR {
   type?: AccelerationStructureTypeKHR;
   flags?: BuildAccelerationStructureFlagsKHR;
   mode?: BuildAccelerationStructureModeKHR;
-  srcAccelerationStructure?: AccelerationStructureKHR;
-  dstAccelerationStructure?: AccelerationStructureKHR;
+  srcAccelerationStructure?: AnyPointer;
+  dstAccelerationStructure?: AnyPointer;
   geometryCount?: number;
   pGeometries?: AnyPointer;
   ppGeometries?: AnyPointer;
@@ -72,66 +71,66 @@ export class AccelerationStructureBuildGeometryInfoKHR implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get type(): number {
-    return this.#view.getUint32(16, LE);
+  get type(): AccelerationStructureTypeKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set type(value: AccelerationStructureTypeKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): BuildAccelerationStructureFlagsKHR {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set flags(value: BuildAccelerationStructureFlagsKHR) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get mode(): number {
-    return this.#view.getUint32(24, LE);
+  get mode(): BuildAccelerationStructureModeKHR {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set mode(value: BuildAccelerationStructureModeKHR) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get srcAccelerationStructure(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set srcAccelerationStructure(value: AccelerationStructureKHR) {
+  
+  set srcAccelerationStructure(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 
   get dstAccelerationStructure(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
-  set dstAccelerationStructure(value: AccelerationStructureKHR) {
+  
+  set dstAccelerationStructure(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 
   get geometryCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set geometryCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -139,7 +138,7 @@ export class AccelerationStructureBuildGeometryInfoKHR implements BaseStruct {
   get pGeometries(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pGeometries(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }
@@ -147,16 +146,15 @@ export class AccelerationStructureBuildGeometryInfoKHR implements BaseStruct {
   get ppGeometries(): Deno.PointerValue {
     return pointerFromView(this.#view, 64, LE);
   }
-
+  
   set ppGeometries(value: AnyPointer) {
     this.#view.setBigUint64(64, BigInt(anyPointer(value)), LE);
   }
 
-  get scratchData(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get scratchData(): DeviceOrHostAddressKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set scratchData(value: DeviceOrHostAddressKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 }

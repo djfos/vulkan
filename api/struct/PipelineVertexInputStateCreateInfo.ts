@@ -11,8 +11,6 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import {VertexInputBindingDescription} from "./VertexInputBindingDescription.ts";
-import {VertexInputAttributeDescription} from "./VertexInputAttributeDescription.ts";
 import { StructureType } from "../enum.ts";
 import { PipelineVertexInputStateCreateFlags } from "../def.ts";
 
@@ -64,34 +62,35 @@ export class PipelineVertexInputStateCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineVertexInputStateCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineVertexInputStateCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
+  /** number of bindings */
   get vertexBindingDescriptionCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set vertexBindingDescriptionCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -99,15 +98,16 @@ export class PipelineVertexInputStateCreateInfo implements BaseStruct {
   get pVertexBindingDescriptions(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pVertexBindingDescriptions(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
+  /** number of attributes */
   get vertexAttributeDescriptionCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set vertexAttributeDescriptionCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -115,7 +115,7 @@ export class PipelineVertexInputStateCreateInfo implements BaseStruct {
   get pVertexAttributeDescriptions(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pVertexAttributeDescriptions(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }

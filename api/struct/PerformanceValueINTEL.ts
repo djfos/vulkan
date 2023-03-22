@@ -53,19 +53,18 @@ export class PerformanceValueINTEL implements BaseStruct {
     }
   }
 
-  get type(): number {
-    return this.#view.getUint32(0, LE);
+  get type(): PerformanceValueTypeINTEL {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set type(value: PerformanceValueTypeINTEL) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
-  get data(): unknown {
-    throw new Error(`Unknown type: {"union":["u32","u64","f32","u32","buffer"]}`);
+  get data(): PerformanceValueDataINTEL {
+    throw new Error(`Unknown type: {"union":["u32","u64","f32","u32","pointer"]}`);
   }
-
   set data(value: PerformanceValueDataINTEL) {
-    throw new Error(`Unknown type: {"union":["u32","u64","f32","u32","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u32","u64","f32","u32","pointer"]}`);
   }
 }

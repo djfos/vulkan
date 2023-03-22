@@ -12,7 +12,6 @@ import {
   notPointerObject,
 } from "../util.ts";
 import {ImageCreateInfo} from "./ImageCreateInfo.ts";
-import {SysmemColorSpaceFUCHSIA} from "./SysmemColorSpaceFUCHSIA.ts";
 import { StructureType } from "../enum.ts";
 import { FormatFeatureFlags, ImageFormatConstraintsFlagsFUCHSIA } from "../def.ts";
 
@@ -66,18 +65,18 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
     this.sType = StructureType.IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -85,7 +84,6 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
   get imageCreateInfo(): ImageCreateInfo {
     return new ImageCreateInfo(this.#data.subarray(16, 16 + ImageCreateInfo.size));
   }
-
   set imageCreateInfo(value: ImageCreateInfo) {
     if (value[BUFFER].byteLength < ImageCreateInfo.size) {
       throw new Error("Data buffer too small");
@@ -93,18 +91,18 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
     this.#data.set(value[BUFFER], 16);
   }
 
-  get requiredFormatFeatures(): number {
+  get requiredFormatFeatures(): FormatFeatureFlags {
     return this.#view.getUint32(104, LE);
   }
-
+  
   set requiredFormatFeatures(value: FormatFeatureFlags) {
     this.#view.setUint32(104, Number(value), LE);
   }
 
-  get flags(): number {
+  get flags(): ImageFormatConstraintsFlagsFUCHSIA {
     return this.#view.getUint32(108, LE);
   }
-
+  
   set flags(value: ImageFormatConstraintsFlagsFUCHSIA) {
     this.#view.setUint32(108, Number(value), LE);
   }
@@ -112,7 +110,7 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
   get sysmemPixelFormat(): bigint {
     return this.#view.getBigUint64(112, LE);
   }
-
+  
   set sysmemPixelFormat(value: number | bigint) {
     this.#view.setBigUint64(112, BigInt(value), LE);
   }
@@ -120,7 +118,7 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
   get colorSpaceCount(): number {
     return this.#view.getUint32(120, LE);
   }
-
+  
   set colorSpaceCount(value: number) {
     this.#view.setUint32(120, Number(value), LE);
   }
@@ -128,7 +126,7 @@ export class ImageFormatConstraintsInfoFUCHSIA implements BaseStruct {
   get pColorSpaces(): Deno.PointerValue {
     return pointerFromView(this.#view, 128, LE);
   }
-
+  
   set pColorSpaces(value: AnyPointer) {
     this.#view.setBigUint64(128, BigInt(anyPointer(value)), LE);
   }

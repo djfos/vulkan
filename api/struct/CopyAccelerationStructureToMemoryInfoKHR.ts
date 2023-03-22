@@ -17,7 +17,7 @@ import { DeviceOrHostAddressKHR } from "../union.ts";
 
 export interface InitCopyAccelerationStructureToMemoryInfoKHR {
   pNext?: AnyPointer;
-  src?: AccelerationStructureKHR;
+  src?: AnyPointer;
   dst?: DeviceOrHostAddressKHR;
   mode?: CopyAccelerationStructureModeKHR;
 }
@@ -59,18 +59,18 @@ export class CopyAccelerationStructureToMemoryInfoKHR implements BaseStruct {
     this.sType = StructureType.COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -78,24 +78,23 @@ export class CopyAccelerationStructureToMemoryInfoKHR implements BaseStruct {
   get src(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set src(value: AccelerationStructureKHR) {
+  
+  set src(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
-  get dst(): unknown {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+  get dst(): DeviceOrHostAddressKHR {
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
-
   set dst(value: DeviceOrHostAddressKHR) {
-    throw new Error(`Unknown type: {"union":["u64","buffer"]}`);
+    throw new Error(`Unknown type: {"union":["u64","pointer"]}`);
   }
 
-  get mode(): number {
-    return this.#view.getUint32(32, LE);
+  get mode(): CopyAccelerationStructureModeKHR {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set mode(value: CopyAccelerationStructureModeKHR) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 }

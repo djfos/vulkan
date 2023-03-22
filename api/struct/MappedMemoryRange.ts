@@ -16,7 +16,7 @@ import { DeviceMemory, DeviceSize } from "../def.ts";
 
 export interface InitMappedMemoryRange {
   pNext?: AnyPointer;
-  memory?: DeviceMemory;
+  memory?: AnyPointer;
   offset?: DeviceSize;
   size?: DeviceSize;
 }
@@ -58,43 +58,46 @@ export class MappedMemoryRange implements BaseStruct {
     this.sType = StructureType.MAPPED_MEMORY_RANGE;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
+  /** Mapped memory object */
   get memory(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set memory(value: DeviceMemory) {
+  
+  set memory(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 
+  /** Offset within the memory object where the range starts */
   get offset(): bigint {
     return this.#view.getBigUint64(24, LE);
   }
-
-  set offset(value: DeviceSize) {
+  
+  set offset(value: number | bigint) {
     this.#view.setBigUint64(24, BigInt(value), LE);
   }
 
+  /** Size of the range within the memory object */
   get size(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 }

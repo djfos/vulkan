@@ -57,24 +57,24 @@ export class StridedDeviceAddressRegionKHR implements BaseStruct {
   get deviceAddress(): bigint {
     return this.#view.getBigUint64(0, LE);
   }
-
-  set deviceAddress(value: DeviceAddress) {
+  
+  set deviceAddress(value: number | bigint) {
     this.#view.setBigUint64(0, BigInt(value), LE);
   }
 
   get stride(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
-  set stride(value: DeviceSize) {
+  
+  set stride(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }
 
   get size(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set size(value: DeviceSize) {
+  
+  set size(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 }

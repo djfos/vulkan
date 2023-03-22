@@ -58,42 +58,47 @@ export class PhysicalDeviceSparseProperties implements BaseStruct {
     }
   }
 
-  get residencyStandard2DBlockShape(): number {
+  /** Sparse resources support: GPU will access all 2D (single sample) sparse resources using the standard sparse image block shapes (based on pixel format) */
+  get residencyStandard2DBlockShape(): Bool32 {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set residencyStandard2DBlockShape(value: Bool32) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
-  get residencyStandard2DMultisampleBlockShape(): number {
+  /** Sparse resources support: GPU will access all 2D (multisample) sparse resources using the standard sparse image block shapes (based on pixel format) */
+  get residencyStandard2DMultisampleBlockShape(): Bool32 {
     return this.#view.getUint32(4, LE);
   }
-
+  
   set residencyStandard2DMultisampleBlockShape(value: Bool32) {
     this.#view.setUint32(4, Number(value), LE);
   }
 
-  get residencyStandard3DBlockShape(): number {
+  /** Sparse resources support: GPU will access all 3D sparse resources using the standard sparse image block shapes (based on pixel format) */
+  get residencyStandard3DBlockShape(): Bool32 {
     return this.#view.getUint32(8, LE);
   }
-
+  
   set residencyStandard3DBlockShape(value: Bool32) {
     this.#view.setUint32(8, Number(value), LE);
   }
 
-  get residencyAlignedMipSize(): number {
+  /** Sparse resources support: Images with mip level dimensions that are NOT a multiple of the sparse image block dimensions will be placed in the mip tail */
+  get residencyAlignedMipSize(): Bool32 {
     return this.#view.getUint32(12, LE);
   }
-
+  
   set residencyAlignedMipSize(value: Bool32) {
     this.#view.setUint32(12, Number(value), LE);
   }
 
-  get residencyNonResidentStrict(): number {
+  /** Sparse resources support: GPU can consistently access non-resident regions of a resource, all reads return as if data is 0, writes are discarded */
+  get residencyNonResidentStrict(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set residencyNonResidentStrict(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }

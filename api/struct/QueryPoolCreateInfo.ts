@@ -60,50 +60,51 @@ export class QueryPoolCreateInfo implements BaseStruct {
     this.sType = StructureType.QUERY_POOL_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): QueryPoolCreateFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: QueryPoolCreateFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get queryType(): number {
-    return this.#view.getUint32(20, LE);
+  get queryType(): QueryType {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set queryType(value: QueryType) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
   get queryCount(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set queryCount(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
 
-  get pipelineStatistics(): number {
+  /** Optional */
+  get pipelineStatistics(): QueryPipelineStatisticFlags {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set pipelineStatistics(value: QueryPipelineStatisticFlags) {
     this.#view.setUint32(28, Number(value), LE);
   }

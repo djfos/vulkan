@@ -58,26 +58,26 @@ export class WaylandSurfaceCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.WAYLAND_SURFACE_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): WaylandSurfaceCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: WaylandSurfaceCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,7 +85,7 @@ export class WaylandSurfaceCreateInfoKHR implements BaseStruct {
   get display(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set display(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -93,7 +93,7 @@ export class WaylandSurfaceCreateInfoKHR implements BaseStruct {
   get surface(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
+  
   set surface(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }

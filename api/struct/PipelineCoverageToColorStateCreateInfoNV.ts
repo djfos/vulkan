@@ -58,34 +58,34 @@ export class PipelineCoverageToColorStateCreateInfoNV implements BaseStruct {
     this.sType = StructureType.PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): PipelineCoverageToColorStateCreateFlagsNV {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: PipelineCoverageToColorStateCreateFlagsNV) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get coverageToColorEnable(): number {
+  get coverageToColorEnable(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set coverageToColorEnable(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -93,7 +93,7 @@ export class PipelineCoverageToColorStateCreateInfoNV implements BaseStruct {
   get coverageToColorLocation(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set coverageToColorLocation(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }

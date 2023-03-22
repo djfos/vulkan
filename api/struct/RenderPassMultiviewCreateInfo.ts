@@ -63,18 +63,18 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
     this.sType = StructureType.RENDER_PASS_MULTIVIEW_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -82,7 +82,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get subpassCount(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set subpassCount(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -90,7 +90,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get pViewMasks(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pViewMasks(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
@@ -98,7 +98,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get dependencyCount(): number {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set dependencyCount(value: number) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -106,7 +106,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get pViewOffsets(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
+  
   set pViewOffsets(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
@@ -114,7 +114,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get correlationMaskCount(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set correlationMaskCount(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -122,7 +122,7 @@ export class RenderPassMultiviewCreateInfo implements BaseStruct {
   get pCorrelationMasks(): Deno.PointerValue {
     return pointerFromView(this.#view, 56, LE);
   }
-
+  
   set pCorrelationMasks(value: AnyPointer) {
     this.#view.setBigUint64(56, BigInt(anyPointer(value)), LE);
   }

@@ -11,7 +11,7 @@ import {
   pointerFromView,
   notPointerObject,
 } from "../util.ts";
-import { StructureType, IndirectCommandsTokenTypeNV, IndexType } from "../enum.ts";
+import { StructureType, IndirectCommandsTokenTypeNV } from "../enum.ts";
 import { Bool32, PipelineLayout, ShaderStageFlags, IndirectStateFlagsNV } from "../def.ts";
 
 export interface InitIndirectCommandsLayoutTokenNV {
@@ -21,7 +21,7 @@ export interface InitIndirectCommandsLayoutTokenNV {
   offset?: number;
   vertexBindingUnit?: number;
   vertexDynamicStride?: Bool32;
-  pushconstantPipelineLayout?: PipelineLayout;
+  pushconstantPipelineLayout?: AnyPointer;
   pushconstantShaderStageFlags?: ShaderStageFlags;
   pushconstantOffset?: number;
   pushconstantSize?: number;
@@ -78,34 +78,34 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
     this.sType = StructureType.INDIRECT_COMMANDS_LAYOUT_TOKEN_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get tokenType(): number {
-    return this.#view.getUint32(16, LE);
+  get tokenType(): IndirectCommandsTokenTypeNV {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set tokenType(value: IndirectCommandsTokenTypeNV) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
   get stream(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set stream(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -113,7 +113,7 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get offset(): number {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set offset(value: number) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -121,15 +121,15 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get vertexBindingUnit(): number {
     return this.#view.getUint32(28, LE);
   }
-
+  
   set vertexBindingUnit(value: number) {
     this.#view.setUint32(28, Number(value), LE);
   }
 
-  get vertexDynamicStride(): number {
+  get vertexDynamicStride(): Bool32 {
     return this.#view.getUint32(32, LE);
   }
-
+  
   set vertexDynamicStride(value: Bool32) {
     this.#view.setUint32(32, Number(value), LE);
   }
@@ -137,15 +137,15 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get pushconstantPipelineLayout(): Deno.PointerValue {
     return pointerFromView(this.#view, 40, LE);
   }
-
-  set pushconstantPipelineLayout(value: PipelineLayout) {
+  
+  set pushconstantPipelineLayout(value: AnyPointer) {
     this.#view.setBigUint64(40, BigInt(anyPointer(value)), LE);
   }
 
-  get pushconstantShaderStageFlags(): number {
+  get pushconstantShaderStageFlags(): ShaderStageFlags {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set pushconstantShaderStageFlags(value: ShaderStageFlags) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -153,7 +153,7 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get pushconstantOffset(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set pushconstantOffset(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -161,15 +161,15 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get pushconstantSize(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set pushconstantSize(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
 
-  get indirectStateFlags(): number {
+  get indirectStateFlags(): IndirectStateFlagsNV {
     return this.#view.getUint32(60, LE);
   }
-
+  
   set indirectStateFlags(value: IndirectStateFlagsNV) {
     this.#view.setUint32(60, Number(value), LE);
   }
@@ -177,7 +177,7 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get indexTypeCount(): number {
     return this.#view.getUint32(64, LE);
   }
-
+  
   set indexTypeCount(value: number) {
     this.#view.setUint32(64, Number(value), LE);
   }
@@ -185,7 +185,7 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get pIndexTypes(): Deno.PointerValue {
     return pointerFromView(this.#view, 72, LE);
   }
-
+  
   set pIndexTypes(value: AnyPointer) {
     this.#view.setBigUint64(72, BigInt(anyPointer(value)), LE);
   }
@@ -193,7 +193,7 @@ export class IndirectCommandsLayoutTokenNV implements BaseStruct {
   get pIndexTypeValues(): Deno.PointerValue {
     return pointerFromView(this.#view, 80, LE);
   }
-
+  
   set pIndexTypeValues(value: AnyPointer) {
     this.#view.setBigUint64(80, BigInt(anyPointer(value)), LE);
   }

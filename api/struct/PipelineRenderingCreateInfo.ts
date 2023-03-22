@@ -61,18 +61,18 @@ export class PipelineRenderingCreateInfo implements BaseStruct {
     this.sType = StructureType.PIPELINE_RENDERING_CREATE_INFO;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -80,7 +80,7 @@ export class PipelineRenderingCreateInfo implements BaseStruct {
   get viewMask(): number {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set viewMask(value: number) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -88,7 +88,7 @@ export class PipelineRenderingCreateInfo implements BaseStruct {
   get colorAttachmentCount(): number {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set colorAttachmentCount(value: number) {
     this.#view.setUint32(20, Number(value), LE);
   }
@@ -96,24 +96,24 @@ export class PipelineRenderingCreateInfo implements BaseStruct {
   get pColorAttachmentFormats(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
+  
   set pColorAttachmentFormats(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
-  get depthAttachmentFormat(): number {
-    return this.#view.getUint32(32, LE);
+  get depthAttachmentFormat(): Format {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set depthAttachmentFormat(value: Format) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
-  get stencilAttachmentFormat(): number {
-    return this.#view.getUint32(36, LE);
+  get stencilAttachmentFormat(): Format {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set stencilAttachmentFormat(value: Format) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 }

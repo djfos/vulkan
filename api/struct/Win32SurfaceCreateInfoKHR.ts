@@ -17,8 +17,8 @@ import { Win32SurfaceCreateFlagsKHR } from "../def.ts";
 export interface InitWin32SurfaceCreateInfoKHR {
   pNext?: AnyPointer;
   flags?: Win32SurfaceCreateFlagsKHR;
-  hinstance?: Deno.PointerValue;
-  hwnd?: Deno.PointerValue;
+  hinstance?: AnyPointer;
+  hwnd?: AnyPointer;
 }
 
 export class Win32SurfaceCreateInfoKHR implements BaseStruct {
@@ -58,26 +58,26 @@ export class Win32SurfaceCreateInfoKHR implements BaseStruct {
     this.sType = StructureType.WIN32_SURFACE_CREATE_INFO_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): Win32SurfaceCreateFlagsKHR {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: Win32SurfaceCreateFlagsKHR) {
     this.#view.setUint32(16, Number(value), LE);
   }
@@ -85,16 +85,16 @@ export class Win32SurfaceCreateInfoKHR implements BaseStruct {
   get hinstance(): Deno.PointerValue {
     return pointerFromView(this.#view, 24, LE);
   }
-
-  set hinstance(value: Deno.PointerValue) {
+  
+  set hinstance(value: AnyPointer) {
     this.#view.setBigUint64(24, BigInt(anyPointer(value)), LE);
   }
 
   get hwnd(): Deno.PointerValue {
     return pointerFromView(this.#view, 32, LE);
   }
-
-  set hwnd(value: Deno.PointerValue) {
+  
+  set hwnd(value: AnyPointer) {
     this.#view.setBigUint64(32, BigInt(anyPointer(value)), LE);
   }
 }

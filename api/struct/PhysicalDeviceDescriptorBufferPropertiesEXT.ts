@@ -118,42 +118,42 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get combinedImageSamplerDescriptorSingleArray(): number {
+  get combinedImageSamplerDescriptorSingleArray(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set combinedImageSamplerDescriptorSingleArray(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get bufferlessPushDescriptors(): number {
+  get bufferlessPushDescriptors(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set bufferlessPushDescriptors(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }
 
-  get allowSamplerImageViewPostSubmitCreation(): number {
+  get allowSamplerImageViewPostSubmitCreation(): Bool32 {
     return this.#view.getUint32(24, LE);
   }
-
+  
   set allowSamplerImageViewPostSubmitCreation(value: Bool32) {
     this.#view.setUint32(24, Number(value), LE);
   }
@@ -161,15 +161,15 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get descriptorBufferOffsetAlignment(): bigint {
     return this.#view.getBigUint64(32, LE);
   }
-
-  set descriptorBufferOffsetAlignment(value: DeviceSize) {
+  
+  set descriptorBufferOffsetAlignment(value: number | bigint) {
     this.#view.setBigUint64(32, BigInt(value), LE);
   }
 
   get maxDescriptorBufferBindings(): number {
     return this.#view.getUint32(40, LE);
   }
-
+  
   set maxDescriptorBufferBindings(value: number) {
     this.#view.setUint32(40, Number(value), LE);
   }
@@ -177,7 +177,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get maxResourceDescriptorBufferBindings(): number {
     return this.#view.getUint32(44, LE);
   }
-
+  
   set maxResourceDescriptorBufferBindings(value: number) {
     this.#view.setUint32(44, Number(value), LE);
   }
@@ -185,7 +185,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get maxSamplerDescriptorBufferBindings(): number {
     return this.#view.getUint32(48, LE);
   }
-
+  
   set maxSamplerDescriptorBufferBindings(value: number) {
     this.#view.setUint32(48, Number(value), LE);
   }
@@ -193,7 +193,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get maxEmbeddedImmutableSamplerBindings(): number {
     return this.#view.getUint32(52, LE);
   }
-
+  
   set maxEmbeddedImmutableSamplerBindings(value: number) {
     this.#view.setUint32(52, Number(value), LE);
   }
@@ -201,7 +201,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get maxEmbeddedImmutableSamplers(): number {
     return this.#view.getUint32(56, LE);
   }
-
+  
   set maxEmbeddedImmutableSamplers(value: number) {
     this.#view.setUint32(56, Number(value), LE);
   }
@@ -209,7 +209,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get bufferCaptureReplayDescriptorDataSize(): bigint {
     return this.#view.getBigUint64(64, LE);
   }
-
+  
   set bufferCaptureReplayDescriptorDataSize(value: number | bigint) {
     this.#view.setBigUint64(64, BigInt(value), LE);
   }
@@ -217,7 +217,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get imageCaptureReplayDescriptorDataSize(): bigint {
     return this.#view.getBigUint64(72, LE);
   }
-
+  
   set imageCaptureReplayDescriptorDataSize(value: number | bigint) {
     this.#view.setBigUint64(72, BigInt(value), LE);
   }
@@ -225,7 +225,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get imageViewCaptureReplayDescriptorDataSize(): bigint {
     return this.#view.getBigUint64(80, LE);
   }
-
+  
   set imageViewCaptureReplayDescriptorDataSize(value: number | bigint) {
     this.#view.setBigUint64(80, BigInt(value), LE);
   }
@@ -233,7 +233,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get samplerCaptureReplayDescriptorDataSize(): bigint {
     return this.#view.getBigUint64(88, LE);
   }
-
+  
   set samplerCaptureReplayDescriptorDataSize(value: number | bigint) {
     this.#view.setBigUint64(88, BigInt(value), LE);
   }
@@ -241,7 +241,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get accelerationStructureCaptureReplayDescriptorDataSize(): bigint {
     return this.#view.getBigUint64(96, LE);
   }
-
+  
   set accelerationStructureCaptureReplayDescriptorDataSize(value: number | bigint) {
     this.#view.setBigUint64(96, BigInt(value), LE);
   }
@@ -249,7 +249,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get samplerDescriptorSize(): bigint {
     return this.#view.getBigUint64(104, LE);
   }
-
+  
   set samplerDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(104, BigInt(value), LE);
   }
@@ -257,7 +257,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get combinedImageSamplerDescriptorSize(): bigint {
     return this.#view.getBigUint64(112, LE);
   }
-
+  
   set combinedImageSamplerDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(112, BigInt(value), LE);
   }
@@ -265,7 +265,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get sampledImageDescriptorSize(): bigint {
     return this.#view.getBigUint64(120, LE);
   }
-
+  
   set sampledImageDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(120, BigInt(value), LE);
   }
@@ -273,7 +273,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get storageImageDescriptorSize(): bigint {
     return this.#view.getBigUint64(128, LE);
   }
-
+  
   set storageImageDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(128, BigInt(value), LE);
   }
@@ -281,7 +281,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get uniformTexelBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(136, LE);
   }
-
+  
   set uniformTexelBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(136, BigInt(value), LE);
   }
@@ -289,7 +289,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get robustUniformTexelBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(144, LE);
   }
-
+  
   set robustUniformTexelBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(144, BigInt(value), LE);
   }
@@ -297,7 +297,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get storageTexelBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(152, LE);
   }
-
+  
   set storageTexelBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(152, BigInt(value), LE);
   }
@@ -305,7 +305,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get robustStorageTexelBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(160, LE);
   }
-
+  
   set robustStorageTexelBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(160, BigInt(value), LE);
   }
@@ -313,7 +313,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get uniformBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(168, LE);
   }
-
+  
   set uniformBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(168, BigInt(value), LE);
   }
@@ -321,7 +321,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get robustUniformBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(176, LE);
   }
-
+  
   set robustUniformBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(176, BigInt(value), LE);
   }
@@ -329,7 +329,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get storageBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(184, LE);
   }
-
+  
   set storageBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(184, BigInt(value), LE);
   }
@@ -337,7 +337,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get robustStorageBufferDescriptorSize(): bigint {
     return this.#view.getBigUint64(192, LE);
   }
-
+  
   set robustStorageBufferDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(192, BigInt(value), LE);
   }
@@ -345,7 +345,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get inputAttachmentDescriptorSize(): bigint {
     return this.#view.getBigUint64(200, LE);
   }
-
+  
   set inputAttachmentDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(200, BigInt(value), LE);
   }
@@ -353,7 +353,7 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get accelerationStructureDescriptorSize(): bigint {
     return this.#view.getBigUint64(208, LE);
   }
-
+  
   set accelerationStructureDescriptorSize(value: number | bigint) {
     this.#view.setBigUint64(208, BigInt(value), LE);
   }
@@ -361,40 +361,40 @@ export class PhysicalDeviceDescriptorBufferPropertiesEXT implements BaseStruct {
   get maxSamplerDescriptorBufferRange(): bigint {
     return this.#view.getBigUint64(216, LE);
   }
-
-  set maxSamplerDescriptorBufferRange(value: DeviceSize) {
+  
+  set maxSamplerDescriptorBufferRange(value: number | bigint) {
     this.#view.setBigUint64(216, BigInt(value), LE);
   }
 
   get maxResourceDescriptorBufferRange(): bigint {
     return this.#view.getBigUint64(224, LE);
   }
-
-  set maxResourceDescriptorBufferRange(value: DeviceSize) {
+  
+  set maxResourceDescriptorBufferRange(value: number | bigint) {
     this.#view.setBigUint64(224, BigInt(value), LE);
   }
 
   get samplerDescriptorBufferAddressSpaceSize(): bigint {
     return this.#view.getBigUint64(232, LE);
   }
-
-  set samplerDescriptorBufferAddressSpaceSize(value: DeviceSize) {
+  
+  set samplerDescriptorBufferAddressSpaceSize(value: number | bigint) {
     this.#view.setBigUint64(232, BigInt(value), LE);
   }
 
   get resourceDescriptorBufferAddressSpaceSize(): bigint {
     return this.#view.getBigUint64(240, LE);
   }
-
-  set resourceDescriptorBufferAddressSpaceSize(value: DeviceSize) {
+  
+  set resourceDescriptorBufferAddressSpaceSize(value: number | bigint) {
     this.#view.setBigUint64(240, BigInt(value), LE);
   }
 
   get descriptorBufferAddressSpaceSize(): bigint {
     return this.#view.getBigUint64(248, LE);
   }
-
-  set descriptorBufferAddressSpaceSize(value: DeviceSize) {
+  
+  set descriptorBufferAddressSpaceSize(value: number | bigint) {
     this.#view.setBigUint64(248, BigInt(value), LE);
   }
 }

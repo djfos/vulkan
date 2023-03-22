@@ -58,7 +58,7 @@ export class StdVideoH264ScalingLists implements BaseStruct {
   get scaling_list_present_mask(): number {
     return this.#view.getUint16(0, LE);
   }
-
+  
   set scaling_list_present_mask(value: number) {
     this.#view.setUint16(0, Number(value), LE);
   }
@@ -66,24 +66,38 @@ export class StdVideoH264ScalingLists implements BaseStruct {
   get use_default_scaling_matrix_mask(): number {
     return this.#view.getUint16(2, LE);
   }
-
+  
   set use_default_scaling_matrix_mask(value: number) {
     this.#view.setUint16(2, Number(value), LE);
   }
 
   get ScalingList4x4(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 4, 96);
+    return new Uint8Array(this.#data.buffer, 4, 96);
   }
-
   set ScalingList4x4(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 4);
+    if (value.length > 96) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 4);
   }
 
   get ScalingList8x8(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 100, 384);
+    return new Uint8Array(this.#data.buffer, 100, 384);
   }
-
   set ScalingList8x8(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 100);
+    if (value.length > 384) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 100);
   }
 }

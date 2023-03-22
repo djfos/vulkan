@@ -51,18 +51,20 @@ export class PresentTimeGOOGLE implements BaseStruct {
     }
   }
 
+  /** Application-provided identifier */
   get presentID(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set presentID(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
 
+  /** Earliest time an image should be presented */
   get desiredPresentTime(): bigint {
     return this.#view.getBigUint64(8, LE);
   }
-
+  
   set desiredPresentTime(value: number | bigint) {
     this.#view.setBigUint64(8, BigInt(value), LE);
   }

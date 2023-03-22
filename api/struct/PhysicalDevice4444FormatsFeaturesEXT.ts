@@ -56,34 +56,34 @@ export class PhysicalDevice4444FormatsFeaturesEXT implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get formatA4R4G4B4(): number {
+  get formatA4R4G4B4(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set formatA4R4G4B4(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get formatA4B4G4R4(): number {
+  get formatA4B4G4R4(): Bool32 {
     return this.#view.getUint32(20, LE);
   }
-
+  
   set formatA4B4G4R4(value: Bool32) {
     this.#view.setUint32(20, Number(value), LE);
   }

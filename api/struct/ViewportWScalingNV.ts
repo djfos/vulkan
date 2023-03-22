@@ -54,7 +54,7 @@ export class ViewportWScalingNV implements BaseStruct {
   get xcoeff(): number {
     return this.#view.getFloat32(0, LE);
   }
-
+  
   set xcoeff(value: number) {
     this.#view.setFloat32(0, Number(value), LE);
   }
@@ -62,7 +62,7 @@ export class ViewportWScalingNV implements BaseStruct {
   get ycoeff(): number {
     return this.#view.getFloat32(4, LE);
   }
-
+  
   set ycoeff(value: number) {
     this.#view.setFloat32(4, Number(value), LE);
   }

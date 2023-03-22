@@ -59,51 +59,58 @@ export class PerformanceCounterKHR implements BaseStruct {
     this.sType = StructureType.PERFORMANCE_COUNTER_KHR;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get unit(): number {
-    return this.#view.getUint32(16, LE);
+  get unit(): PerformanceCounterUnitKHR {
+    return this.#view.getInt32(16, LE);
   }
-
+  
   set unit(value: PerformanceCounterUnitKHR) {
-    this.#view.setUint32(16, Number(value), LE);
+    this.#view.setInt32(16, Number(value), LE);
   }
 
-  get scope(): number {
-    return this.#view.getUint32(20, LE);
+  get scope(): PerformanceCounterScopeKHR {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set scope(value: PerformanceCounterScopeKHR) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get storage(): number {
-    return this.#view.getUint32(24, LE);
+  get storage(): PerformanceCounterStorageKHR {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set storage(value: PerformanceCounterStorageKHR) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
   get uuid(): Uint8Array {
-    return new Uint8Array(this.#data.buffer, this.#data.byteOffset + 28, 16);
+    return new Uint8Array(this.#data.buffer, 28, 16);
   }
-
   set uuid(value: Uint8Array) {
-    this.#data.set(new Uint8Array(value.buffer), 28);
+    if (value.length > 16) {
+      throw Error("buffer is too big");
+    }
+    const byteAray = new Uint8Array(
+      value.buffer,
+      value.byteOffset,
+      value.byteLength,
+    );
+    this.#data.set(byteAray, 28);
   }
 }

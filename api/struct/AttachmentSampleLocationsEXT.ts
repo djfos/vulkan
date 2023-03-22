@@ -55,7 +55,7 @@ export class AttachmentSampleLocationsEXT implements BaseStruct {
   get attachmentIndex(): number {
     return this.#view.getUint32(0, LE);
   }
-
+  
   set attachmentIndex(value: number) {
     this.#view.setUint32(0, Number(value), LE);
   }
@@ -63,7 +63,6 @@ export class AttachmentSampleLocationsEXT implements BaseStruct {
   get sampleLocationsInfo(): SampleLocationsInfoEXT {
     return new SampleLocationsInfoEXT(this.#data.subarray(8, 8 + SampleLocationsInfoEXT.size));
   }
-
   set sampleLocationsInfo(value: SampleLocationsInfoEXT) {
     if (value[BUFFER].byteLength < SampleLocationsInfoEXT.size) {
       throw new Error("Data buffer too small");

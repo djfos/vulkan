@@ -16,7 +16,7 @@ import { MTLSharedEvent_id } from "../def.ts";
 
 export interface InitImportMetalSharedEventInfoEXT {
   pNext?: AnyPointer;
-  mtlSharedEvent?: MTLSharedEvent_id;
+  mtlSharedEvent?: AnyPointer;
 }
 
 export class ImportMetalSharedEventInfoEXT implements BaseStruct {
@@ -54,18 +54,18 @@ export class ImportMetalSharedEventInfoEXT implements BaseStruct {
     this.sType = StructureType.IMPORT_METAL_SHARED_EVENT_INFO_EXT;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -73,8 +73,8 @@ export class ImportMetalSharedEventInfoEXT implements BaseStruct {
   get mtlSharedEvent(): Deno.PointerValue {
     return pointerFromView(this.#view, 16, LE);
   }
-
-  set mtlSharedEvent(value: MTLSharedEvent_id) {
+  
+  set mtlSharedEvent(value: AnyPointer) {
     this.#view.setBigUint64(16, BigInt(anyPointer(value)), LE);
   }
 }

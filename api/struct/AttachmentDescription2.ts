@@ -70,91 +70,95 @@ export class AttachmentDescription2 implements BaseStruct {
     this.sType = StructureType.ATTACHMENT_DESCRIPTION_2;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get flags(): number {
+  get flags(): AttachmentDescriptionFlags {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set flags(value: AttachmentDescriptionFlags) {
     this.#view.setUint32(16, Number(value), LE);
   }
 
-  get format(): number {
-    return this.#view.getUint32(20, LE);
+  get format(): Format {
+    return this.#view.getInt32(20, LE);
   }
-
+  
   set format(value: Format) {
-    this.#view.setUint32(20, Number(value), LE);
+    this.#view.setInt32(20, Number(value), LE);
   }
 
-  get samples(): number {
-    return this.#view.getUint32(24, LE);
+  get samples(): SampleCountFlagBits {
+    return this.#view.getInt32(24, LE);
   }
-
+  
   set samples(value: SampleCountFlagBits) {
-    this.#view.setUint32(24, Number(value), LE);
+    this.#view.setInt32(24, Number(value), LE);
   }
 
-  get loadOp(): number {
-    return this.#view.getUint32(28, LE);
+  /** Load operation for color or depth data */
+  get loadOp(): AttachmentLoadOp {
+    return this.#view.getInt32(28, LE);
   }
-
+  
   set loadOp(value: AttachmentLoadOp) {
-    this.#view.setUint32(28, Number(value), LE);
+    this.#view.setInt32(28, Number(value), LE);
   }
 
-  get storeOp(): number {
-    return this.#view.getUint32(32, LE);
+  /** Store operation for color or depth data */
+  get storeOp(): AttachmentStoreOp {
+    return this.#view.getInt32(32, LE);
   }
-
+  
   set storeOp(value: AttachmentStoreOp) {
-    this.#view.setUint32(32, Number(value), LE);
+    this.#view.setInt32(32, Number(value), LE);
   }
 
-  get stencilLoadOp(): number {
-    return this.#view.getUint32(36, LE);
+  /** Load operation for stencil data */
+  get stencilLoadOp(): AttachmentLoadOp {
+    return this.#view.getInt32(36, LE);
   }
-
+  
   set stencilLoadOp(value: AttachmentLoadOp) {
-    this.#view.setUint32(36, Number(value), LE);
+    this.#view.setInt32(36, Number(value), LE);
   }
 
-  get stencilStoreOp(): number {
-    return this.#view.getUint32(40, LE);
+  /** Store operation for stencil data */
+  get stencilStoreOp(): AttachmentStoreOp {
+    return this.#view.getInt32(40, LE);
   }
-
+  
   set stencilStoreOp(value: AttachmentStoreOp) {
-    this.#view.setUint32(40, Number(value), LE);
+    this.#view.setInt32(40, Number(value), LE);
   }
 
-  get initialLayout(): number {
-    return this.#view.getUint32(44, LE);
+  get initialLayout(): ImageLayout {
+    return this.#view.getInt32(44, LE);
   }
-
+  
   set initialLayout(value: ImageLayout) {
-    this.#view.setUint32(44, Number(value), LE);
+    this.#view.setInt32(44, Number(value), LE);
   }
 
-  get finalLayout(): number {
-    return this.#view.getUint32(48, LE);
+  get finalLayout(): ImageLayout {
+    return this.#view.getInt32(48, LE);
   }
-
+  
   set finalLayout(value: ImageLayout) {
-    this.#view.setUint32(48, Number(value), LE);
+    this.#view.setInt32(48, Number(value), LE);
   }
 }

@@ -57,18 +57,18 @@ export class AccelerationStructureCreateInfoNV implements BaseStruct {
     this.sType = StructureType.ACCELERATION_STRUCTURE_CREATE_INFO_NV;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
@@ -76,15 +76,14 @@ export class AccelerationStructureCreateInfoNV implements BaseStruct {
   get compactedSize(): bigint {
     return this.#view.getBigUint64(16, LE);
   }
-
-  set compactedSize(value: DeviceSize) {
+  
+  set compactedSize(value: number | bigint) {
     this.#view.setBigUint64(16, BigInt(value), LE);
   }
 
   get info(): AccelerationStructureInfoNV {
     return new AccelerationStructureInfoNV(this.#data.subarray(24, 24 + AccelerationStructureInfoNV.size));
   }
-
   set info(value: AccelerationStructureInfoNV) {
     if (value[BUFFER].byteLength < AccelerationStructureInfoNV.size) {
       throw new Error("Data buffer too small");

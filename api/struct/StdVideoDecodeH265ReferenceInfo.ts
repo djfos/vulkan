@@ -55,7 +55,6 @@ export class StdVideoDecodeH265ReferenceInfo implements BaseStruct {
   get flags(): StdVideoDecodeH265ReferenceInfoFlags {
     return new StdVideoDecodeH265ReferenceInfoFlags(this.#data.subarray(0, 0 + StdVideoDecodeH265ReferenceInfoFlags.size));
   }
-
   set flags(value: StdVideoDecodeH265ReferenceInfoFlags) {
     if (value[BUFFER].byteLength < StdVideoDecodeH265ReferenceInfoFlags.size) {
       throw new Error("Data buffer too small");
@@ -66,7 +65,7 @@ export class StdVideoDecodeH265ReferenceInfo implements BaseStruct {
   get PicOrderCntVal(): number {
     return this.#view.getInt32(8, LE);
   }
-
+  
   set PicOrderCntVal(value: number) {
     this.#view.setInt32(8, Number(value), LE);
   }

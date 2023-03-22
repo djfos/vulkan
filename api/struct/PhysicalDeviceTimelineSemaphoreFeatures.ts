@@ -54,26 +54,26 @@ export class PhysicalDeviceTimelineSemaphoreFeatures implements BaseStruct {
     this.sType = StructureType.PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES;
   }
 
-  get sType(): number {
-    return this.#view.getUint32(0, LE);
+  get sType(): StructureType {
+    return this.#view.getInt32(0, LE);
   }
-
+  
   set sType(value: StructureType) {
-    this.#view.setUint32(0, Number(value), LE);
+    this.#view.setInt32(0, Number(value), LE);
   }
 
   get pNext(): Deno.PointerValue {
     return pointerFromView(this.#view, 8, LE);
   }
-
+  
   set pNext(value: AnyPointer) {
     this.#view.setBigUint64(8, BigInt(anyPointer(value)), LE);
   }
 
-  get timelineSemaphore(): number {
+  get timelineSemaphore(): Bool32 {
     return this.#view.getUint32(16, LE);
   }
-
+  
   set timelineSemaphore(value: Bool32) {
     this.#view.setUint32(16, Number(value), LE);
   }
